@@ -69,11 +69,10 @@
 
       <article class="article" data-od-id="body">
         <section class="chapter is-visible" id="masalah" data-section="Masalah riset">
-          <p class="chapter-label">01 / framing</p>
           <h2>Mulai dari masalah, bukan dari bab.</h2>
           <p>
-            Pembaca umum tidak perlu masuk lewat Bab I. Mereka perlu tahu mengapa topik skripsi ini layak
-            diperhatikan, siapa yang terdampak, dan pertanyaan apa yang ingin dijawab penelitian.
+            Mengapa saham energi sulit ditebak? Harganya bergerak non-linear dan penuh kejutan,
+            persis kondisi yang melemahkan analisis teknikal konvensional.
           </p>
           <p class="muted">
             Per Desember 2025 jumlah investor pasar modal Indonesia menembus 20,35 juta. Saham
@@ -94,12 +93,10 @@
         </section>
 
         <section class="chapter" id="metode" data-section="Metode">
-          <p class="chapter-label">02 / method</p>
           <h2>Metode dibuat seperti peta kerja.</h2>
           <p>
-            Bagian metodologi sebaiknya tidak tampil sebagai paragraf panjang. Untuk project interaktif,
-            metode lebih kuat jika dipresentasikan sebagai urutan keputusan: sumber data, cara memilih sampel,
-            teknik analisis, lalu batasan riset.
+            Empat indikator teknikal jadi mata model: masing-masing menangkap satu sisi pasar,
+            yaitu volatilitas, momentum, volume, dan kekuatan tren.
           </p>
           <div class="method-strip" aria-label="Alur metode">
             <div class="method-step">
@@ -127,7 +124,6 @@
         </section>
 
         <section class="chapter" id="analisis" data-section="Ruang analisis">
-          <p class="chapter-label">03 / evidence</p>
           <h2>Data diberi ruang, bukan dekorasi.</h2>
           <p>
             Hasil model paling jelas dibaca lewat perbandingan kurva return: strategi SVM versus
@@ -141,13 +137,12 @@
             </figcaption>
           </figure>
           <p>
-            Prinsipnya: satu layar hanya membawa satu bukti utama. Jika ada banyak tabel, pecah menjadi beberapa
-            momen baca agar pembaca tidak merasa sedang membuka lampiran.
+            Cerita angkanya sederhana: di pasar bearish, strategi SVM menahan kerugian jauh lebih baik
+            daripada sekadar membeli lalu menahan saham.
           </p>
         </section>
 
         <section class="chapter" id="ml-demo" data-section="ML Demo Lab">
-          <p class="chapter-label">04 / live model</p>
           <h2>Demo model dibuat terasa seperti ruang uji.</h2>
           <p>
             Bagian ini disiapkan untuk model SVM trading strategy. Pembaca memilih emiten, menentukan sumber data,
@@ -206,16 +201,6 @@
                   <span class="meter"><span id="confidenceMeter" style="--value: 54%"></span></span>
                   <span id="confidenceText">54%</span>
                 </div>
-                <div class="metric-line">
-                  <strong>Macro-F1</strong>
-                  <span class="meter"><span id="f1Meter" style="--value: 0%"></span></span>
-                  <span id="f1Text">dari backend</span>
-                </div>
-                <div class="metric-line">
-                  <strong>Horizon</strong>
-                  <span>Label berbasis pergerakan beberapa hari ke depan.</span>
-                  <span id="horizonText">5D</span>
-                </div>
               </div>
 
               <p class="decision-copy" id="decisionCopy">
@@ -254,7 +239,6 @@
         </section>
 
         <section class="chapter" id="temuan" data-section="Temuan utama">
-          <p class="chapter-label">05 / finding</p>
           <h2>Temuan dibuat sebagai kalimat yang bisa diingat.</h2>
           <blockquote class="pull" data-od-id="pull-quote">
             Saat buy and hold ambles -48,91%, strategi SVM menahan rata-rata kerugian di -9,35%.
@@ -272,7 +256,6 @@
         </section>
 
         <section class="chapter" id="implikasi" data-section="Implikasi">
-          <p class="chapter-label">06 / meaning</p>
           <h2>Akhirnya harus menjawab: jadi apa?</h2>
           <p>
             Untuk investor: model ini menawarkan disiplin keluar-masuk yang menekan kerugian saat pasar
@@ -361,9 +344,6 @@
     const signalChip = document.getElementById("signalChip");
     const confidenceMeter = document.getElementById("confidenceMeter");
     const confidenceText = document.getElementById("confidenceText");
-    const f1Meter = document.getElementById("f1Meter");
-    const f1Text = document.getElementById("f1Text");
-    const horizonText = document.getElementById("horizonText");
     const decisionCopy = document.getElementById("decisionCopy");
     const featureEls = {
       adx: [document.getElementById("adxMeter"), document.getElementById("adxText")],
@@ -411,16 +391,12 @@
 
     const renderResponse = (response) => {
       const confidencePct = Math.round(Math.max(0, Math.min(1, response.confidence)) * 100);
-      const f1Value = response.macroF1 == null ? null : Math.round(Math.max(0, Math.min(1, Number(response.macroF1))) * 100);
       resultTicker.textContent = response.ticker;
       resultTitle.textContent = `Output SVM: ${response.signal}`;
       signalChip.textContent = response.signal;
       signalChip.dataset.signal = response.signal;
       confidenceMeter.style.setProperty("--value", `${confidencePct}%`);
       confidenceText.textContent = `${confidencePct}%`;
-      f1Meter.style.setProperty("--value", `${f1Value ?? 0}%`);
-      f1Text.textContent = f1Value == null ? "dari backend" : `${f1Value}%`;
-      horizonText.textContent = response.horizon;
       decisionCopy.textContent = signalCopy[response.signal] || signalCopy.HOLD;
 
       Object.entries(response.features).forEach(([key, value]) => {
