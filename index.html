@@ -1,0 +1,1805 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Skripsi - Scrollytelling Academic</title>
+  <style>
+    :root {
+      --bg:      oklch(97% 0.012 80);
+      --surface: oklch(99% 0.005 80);
+      --fg:      oklch(20% 0.02 60);
+      --muted:   oklch(48% 0.015 60);
+      --border:  oklch(89% 0.012 80);
+      --accent:  oklch(58% 0.16 35);
+
+      --font-display: 'Iowan Old Style', 'Charter', Georgia, serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, color-mix(in oklch, var(--border) 34%, transparent) 1px, transparent 1px),
+        linear-gradient(var(--bg), var(--bg));
+      background-size: 96px 100%;
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: var(--body-size, 16px);
+      line-height: 1.62;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .progress {
+      position: fixed;
+      inset-block-start: 0;
+      inset-inline: 0;
+      z-index: 40;
+      block-size: 3px;
+      background: color-mix(in oklch, var(--border) 70%, transparent);
+    }
+
+    .progress span {
+      display: block;
+      inline-size: 0%;
+      block-size: 100%;
+      background: var(--accent);
+      transition: inline-size 160ms ease;
+    }
+
+    .masthead {
+      position: sticky;
+      inset-block-start: 3px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px clamp(20px, 5vw, 64px);
+      background: color-mix(in oklch, var(--bg) 88%, transparent);
+      border-block-end: 1px solid color-mix(in oklch, var(--border) 72%, transparent);
+      backdrop-filter: blur(18px);
+    }
+
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--fg);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mark::before {
+      content: "";
+      inline-size: 18px;
+      block-size: 18px;
+      border: 1.5px solid var(--fg);
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 5px var(--bg);
+      background: var(--fg);
+    }
+
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 2.2vw, 28px);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .topnav a {
+      text-decoration: none;
+    }
+
+    .topnav a:hover {
+      color: var(--fg);
+    }
+
+    main {
+      padding-block-end: 96px;
+    }
+
+    .hero {
+      min-block-size: calc(100vh - 68px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+      gap: clamp(40px, 8vw, 112px);
+      align-items: center;
+      padding: clamp(48px, 8vw, 112px) clamp(20px, 6vw, 88px);
+      border-block-end: 1px solid var(--border);
+    }
+
+    .kicker {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--fg);
+      text-wrap: pretty;
+    }
+
+    h1 {
+      max-inline-size: 940px;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(56px, 9vw, 118px);
+      font-weight: 400;
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+    }
+
+    .deck {
+      max-inline-size: 660px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: clamp(19px, 2vw, 24px);
+      line-height: 1.45;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-block-start: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-block-size: 44px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid var(--fg);
+      border-radius: 999px;
+      padding: 10px 18px;
+      background: var(--fg);
+      color: var(--surface);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--fg);
+      border-color: var(--border);
+    }
+
+    .hero-plate {
+      position: relative;
+      min-block-size: 520px;
+      border-block: 1px solid var(--border);
+      padding: clamp(20px, 3vw, 34px);
+      background: color-mix(in oklch, var(--surface) 88%, transparent);
+      overflow: hidden;
+    }
+
+    .hero-plate::before {
+      content: "";
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: 28%;
+      border-inline-start: 1px solid var(--border);
+    }
+
+    .plate-label {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      margin-block-end: 80px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .thesis-map {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .folio {
+      font-family: var(--font-display);
+      font-size: 58px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .map-list {
+      display: grid;
+      gap: 18px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .map-list li {
+      padding-block-end: 18px;
+      border-block-end: 1px solid var(--border);
+    }
+
+    .map-list strong {
+      display: block;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .map-list span {
+      display: block;
+      max-inline-size: 34ch;
+      margin-block-start: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 760px) minmax(260px, 360px);
+      gap: clamp(24px, 4vw, 56px);
+      align-items: start;
+      max-inline-size: 1440px;
+      margin: 0 auto;
+      padding: 84px clamp(20px, 5vw, 64px);
+    }
+
+    .rail {
+      position: sticky;
+      inset-block-start: 100px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .rail button {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      align-items: center;
+      inline-size: 100%;
+      min-block-size: 42px;
+      border: 0;
+      border-radius: 0;
+      padding: 4px 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      text-align: start;
+    }
+
+    .rail .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      inline-size: 26px;
+      block-size: 26px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .rail .label {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .rail button[aria-current="true"] {
+      color: var(--fg);
+    }
+
+    .rail button[aria-current="true"] .num {
+      border-color: var(--fg);
+      color: var(--fg);
+    }
+
+    .article {
+      min-inline-size: 0;
+    }
+
+    .chapter {
+      padding-block: 54px 76px;
+      border-block-end: 1px solid var(--border);
+      opacity: 0.38;
+      transform: translateY(18px);
+      transition: opacity 360ms cubic-bezier(0.16, 1, 0.3, 1), transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .chapter.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .chapter:first-child {
+      padding-block-start: 0;
+    }
+
+    .chapter-label {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      max-inline-size: 12ch;
+      margin: 0 0 26px;
+      font-family: var(--font-display);
+      font-size: clamp(42px, 6vw, 78px);
+      font-weight: 400;
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+    }
+
+    .chapter p {
+      max-inline-size: 68ch;
+      margin: 0 0 22px;
+      color: var(--fg);
+      font-size: clamp(17px, 1.4vw, 19px);
+      line-height: 1.68;
+    }
+
+    .chapter p.muted {
+      color: var(--muted);
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-block: 34px 12px;
+    }
+
+    .spec-card {
+      min-block-size: 152px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      background: color-mix(in oklch, var(--surface) 82%, transparent);
+    }
+
+    .spec-card .small {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .spec-card strong {
+      display: block;
+      max-inline-size: 22ch;
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    .method-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      margin: 38px 0;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .method-step {
+      min-block-size: 180px;
+      padding: 18px;
+      border-inline-end: 1px solid var(--border);
+    }
+
+    .method-step:last-child {
+      border-inline-end: 0;
+    }
+
+    .method-step span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .method-step b {
+      display: block;
+      margin-block-start: 28px;
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .figure {
+      margin: 38px 0;
+    }
+
+    .visual {
+      min-block-size: 340px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 34% 38%, color-mix(in oklch, var(--fg) 12%, transparent) 0 2px, transparent 3px),
+        linear-gradient(180deg, transparent 0 24%, var(--border) 24% calc(24% + 1px), transparent calc(24% + 1px)),
+        linear-gradient(90deg, transparent 0 19%, var(--border) 19% calc(19% + 1px), transparent calc(19% + 1px)),
+        color-mix(in oklch, var(--surface) 90%, transparent);
+      background-size: 42px 42px, 100% 100%, 100% 100%, auto;
+    }
+
+    figcaption {
+      margin-block-start: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .ml-lab {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.82fr) minmax(320px, 1.18fr);
+      gap: clamp(18px, 3vw, 28px);
+      margin-block: 38px 20px;
+      border: 1px solid var(--border);
+      background: color-mix(in oklch, var(--surface) 88%, transparent);
+    }
+
+    .lab-controls,
+    .lab-output {
+      min-inline-size: 0;
+      padding: clamp(18px, 3vw, 24px);
+    }
+
+    .lab-controls {
+      border-inline-end: 1px solid var(--border);
+    }
+
+    .lab-kicker,
+    .json-kicker {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .lab-controls h3,
+    .lab-output h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(30px, 3vw, 42px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .lab-note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .demo-form {
+      display: grid;
+      gap: 16px;
+      margin-block-start: 24px;
+    }
+
+    .demo-field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .demo-field label,
+    .switch-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .demo-field select,
+    .demo-field input {
+      inline-size: 100%;
+      min-block-size: 44px;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      padding: 10px 12px;
+      background: var(--surface);
+      color: var(--fg);
+    }
+
+    .mode-switch {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .mode-switch button {
+      min-block-size: 44px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .mode-switch button[aria-pressed="true"] {
+      background: var(--fg);
+      border-color: var(--fg);
+      color: var(--surface);
+    }
+
+    .run-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      margin-block-start: 8px;
+    }
+
+    .model-status {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      text-align: end;
+    }
+
+    .signal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding-block-end: 18px;
+      border-block-end: 1px solid var(--border);
+    }
+
+    .signal-chip {
+      min-inline-size: 92px;
+      border: 1px solid var(--fg);
+      padding: 8px 12px;
+      color: var(--fg);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .signal-chip[data-signal="BUY"] {
+      background: var(--fg);
+      color: var(--surface);
+    }
+
+    .signal-chip[data-signal="SELL"] {
+      background:
+        linear-gradient(135deg, var(--fg) 0 8px, transparent 8px 16px),
+        var(--surface);
+      background-size: 16px 16px;
+      color: var(--fg);
+    }
+
+    .signal-meta {
+      display: grid;
+      gap: 8px;
+      margin-block-start: 20px;
+    }
+
+    .metric-line {
+      display: grid;
+      grid-template-columns: minmax(90px, 0.65fr) minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .metric-line strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    .meter {
+      block-size: 6px;
+      background: color-mix(in oklch, var(--border) 78%, transparent);
+      overflow: hidden;
+    }
+
+    .meter span {
+      display: block;
+      inline-size: var(--value, 50%);
+      block-size: 100%;
+      background: var(--fg);
+    }
+
+    .feature-board {
+      display: grid;
+      gap: 12px;
+      margin-block-start: 24px;
+      padding-block-start: 18px;
+      border-block-start: 1px solid var(--border);
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr) 52px;
+      gap: 12px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .feature-row .meter {
+      block-size: 4px;
+    }
+
+    .decision-copy {
+      margin: 20px 0 0;
+      color: var(--fg);
+      font-size: 16px;
+      line-height: 1.58;
+    }
+
+    .research-warning {
+      margin-block-start: 18px;
+      padding-block-start: 14px;
+      border-block-start: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .contract-box {
+      margin-block-start: 18px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      padding: 14px;
+    }
+
+    .contract-box pre {
+      margin: 0;
+      overflow-x: auto;
+      color: var(--fg);
+      font-family: ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.55;
+      white-space: pre;
+    }
+
+    .storyboard {
+      display: grid;
+      gap: 0;
+      margin-block: 38px 16px;
+      border-block: 1px solid var(--border);
+    }
+
+    .story-step {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 20px;
+      padding: 22px 0;
+      border-block-end: 1px solid var(--border);
+    }
+
+    .story-step:last-child {
+      border-block-end: 0;
+    }
+
+    .story-step .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      inline-size: 48px;
+      block-size: 48px;
+      border: 1px solid var(--fg);
+      border-radius: 50%;
+      font-family: var(--font-display);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .story-step h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.22;
+      letter-spacing: -0.005em;
+    }
+
+    .story-step p {
+      margin: 0;
+    }
+
+    .story-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-block-start: 12px;
+    }
+
+    .story-tags span {
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .pull {
+      margin: 52px 0;
+      padding-inline-start: 24px;
+      border-inline-start: 3px solid var(--accent);
+      font-family: var(--font-display);
+      font-size: clamp(30px, 4vw, 46px);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+
+    .quiet-list {
+      display: grid;
+      gap: 12px;
+      margin: 30px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .quiet-list li {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding-block: 14px;
+      border-block-start: 1px solid var(--border);
+      color: var(--fg);
+    }
+
+    .quiet-list span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+
+    .side {
+      position: sticky;
+      inset-block-start: 100px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .brief-card,
+    .tweak-card {
+      border: 1px solid var(--border);
+      background: color-mix(in oklch, var(--surface) 88%, transparent);
+      padding: 22px;
+    }
+
+    .brief-card h3,
+    .tweak-card h3 {
+      margin: 0 0 16px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .brief-card p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .brief-card dl {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+    }
+
+    .brief-card dl > div {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding-block-start: 10px;
+      border-block-start: 1px solid var(--border);
+    }
+
+    .brief-card dt {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .brief-card dd {
+      margin: 0;
+      color: var(--fg);
+      font-size: 12px;
+      font-weight: 600;
+      text-align: end;
+    }
+
+    .tabs {
+      display: grid;
+      gap: 8px;
+      margin-block-start: 20px;
+    }
+
+    .tabs button {
+      min-block-size: 40px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg);
+      cursor: pointer;
+      text-align: start;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    .tabs button[aria-selected="true"] {
+      background: var(--fg);
+      color: var(--surface);
+      border-color: var(--fg);
+    }
+
+    .tab-output {
+      min-block-size: 92px;
+      margin-block-start: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .tweak-row {
+      display: grid;
+      gap: 8px;
+      margin-block-start: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .tweak-row input,
+    .tweak-row select {
+      inline-size: 100%;
+      accent-color: var(--fg);
+    }
+
+    .handoff {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.48fr);
+      gap: clamp(28px, 6vw, 80px);
+      align-items: start;
+      padding: 88px clamp(20px, 6vw, 88px);
+      border-block-start: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .handoff h2 {
+      max-inline-size: 13ch;
+      margin: 0;
+    }
+
+    .handoff p {
+      max-inline-size: 62ch;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .handoff-card {
+      border: 1px solid var(--border);
+      padding: 22px;
+      background: var(--bg);
+    }
+
+    .handoff-card ol {
+      margin: 0;
+      padding-inline-start: 20px;
+      color: var(--fg);
+    }
+
+    .handoff-card li + li {
+      margin-block-start: 12px;
+    }
+
+    @media (max-width: 1180px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+      }
+
+      .rail {
+        display: none;
+      }
+    }
+
+    @media (max-width: 860px) {
+      body {
+        background-size: 64px 100%;
+      }
+
+      .masthead {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .topnav {
+        inline-size: 100%;
+        overflow-x: auto;
+        padding-block-end: 4px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-block-size: auto;
+      }
+
+      .hero-plate {
+        min-block-size: 420px;
+      }
+
+      .layout,
+      .handoff {
+        grid-template-columns: 1fr;
+      }
+
+      .side {
+        position: static;
+        order: -1;
+      }
+
+      .spec-grid,
+      .method-strip,
+      .ml-lab {
+        grid-template-columns: 1fr;
+      }
+
+      .lab-controls {
+        border-inline-end: 0;
+        border-block-end: 1px solid var(--border);
+      }
+
+      .method-step {
+        min-block-size: auto;
+        border-inline-end: 0;
+        border-block-end: 1px solid var(--border);
+      }
+
+      .method-step:last-child {
+        border-block-end: 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        inline-size: 100%;
+      }
+
+      .thesis-map {
+        grid-template-columns: 1fr;
+      }
+
+      .run-row,
+      .signal-header,
+      .metric-line,
+      .feature-row,
+      .story-step {
+        grid-template-columns: 1fr;
+      }
+
+      .model-status {
+        text-align: start;
+      }
+
+      .folio {
+        font-size: 42px;
+      }
+
+      .chapter {
+        padding-block: 42px 58px;
+      }
+
+      h1 {
+        font-size: clamp(46px, 17vw, 72px);
+      }
+
+      h2 {
+        max-inline-size: 11ch;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <header class="masthead">
+    <a class="mark" href="#">Skripsi Interactive</a>
+    <nav class="topnav" aria-label="Navigasi utama">
+      <a href="#masalah">Masalah</a>
+      <a href="#metode">Metode</a>
+      <a href="#analisis">Analisis</a>
+      <a href="#ml-demo">ML Demo</a>
+      <a href="#storyboard">Storyboard</a>
+      <a href="#temuan">Temuan</a>
+      <a href="#handoff">Isi nanti</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" data-od-id="hero">
+      <div>
+        <p class="kicker">Interactive explainer / clean academic</p>
+        <h1 data-od-id="headline">Ubah skripsi menjadi cerita riset yang bisa dijelajahi.</h1>
+        <p class="deck">
+          Sebuah konsep scrollytelling minimalis untuk membuat skripsi terasa lebih ringan bagi pembaca umum:
+          satu alur, satu fokus, dan ruang yang siap diisi dengan data final.
+        </p>
+        <div class="hero-actions">
+          <button class="btn" data-jump="masalah" type="button">Mulai dari masalah</button>
+          <button class="btn secondary" data-jump="handoff" type="button">Lihat slot konten</button>
+        </div>
+      </div>
+
+      <aside class="hero-plate" aria-label="Peta struktur skripsi">
+        <div class="plate-label">
+          <span>Research spine</span>
+          <span>v0.1</span>
+        </div>
+        <div class="thesis-map">
+          <div class="folio">01</div>
+          <ul class="map-list">
+            <li>
+              <strong>Masalah publik</strong>
+              <span>Apa persoalan yang membuat penelitian ini penting bagi orang awam?</span>
+            </li>
+            <li>
+              <strong>Metode sebagai lensa</strong>
+              <span>Jelaskan cara kerja riset tanpa menaruh pembaca di tengah jargon.</span>
+            </li>
+            <li>
+              <strong>Temuan sebagai bukti</strong>
+              <span>Data, pola, atau insight masuk sebagai momen visual yang tenang.</span>
+            </li>
+            <li>
+              <strong>Implikasi</strong>
+              <span>Bagian akhir menjawab: setelah tahu ini, apa yang berubah?</span>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <div class="layout">
+      <nav class="rail" aria-label="Navigasi bagian">
+        <button type="button" data-target="masalah" aria-current="true">
+          <span class="num">01</span>
+          <span class="label">Masalah</span>
+        </button>
+        <button type="button" data-target="metode">
+          <span class="num">02</span>
+          <span class="label">Metode</span>
+        </button>
+        <button type="button" data-target="analisis">
+          <span class="num">03</span>
+          <span class="label">Analisis</span>
+        </button>
+        <button type="button" data-target="ml-demo">
+          <span class="num">04</span>
+          <span class="label">ML Lab</span>
+        </button>
+        <button type="button" data-target="storyboard">
+          <span class="num">05</span>
+          <span class="label">Storyboard</span>
+        </button>
+        <button type="button" data-target="temuan">
+          <span class="num">06</span>
+          <span class="label">Temuan</span>
+        </button>
+        <button type="button" data-target="implikasi">
+          <span class="num">07</span>
+          <span class="label">Implikasi</span>
+        </button>
+      </nav>
+
+      <article class="article" data-od-id="body">
+        <section class="chapter is-visible" id="masalah" data-section="Masalah riset">
+          <p class="chapter-label">01 / framing</p>
+          <h2>Mulai dari masalah, bukan dari bab.</h2>
+          <p>
+            Pembaca umum tidak perlu masuk lewat Bab I. Mereka perlu tahu mengapa topik skripsi ini layak
+            diperhatikan, siapa yang terdampak, dan pertanyaan apa yang ingin dijawab penelitian.
+          </p>
+          <p class="muted">
+            Slot isi nanti: judul skripsi, latar belakang singkat, objek penelitian, dan satu kalimat
+            "mengapa ini penting" dalam bahasa non-akademik.
+          </p>
+          <div class="spec-grid">
+            <div class="spec-card">
+              <p class="small">Hero copy</p>
+              <strong>[Judul skripsi dalam versi publik]</strong>
+            </div>
+            <div class="spec-card">
+              <p class="small">Core question</p>
+              <strong>[Pertanyaan riset utama]</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter" id="metode" data-section="Metode">
+          <p class="chapter-label">02 / method</p>
+          <h2>Metode dibuat seperti peta kerja.</h2>
+          <p>
+            Bagian metodologi sebaiknya tidak tampil sebagai paragraf panjang. Untuk project interaktif,
+            metode lebih kuat jika dipresentasikan sebagai urutan keputusan: sumber data, cara memilih sampel,
+            teknik analisis, lalu batasan riset.
+          </p>
+          <div class="method-strip" aria-label="Alur metode">
+            <div class="method-step">
+              <span>Input</span>
+              <b>[Dataset / responden / dokumen]</b>
+            </div>
+            <div class="method-step">
+              <span>Filter</span>
+              <b>[Kriteria pilihan data]</b>
+            </div>
+            <div class="method-step">
+              <span>Analyze</span>
+              <b>[Metode analisis]</b>
+            </div>
+            <div class="method-step">
+              <span>Limit</span>
+              <b>[Batasan penelitian]</b>
+            </div>
+          </div>
+          <p class="muted">
+            Interaksi yang disarankan: setiap kartu metode bisa dibuka untuk menampilkan definisi, rumus,
+            atau contoh kecil. Default-nya tetap ringkas agar tidak terasa seperti PDF dipindahkan mentah.
+          </p>
+        </section>
+
+        <section class="chapter" id="analisis" data-section="Ruang analisis">
+          <p class="chapter-label">03 / evidence</p>
+          <h2>Data diberi ruang, bukan dekorasi.</h2>
+          <p>
+            Karena isi final belum dimasukkan, area visual di bawah dibuat sebagai placeholder jujur.
+            Nanti bisa diganti dengan chart, tabel ringkas, peta konsep, atau screenshot instrumen penelitian.
+          </p>
+          <figure class="figure" data-od-id="hero-figure">
+            <div class="visual" role="img" aria-label="Placeholder visual data skripsi"></div>
+            <figcaption>
+              Placeholder visual: gunakan untuk chart utama, alur sistem, matriks hasil, atau komparasi sebelum-sesudah.
+            </figcaption>
+          </figure>
+          <p>
+            Prinsipnya: satu layar hanya membawa satu bukti utama. Jika ada banyak tabel, pecah menjadi beberapa
+            momen baca agar pembaca tidak merasa sedang membuka lampiran.
+          </p>
+        </section>
+
+        <section class="chapter" id="ml-demo" data-section="ML Demo Lab">
+          <p class="chapter-label">04 / live model</p>
+          <h2>Demo model dibuat terasa seperti ruang uji.</h2>
+          <p>
+            Bagian ini disiapkan untuk model SVM trading strategy. Pembaca memilih emiten, menentukan sumber data,
+            lalu menjalankan prediksi untuk melihat sinyal riset: <strong>BUY</strong>, <strong>HOLD</strong>, atau
+            <strong>SELL</strong>. UI-nya sengaja seperti lab kecil, bukan terminal teknis.
+          </p>
+
+          <div class="ml-lab" data-od-id="ml-demo-lab">
+            <section class="lab-controls" aria-label="Kontrol demo model">
+              <p class="lab-kicker">SVM signal runner</p>
+              <h3>Jalankan satu skenario.</h3>
+              <p class="lab-note">
+                Default sekarang memakai sample response. Nanti fungsi yang sama bisa diarahkan ke backend model
+                tanpa mengubah layout.
+              </p>
+
+              <form class="demo-form" id="modelForm">
+                <div class="demo-field">
+                  <label for="tickerSelect">Emiten</label>
+                  <select id="tickerSelect" name="ticker">
+                    <option value="ADRO">ADRO</option>
+                    <option value="AKRA">AKRA</option>
+                    <option value="BUMI">BUMI</option>
+                    <option value="BYAN">BYAN</option>
+                    <option value="DEWA">DEWA</option>
+                    <option value="DSSA">DSSA</option>
+                    <option value="ENRG">ENRG</option>
+                    <option value="GEMS">GEMS</option>
+                    <option value="ITMG">ITMG</option>
+                    <option value="MEDC">MEDC</option>
+                    <option value="PGAS">PGAS</option>
+                    <option value="PTBA">PTBA</option>
+                    <option value="PTRO">PTRO</option>
+                    <option value="RAJA">RAJA</option>
+                  </select>
+                </div>
+
+                <div class="demo-field">
+                  <label for="windowSelect">Periode input</label>
+                  <select id="windowSelect" name="window">
+                    <option value="latest">Data terbaru dari backend</option>
+                    <option value="backtest">Replay backtest 2023-2025</option>
+                    <option value="manual">Skenario manual</option>
+                  </select>
+                </div>
+
+                <div class="demo-field">
+                  <span class="switch-label">Mode koneksi</span>
+                  <div class="mode-switch" id="connectionMode" role="group" aria-label="Mode koneksi model">
+                    <button type="button" aria-pressed="true" data-mode="mock">Sample UI</button>
+                    <button type="button" aria-pressed="false" data-mode="api">Backend</button>
+                  </div>
+                </div>
+
+                <div class="demo-field" id="endpointField" hidden>
+                  <label for="endpointInput">Endpoint prediksi</label>
+                  <input id="endpointInput" name="endpoint" value="/api/predict" />
+                </div>
+
+                <div class="run-row">
+                  <button class="btn" type="submit">Run SVM demo</button>
+                  <span class="model-status" id="modelStatus">Siap menjalankan sample response.</span>
+                </div>
+              </form>
+            </section>
+
+            <section class="lab-output" aria-live="polite" aria-label="Output demo model">
+              <div class="signal-header">
+                <div>
+                  <p class="lab-kicker" id="resultTicker">ADRO / latest</p>
+                  <h3 id="resultTitle">Sinyal riset siap dibaca.</h3>
+                </div>
+                <span class="signal-chip" id="signalChip" data-signal="HOLD">HOLD</span>
+              </div>
+
+              <div class="signal-meta">
+                <div class="metric-line">
+                  <strong>Confidence</strong>
+                  <span class="meter"><span id="confidenceMeter" style="--value: 54%"></span></span>
+                  <span id="confidenceText">54%</span>
+                </div>
+                <div class="metric-line">
+                  <strong>Macro-F1</strong>
+                  <span class="meter"><span id="f1Meter" style="--value: 0%"></span></span>
+                  <span id="f1Text">dari backend</span>
+                </div>
+                <div class="metric-line">
+                  <strong>Horizon</strong>
+                  <span>Label berbasis pergerakan beberapa hari ke depan.</span>
+                  <span id="horizonText">5D</span>
+                </div>
+              </div>
+
+              <p class="decision-copy" id="decisionCopy">
+                Model belum dijalankan. Pilih emiten lalu tekan Run untuk melihat cara output model akan tampil.
+              </p>
+
+              <div class="feature-board" aria-label="Fitur teknikal dominan">
+                <div class="feature-row">
+                  <span>ADX</span>
+                  <span class="meter"><span id="adxMeter" style="--value: 46%"></span></span>
+                  <span id="adxText">46</span>
+                </div>
+                <div class="feature-row">
+                  <span>OBV</span>
+                  <span class="meter"><span id="obvMeter" style="--value: 38%"></span></span>
+                  <span id="obvText">38</span>
+                </div>
+                <div class="feature-row">
+                  <span>Stoch</span>
+                  <span class="meter"><span id="stochMeter" style="--value: 62%"></span></span>
+                  <span id="stochText">62</span>
+                </div>
+                <div class="feature-row">
+                  <span>ATR</span>
+                  <span class="meter"><span id="atrMeter" style="--value: 35%"></span></span>
+                  <span id="atrText">35</span>
+                </div>
+              </div>
+
+              <p class="research-warning">
+                Catatan riset: output ini harus dibaca sebagai eksperimen akademik, bukan rekomendasi investasi.
+                Eksekusi live perlu menjaga split waktu, gap validasi, dan sinyal yang tidak dieksekusi pada bar yang sama.
+              </p>
+
+              <div class="contract-box">
+                <p class="json-kicker">Response contract</p>
+                <pre id="responseContract">{
+  "ticker": "ADRO",
+  "signal": "HOLD",
+  "confidence": 0.54,
+  "features": { "adx": 46, "obv": 38, "stochastic": 62, "atr": 35 }
+}</pre>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="chapter" id="storyboard" data-section="Model Storyboard">
+          <p class="chapter-label">05 / model storyboard</p>
+          <h2>Storyboard menjembatani skripsi dan demo.</h2>
+          <p>
+            Sebelum pembaca melihat sinyal, mereka perlu tahu asal keputusan model. Storyboard ini membuat pipeline
+            riset terlihat sebagai rangkaian keputusan yang bisa diaudit.
+          </p>
+
+          <div class="storyboard" data-od-id="model-storyboard">
+            <section class="story-step">
+              <span class="num">1</span>
+              <div>
+                <h3>Ambil data harga emiten energi.</h3>
+                <p class="muted">
+                  Data historis dipakai sebagai bahan mentah. UI cukup menampilkan cakupan waktu, sumber data,
+                  dan daftar emiten yang ikut diuji.
+                </p>
+                <div class="story-tags">
+                  <span>OHLCV</span>
+                  <span>IDX energy</span>
+                  <span>2015-2025</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="story-step">
+              <span class="num">2</span>
+              <div>
+                <h3>Ubah harga menjadi indikator teknikal.</h3>
+                <p class="muted">
+                  Bollinger Bands, Stochastic, OBV, ADX, dan ATR menjadi bahasa antara data pasar dan model.
+                  Ini lebih mudah dipahami jika divisualkan sebagai lapisan fitur.
+                </p>
+                <div class="story-tags">
+                  <span>ADX</span>
+                  <span>OBV</span>
+                  <span>ATR</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="story-step">
+              <span class="num">3</span>
+              <div>
+                <h3>Bentuk label BUY, HOLD, SELL.</h3>
+                <p class="muted">
+                  Label sebaiknya dijelaskan sebagai aturan penelitian, bukan janji profit. Di sini pembaca melihat
+                  kapan data disebut naik, netral, atau turun.
+                </p>
+                <div class="story-tags">
+                  <span>3-class</span>
+                  <span>ATR rule</span>
+                  <span>horizon</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="story-step">
+              <span class="num">4</span>
+              <div>
+                <h3>Latih SVM dengan validasi waktu.</h3>
+                <p class="muted">
+                  Untuk demo publik, bagian ini harus menampilkan bahwa data masa depan tidak ikut mengajari model
+                  masa lalu. Split waktu adalah bagian dari desain kepercayaan.
+                </p>
+                <div class="story-tags">
+                  <span>SVM</span>
+                  <span>time split</span>
+                  <span>gap check</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="story-step">
+              <span class="num">5</span>
+              <div>
+                <h3>Bandingkan sinyal dengan backtest.</h3>
+                <p class="muted">
+                  Output akhir bukan hanya sinyal hari ini. Pembaca juga perlu melihat performa historis,
+                  confusion matrix, dan kapan model gagal.
+                </p>
+                <div class="story-tags">
+                  <span>backtest</span>
+                  <span>confusion</span>
+                  <span>risk note</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="chapter" id="temuan" data-section="Temuan utama">
+          <p class="chapter-label">06 / finding</p>
+          <h2>Temuan dibuat sebagai kalimat yang bisa diingat.</h2>
+          <blockquote class="pull" data-od-id="pull-quote">
+            [Satu temuan paling kuat dari skripsi ditulis sebagai kalimat pendek, bukan angka lepas.]
+          </blockquote>
+          <p>
+            Setelah temuan utama, baru masukkan bukti pendukung. Hindari klaim berlebihan seperti "paling efektif"
+            jika skripsi hanya menunjukkan korelasi, persepsi, atau perbandingan terbatas.
+          </p>
+          <ul class="quiet-list">
+            <li><span>A</span><div>[Pola pertama yang ditemukan]</div></li>
+            <li><span>B</span><div>[Faktor yang memperkuat atau melemahkan pola]</div></li>
+            <li><span>C</span><div>[Hal yang tidak terbukti atau perlu hati-hati dibaca]</div></li>
+          </ul>
+        </section>
+
+        <section class="chapter" id="implikasi" data-section="Implikasi">
+          <p class="chapter-label">07 / meaning</p>
+          <h2>Akhirnya harus menjawab: jadi apa?</h2>
+          <p>
+            Penutup scrollytelling tidak perlu menjadi kesimpulan Bab V versi panjang. Buat tiga lapis:
+            arti temuan bagi pembaca umum, dampak praktis bagi pihak terkait, dan pertanyaan lanjutan.
+          </p>
+          <p class="muted">
+            Slot isi nanti: rekomendasi, keterbatasan, kontribusi penelitian, dan call-to-action ringan seperti
+            "baca PDF lengkap" atau "lihat data pendukung".
+          </p>
+        </section>
+      </article>
+
+      <aside class="side" aria-label="Panel ringkasan">
+        <section class="brief-card">
+          <h3>Current section</h3>
+          <p id="sectionSummary">Masalah riset: jelaskan konteks dan alasan penelitian penting bagi pembaca umum.</p>
+          <dl>
+            <div>
+              <dt>Mode</dt>
+              <dd>Scrollytelling</dd>
+            </div>
+            <div>
+              <dt>Style</dt>
+              <dd>Clean academic</dd>
+            </div>
+            <div>
+              <dt>Source</dt>
+              <dd>PDF + model</dd>
+            </div>
+          </dl>
+          <div class="tabs" role="tablist" aria-label="Jenis saran">
+            <button type="button" role="tab" aria-selected="true" data-tab="structure">Struktur</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="visual">Visual</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="content">Konten</button>
+          </div>
+          <p class="tab-output" id="tabOutput">
+            Pakai alur masalah -> metode -> analisis -> temuan -> implikasi agar pembaca umum tidak tersesat.
+          </p>
+        </section>
+
+        <section class="tweak-card">
+          <h3>Tweaks</h3>
+          <label class="tweak-row">
+            Type scale
+            <input id="typeScale" type="range" min="15" max="19" value="16" />
+          </label>
+          <label class="tweak-row">
+            Reading density
+            <select id="density">
+              <option value="relaxed">Relaxed</option>
+              <option value="compact">Compact</option>
+            </select>
+          </label>
+        </section>
+      </aside>
+    </div>
+
+    <section class="handoff" id="handoff" data-od-id="related-grid">
+      <div>
+        <p class="chapter-label">Next step</p>
+        <h2>Konten final tinggal dipasang ke struktur ini.</h2>
+        <p>
+          Ketika isi skripsi sudah dipilih, bagian ini bisa berubah dari konsep desain menjadi project lengkap:
+          copy final, chart asli, live endpoint model, dan tautan PDF lengkap.
+        </p>
+      </div>
+      <div class="handoff-card">
+        <ol>
+          <li>Ganti headline dengan judul publik skripsi.</li>
+          <li>Hubungkan tombol Run SVM demo ke endpoint model.</li>
+          <li>Kirim response sesuai contract: ticker, signal, confidence, fitur, dan metrik.</li>
+          <li>Tambahkan visual backtest asli untuk temuan terkuat.</li>
+          <li>Letakkan PDF lengkap sebagai referensi, bukan sebagai pengalaman utama.</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "fontSize": 16,
+      "density": "relaxed"
+    }/*EDITMODE-END*/;
+
+    const progressBar = document.getElementById("progressBar");
+    const chapters = Array.from(document.querySelectorAll(".chapter"));
+    const railButtons = Array.from(document.querySelectorAll(".rail button"));
+    const sectionSummary = document.getElementById("sectionSummary");
+    const summaries = {
+      "Masalah riset": "Masalah riset: jelaskan konteks dan alasan penelitian penting bagi pembaca umum.",
+      "Metode": "Metode: tampilkan langkah penelitian sebagai peta kerja, bukan paragraf teknis panjang.",
+      "Ruang analisis": "Ruang analisis: beri satu bukti utama per layar agar chart atau tabel terasa terbaca.",
+      "ML Demo Lab": "ML Demo Lab: jalankan skenario emiten dan tampilkan sinyal SVM secara aman untuk demo riset.",
+      "Model Storyboard": "Model Storyboard: jelaskan data, fitur teknikal, label, validasi waktu, dan backtest.",
+      "Temuan utama": "Temuan utama: ubah hasil skripsi menjadi kalimat yang bisa diingat dan diverifikasi.",
+      "Implikasi": "Implikasi: akhiri dengan arti temuan, dampak praktis, dan ruang riset lanjutan."
+    };
+
+    const updateProgress = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      progressBar.style.inlineSize = `${Math.min(100, Math.max(0, pct))}%`;
+    };
+
+    const setCurrent = (id) => {
+      railButtons.forEach((button) => {
+        button.setAttribute("aria-current", button.dataset.target === id ? "true" : "false");
+      });
+      const chapter = document.getElementById(id);
+      if (chapter && sectionSummary) {
+        sectionSummary.textContent = summaries[chapter.dataset.section] || chapter.dataset.section;
+      }
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          setCurrent(entry.target.id);
+        }
+      });
+    }, { rootMargin: "-32% 0px -48% 0px", threshold: 0.01 });
+
+    chapters.forEach((chapter) => observer.observe(chapter));
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress();
+
+    const jumpTo = (id) => {
+      const target = document.getElementById(id);
+      if (!target) return;
+      const top = target.getBoundingClientRect().top + window.scrollY - 84;
+      window.scrollTo({ top, behavior: "smooth" });
+    };
+
+    document.querySelectorAll("[data-target], [data-jump]").forEach((control) => {
+      control.addEventListener("click", () => jumpTo(control.dataset.target || control.dataset.jump));
+    });
+
+    const tabCopy = {
+      structure: "Pakai alur masalah -> metode -> analisis -> ML demo -> storyboard -> temuan -> implikasi.",
+      visual: "Gunakan kertas hangat, serif besar, border tipis, dan output model yang terlihat seperti lab riset.",
+      content: "Masukkan klaim hanya jika ada bukti dari skripsi. Demo model harus tetap diberi catatan riset."
+    };
+
+    const tabOutput = document.getElementById("tabOutput");
+    document.querySelectorAll("[data-tab]").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll("[data-tab]").forEach((item) => item.setAttribute("aria-selected", "false"));
+        tab.setAttribute("aria-selected", "true");
+        tabOutput.textContent = tabCopy[tab.dataset.tab];
+      });
+    });
+
+    const modelForm = document.getElementById("modelForm");
+    const tickerSelect = document.getElementById("tickerSelect");
+    const windowSelect = document.getElementById("windowSelect");
+    const modelStatus = document.getElementById("modelStatus");
+    const endpointField = document.getElementById("endpointField");
+    const endpointInput = document.getElementById("endpointInput");
+    const modeButtons = Array.from(document.querySelectorAll("[data-mode]"));
+    const resultTicker = document.getElementById("resultTicker");
+    const resultTitle = document.getElementById("resultTitle");
+    const signalChip = document.getElementById("signalChip");
+    const confidenceMeter = document.getElementById("confidenceMeter");
+    const confidenceText = document.getElementById("confidenceText");
+    const f1Meter = document.getElementById("f1Meter");
+    const f1Text = document.getElementById("f1Text");
+    const horizonText = document.getElementById("horizonText");
+    const decisionCopy = document.getElementById("decisionCopy");
+    const responseContract = document.getElementById("responseContract");
+    const featureEls = {
+      adx: [document.getElementById("adxMeter"), document.getElementById("adxText")],
+      obv: [document.getElementById("obvMeter"), document.getElementById("obvText")],
+      stochastic: [document.getElementById("stochMeter"), document.getElementById("stochText")],
+      atr: [document.getElementById("atrMeter"), document.getElementById("atrText")]
+    };
+
+    let connection = "mock";
+
+    const sampleResponses = {
+      ADRO: { signal: "HOLD", confidence: 0.54, macroF1: null, features: { adx: 46, obv: 38, stochastic: 62, atr: 35 } },
+      AKRA: { signal: "BUY", confidence: 0.61, macroF1: null, features: { adx: 58, obv: 64, stochastic: 71, atr: 42 } },
+      BUMI: { signal: "SELL", confidence: 0.57, macroF1: null, features: { adx: 66, obv: 29, stochastic: 34, atr: 68 } },
+      BYAN: { signal: "HOLD", confidence: 0.49, macroF1: null, features: { adx: 31, obv: 46, stochastic: 52, atr: 24 } },
+      DEWA: { signal: "SELL", confidence: 0.52, macroF1: null, features: { adx: 63, obv: 33, stochastic: 37, atr: 59 } },
+      DSSA: { signal: "HOLD", confidence: 0.55, macroF1: null, features: { adx: 41, obv: 52, stochastic: 48, atr: 32 } },
+      ENRG: { signal: "BUY", confidence: 0.59, macroF1: null, features: { adx: 53, obv: 68, stochastic: 69, atr: 45 } },
+      GEMS: { signal: "BUY", confidence: 0.67, macroF1: null, features: { adx: 71, obv: 73, stochastic: 76, atr: 51 } },
+      ITMG: { signal: "HOLD", confidence: 0.56, macroF1: null, features: { adx: 49, obv: 57, stochastic: 54, atr: 39 } },
+      MEDC: { signal: "BUY", confidence: 0.62, macroF1: null, features: { adx: 60, obv: 61, stochastic: 70, atr: 48 } },
+      PGAS: { signal: "HOLD", confidence: 0.53, macroF1: null, features: { adx: 43, obv: 44, stochastic: 51, atr: 36 } },
+      PTBA: { signal: "SELL", confidence: 0.58, macroF1: null, features: { adx: 67, obv: 35, stochastic: 31, atr: 63 } },
+      PTRO: { signal: "BUY", confidence: 0.64, macroF1: null, features: { adx: 62, obv: 66, stochastic: 74, atr: 47 } },
+      RAJA: { signal: "HOLD", confidence: 0.51, macroF1: null, features: { adx: 37, obv: 48, stochastic: 45, atr: 55 } }
+    };
+
+    const signalCopy = {
+      BUY: "Sinyal sample membaca kondisi teknikal sebagai kandidat masuk. Di versi final, tampilkan juga alasan fitur dan batas risiko.",
+      HOLD: "Sinyal sample belum cukup kuat untuk masuk atau keluar. Ini berguna untuk menunjukkan bahwa model boleh memilih diam.",
+      SELL: "Sinyal sample membaca tekanan turun atau risiko terlalu tinggi. Di demo final, tampilkan juga apakah ini exit atau no-entry."
+    };
+
+    const setMode = (nextMode) => {
+      connection = nextMode;
+      modeButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", button.dataset.mode === nextMode ? "true" : "false");
+      });
+      endpointField.hidden = nextMode !== "api";
+      modelStatus.textContent = nextMode === "api"
+        ? "Akan mencoba endpoint backend, lalu fallback ke sample jika gagal."
+        : "Siap menjalankan sample response.";
+    };
+
+    const normalizeResponse = (raw, ticker, windowMode) => ({
+      ticker,
+      window: windowMode,
+      signal: String(raw.signal || "HOLD").toUpperCase(),
+      confidence: Number(raw.confidence ?? 0.5),
+      macroF1: raw.macroF1 ?? raw.macro_f1 ?? null,
+      horizon: raw.horizon || "5D",
+      features: {
+        adx: Number(raw.features?.adx ?? raw.adx ?? 0),
+        obv: Number(raw.features?.obv ?? raw.obv ?? 0),
+        stochastic: Number(raw.features?.stochastic ?? raw.stochastic ?? 0),
+        atr: Number(raw.features?.atr ?? raw.atr ?? 0)
+      }
+    });
+
+    const renderResponse = (response) => {
+      const confidencePct = Math.round(Math.max(0, Math.min(1, response.confidence)) * 100);
+      const f1Value = response.macroF1 == null ? null : Math.round(Math.max(0, Math.min(1, Number(response.macroF1))) * 100);
+      resultTicker.textContent = `${response.ticker} / ${response.window}`;
+      resultTitle.textContent = `Output SVM: ${response.signal}`;
+      signalChip.textContent = response.signal;
+      signalChip.dataset.signal = response.signal;
+      confidenceMeter.style.setProperty("--value", `${confidencePct}%`);
+      confidenceText.textContent = `${confidencePct}%`;
+      f1Meter.style.setProperty("--value", `${f1Value ?? 0}%`);
+      f1Text.textContent = f1Value == null ? "dari backend" : `${f1Value}%`;
+      horizonText.textContent = response.horizon;
+      decisionCopy.textContent = signalCopy[response.signal] || signalCopy.HOLD;
+
+      Object.entries(response.features).forEach(([key, value]) => {
+        const [meter, label] = featureEls[key] || [];
+        if (!meter || !label) return;
+        const bounded = Math.max(0, Math.min(100, Math.round(value)));
+        meter.style.setProperty("--value", `${bounded}%`);
+        label.textContent = String(bounded);
+      });
+
+      responseContract.textContent = JSON.stringify(response, null, 2);
+    };
+
+    const requestPrediction = async (payload) => {
+      if (connection !== "api") {
+        return sampleResponses[payload.ticker] || sampleResponses.ADRO;
+      }
+
+      try {
+        const res = await fetch(endpointInput.value || "/api/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        modelStatus.textContent = "Backend merespons. Output memakai data model.";
+        return await res.json();
+      } catch (error) {
+        modelStatus.textContent = "Backend belum tersedia. UI memakai sample response sementara.";
+        return sampleResponses[payload.ticker] || sampleResponses.ADRO;
+      }
+    };
+
+    modeButtons.forEach((button) => {
+      button.addEventListener("click", () => setMode(button.dataset.mode));
+    });
+
+    modelForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const payload = {
+        ticker: tickerSelect.value,
+        window: windowSelect.value
+      };
+      modelStatus.textContent = "Menjalankan pipeline demo...";
+      modelForm.querySelector("button[type='submit']").disabled = true;
+      await new Promise((resolve) => setTimeout(resolve, 420));
+      const raw = await requestPrediction(payload);
+      const response = normalizeResponse(raw, payload.ticker, payload.window);
+      renderResponse(response);
+      modelStatus.textContent = connection === "api" ? modelStatus.textContent : "Sample response selesai dirender.";
+      modelForm.querySelector("button[type='submit']").disabled = false;
+    });
+
+    renderResponse(normalizeResponse(sampleResponses.ADRO, "ADRO", "latest"));
+
+    const typeScale = document.getElementById("typeScale");
+    const density = document.getElementById("density");
+    const saved = JSON.parse(localStorage.getItem("skripsiInteractiveTweaks") || "{}");
+    const state = { ...TWEAK_DEFAULTS, ...saved };
+
+    const applyTweaks = () => {
+      document.documentElement.style.setProperty("--body-size", `${state.fontSize}px`);
+      document.body.dataset.density = state.density;
+      document.querySelectorAll(".chapter").forEach((chapter) => {
+        chapter.style.paddingBlock = state.density === "compact" ? "38px 52px" : "";
+      });
+      localStorage.setItem("skripsiInteractiveTweaks", JSON.stringify(state));
+    };
+
+    typeScale.value = state.fontSize;
+    density.value = state.density;
+    typeScale.addEventListener("input", () => {
+      state.fontSize = Number(typeScale.value);
+      applyTweaks();
+    });
+    density.addEventListener("change", () => {
+      state.density = density.value;
+      applyTweaks();
+    });
+    applyTweaks();
+  </script>
+</body>
+</html>
