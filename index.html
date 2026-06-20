@@ -16,7 +16,6 @@
       <a href="#metode">Metode</a>
       <a href="#analisis">Analisis</a>
       <a href="#ml-demo">ML Demo</a>
-      <a href="#storyboard">Storyboard</a>
       <a href="#temuan">Temuan</a>
       <a href="#handoff">Penutup</a>
     </nav>
@@ -38,34 +37,6 @@
           <button class="btn secondary" data-jump="ml-demo" type="button">Coba demo SVM</button>
         </div>
       </div>
-
-      <aside class="hero-plate" aria-label="Peta struktur skripsi">
-        <div class="plate-label">
-          <span>Research spine</span>
-          <span>v0.1</span>
-        </div>
-        <div class="thesis-map">
-          <div class="folio">01</div>
-          <ul class="map-list">
-            <li>
-              <strong>Masalah publik</strong>
-              <span>Apa persoalan yang membuat penelitian ini penting bagi orang awam?</span>
-            </li>
-            <li>
-              <strong>Metode sebagai lensa</strong>
-              <span>Jelaskan cara kerja riset tanpa menaruh pembaca di tengah jargon.</span>
-            </li>
-            <li>
-              <strong>Temuan sebagai bukti</strong>
-              <span>Data, pola, atau insight masuk sebagai momen visual yang tenang.</span>
-            </li>
-            <li>
-              <strong>Implikasi</strong>
-              <span>Bagian akhir menjawab: setelah tahu ini, apa yang berubah?</span>
-            </li>
-          </ul>
-        </div>
-      </aside>
     </section>
 
     <div class="layout">
@@ -86,16 +57,12 @@
           <span class="num">04</span>
           <span class="label">ML Lab</span>
         </button>
-        <button type="button" data-target="storyboard">
-          <span class="num">05</span>
-          <span class="label">Storyboard</span>
-        </button>
         <button type="button" data-target="temuan">
-          <span class="num">06</span>
+          <span class="num">05</span>
           <span class="label">Temuan</span>
         </button>
         <button type="button" data-target="implikasi">
-          <span class="num">07</span>
+          <span class="num">06</span>
           <span class="label">Implikasi</span>
         </button>
       </nav>
@@ -193,8 +160,7 @@
               <p class="lab-kicker">SVM signal runner</p>
               <h3>Jalankan satu skenario.</h3>
               <p class="lab-note">
-                Default sekarang memakai sample response. Nanti fungsi yang sama bisa diarahkan ke backend model
-                tanpa mengubah layout.
+                Pilih satu emiten energi, lalu jalankan untuk melihat sinyal riset model: BUY, HOLD, atau SELL.
               </p>
 
               <form class="demo-form" id="modelForm">
@@ -218,28 +184,6 @@
                   </select>
                 </div>
 
-                <div class="demo-field">
-                  <label for="windowSelect">Periode input</label>
-                  <select id="windowSelect" name="window">
-                    <option value="latest">Data terbaru dari backend</option>
-                    <option value="backtest">Replay backtest 2023-2025</option>
-                    <option value="manual">Skenario manual</option>
-                  </select>
-                </div>
-
-                <div class="demo-field">
-                  <span class="switch-label">Mode koneksi</span>
-                  <div class="mode-switch" id="connectionMode" role="group" aria-label="Mode koneksi model">
-                    <button type="button" aria-pressed="true" data-mode="mock">Sample UI</button>
-                    <button type="button" aria-pressed="false" data-mode="api">Backend</button>
-                  </div>
-                </div>
-
-                <div class="demo-field" id="endpointField" hidden>
-                  <label for="endpointInput">Endpoint prediksi</label>
-                  <input id="endpointInput" name="endpoint" value="/api/predict" />
-                </div>
-
                 <div class="run-row">
                   <button class="btn" type="submit">Run SVM demo</button>
                   <span class="model-status" id="modelStatus">Siap menjalankan sample response.</span>
@@ -250,7 +194,7 @@
             <section class="lab-output" aria-live="polite" aria-label="Output demo model">
               <div class="signal-header">
                 <div>
-                  <p class="lab-kicker" id="resultTicker">ADRO / latest</p>
+                  <p class="lab-kicker" id="resultTicker">ADRO</p>
                   <h3 id="resultTitle">Sinyal riset siap dibaca.</h3>
                 </div>
                 <span class="signal-chip" id="signalChip" data-signal="HOLD">HOLD</span>
@@ -305,113 +249,12 @@
                 Catatan riset: output ini harus dibaca sebagai eksperimen akademik, bukan rekomendasi investasi.
                 Eksekusi live perlu menjaga split waktu, gap validasi, dan sinyal yang tidak dieksekusi pada bar yang sama.
               </p>
-
-              <div class="contract-box">
-                <p class="json-kicker">Response contract</p>
-                <pre id="responseContract">{
-  "ticker": "ADRO",
-  "signal": "HOLD",
-  "confidence": 0.54,
-  "features": { "adx": 46, "obv": 38, "stochastic": 62, "atr": 35 }
-}</pre>
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <section class="chapter" id="storyboard" data-section="Model Storyboard">
-          <p class="chapter-label">05 / model storyboard</p>
-          <h2>Storyboard menjembatani skripsi dan demo.</h2>
-          <p>
-            Sebelum pembaca melihat sinyal, mereka perlu tahu asal keputusan model. Storyboard ini membuat pipeline
-            riset terlihat sebagai rangkaian keputusan yang bisa diaudit.
-          </p>
-
-          <div class="storyboard" data-od-id="model-storyboard">
-            <section class="story-step">
-              <span class="num">1</span>
-              <div>
-                <h3>Ambil data harga emiten energi.</h3>
-                <p class="muted">
-                  Data historis dipakai sebagai bahan mentah. UI cukup menampilkan cakupan waktu, sumber data,
-                  dan daftar emiten yang ikut diuji.
-                </p>
-                <div class="story-tags">
-                  <span>OHLCV</span>
-                  <span>IDX energy</span>
-                  <span>2015-2025</span>
-                </div>
-              </div>
-            </section>
-
-            <section class="story-step">
-              <span class="num">2</span>
-              <div>
-                <h3>Ubah harga menjadi indikator teknikal.</h3>
-                <p class="muted">
-                  Bollinger Bands, Stochastic, OBV, ADX, dan ATR menjadi bahasa antara data pasar dan model.
-                  Ini lebih mudah dipahami jika divisualkan sebagai lapisan fitur.
-                </p>
-                <div class="story-tags">
-                  <span>ADX</span>
-                  <span>OBV</span>
-                  <span>ATR</span>
-                </div>
-              </div>
-            </section>
-
-            <section class="story-step">
-              <span class="num">3</span>
-              <div>
-                <h3>Bentuk label BUY, HOLD, SELL.</h3>
-                <p class="muted">
-                  Label sebaiknya dijelaskan sebagai aturan penelitian, bukan janji profit. Di sini pembaca melihat
-                  kapan data disebut naik, netral, atau turun.
-                </p>
-                <div class="story-tags">
-                  <span>3-class</span>
-                  <span>ATR rule</span>
-                  <span>horizon</span>
-                </div>
-              </div>
-            </section>
-
-            <section class="story-step">
-              <span class="num">4</span>
-              <div>
-                <h3>Latih SVM dengan validasi waktu.</h3>
-                <p class="muted">
-                  Untuk demo publik, bagian ini harus menampilkan bahwa data masa depan tidak ikut mengajari model
-                  masa lalu. Split waktu adalah bagian dari desain kepercayaan.
-                </p>
-                <div class="story-tags">
-                  <span>SVM</span>
-                  <span>time split</span>
-                  <span>gap check</span>
-                </div>
-              </div>
-            </section>
-
-            <section class="story-step">
-              <span class="num">5</span>
-              <div>
-                <h3>Bandingkan sinyal dengan backtest.</h3>
-                <p class="muted">
-                  Output akhir bukan hanya sinyal hari ini. Pembaca juga perlu melihat performa historis,
-                  confusion matrix, dan kapan model gagal.
-                </p>
-                <div class="story-tags">
-                  <span>backtest</span>
-                  <span>confusion</span>
-                  <span>risk note</span>
-                </div>
-              </div>
             </section>
           </div>
         </section>
 
         <section class="chapter" id="temuan" data-section="Temuan utama">
-          <p class="chapter-label">06 / finding</p>
+          <p class="chapter-label">05 / finding</p>
           <h2>Temuan dibuat sebagai kalimat yang bisa diingat.</h2>
           <blockquote class="pull" data-od-id="pull-quote">
             Saat buy and hold ambles -48,91%, strategi SVM menahan rata-rata kerugian di -9,35%.
@@ -429,7 +272,7 @@
         </section>
 
         <section class="chapter" id="implikasi" data-section="Implikasi">
-          <p class="chapter-label">07 / meaning</p>
+          <p class="chapter-label">06 / meaning</p>
           <h2>Akhirnya harus menjawab: jadi apa?</h2>
           <p>
             Untuk investor: model ini menawarkan disiplin keluar-masuk yang menekan kerugian saat pasar
@@ -512,11 +355,7 @@
 
     const modelForm = document.getElementById("modelForm");
     const tickerSelect = document.getElementById("tickerSelect");
-    const windowSelect = document.getElementById("windowSelect");
     const modelStatus = document.getElementById("modelStatus");
-    const endpointField = document.getElementById("endpointField");
-    const endpointInput = document.getElementById("endpointInput");
-    const modeButtons = Array.from(document.querySelectorAll("[data-mode]"));
     const resultTicker = document.getElementById("resultTicker");
     const resultTitle = document.getElementById("resultTitle");
     const signalChip = document.getElementById("signalChip");
@@ -526,15 +365,12 @@
     const f1Text = document.getElementById("f1Text");
     const horizonText = document.getElementById("horizonText");
     const decisionCopy = document.getElementById("decisionCopy");
-    const responseContract = document.getElementById("responseContract");
     const featureEls = {
       adx: [document.getElementById("adxMeter"), document.getElementById("adxText")],
       obv: [document.getElementById("obvMeter"), document.getElementById("obvText")],
       stochastic: [document.getElementById("stochMeter"), document.getElementById("stochText")],
       atr: [document.getElementById("atrMeter"), document.getElementById("atrText")]
     };
-
-    let connection = "mock";
 
     const sampleResponses = {
       ADRO: { signal: "HOLD", confidence: 0.54, macroF1: null, features: { adx: 46, obv: 38, stochastic: 62, atr: 35 } },
@@ -559,20 +395,8 @@
       SELL: "Sinyal sample membaca tekanan turun atau risiko terlalu tinggi. Di demo final, tampilkan juga apakah ini exit atau no-entry."
     };
 
-    const setMode = (nextMode) => {
-      connection = nextMode;
-      modeButtons.forEach((button) => {
-        button.setAttribute("aria-pressed", button.dataset.mode === nextMode ? "true" : "false");
-      });
-      endpointField.hidden = nextMode !== "api";
-      modelStatus.textContent = nextMode === "api"
-        ? "Akan mencoba endpoint backend, lalu fallback ke sample jika gagal."
-        : "Siap menjalankan sample response.";
-    };
-
-    const normalizeResponse = (raw, ticker, windowMode) => ({
+    const normalizeResponse = (raw, ticker) => ({
       ticker,
-      window: windowMode,
       signal: String(raw.signal || "HOLD").toUpperCase(),
       confidence: Number(raw.confidence ?? 0.5),
       macroF1: raw.macroF1 ?? raw.macro_f1 ?? null,
@@ -588,7 +412,7 @@
     const renderResponse = (response) => {
       const confidencePct = Math.round(Math.max(0, Math.min(1, response.confidence)) * 100);
       const f1Value = response.macroF1 == null ? null : Math.round(Math.max(0, Math.min(1, Number(response.macroF1))) * 100);
-      resultTicker.textContent = `${response.ticker} / ${response.window}`;
+      resultTicker.textContent = response.ticker;
       resultTitle.textContent = `Output SVM: ${response.signal}`;
       signalChip.textContent = response.signal;
       signalChip.dataset.signal = response.signal;
@@ -606,51 +430,23 @@
         meter.style.setProperty("--value", `${bounded}%`);
         label.textContent = String(bounded);
       });
-
-      responseContract.textContent = JSON.stringify(response, null, 2);
     };
 
-    const requestPrediction = async (payload) => {
-      if (connection !== "api") {
-        return sampleResponses[payload.ticker] || sampleResponses.ADRO;
-      }
-
-      try {
-        const res = await fetch(endpointInput.value || "/api/predict", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        modelStatus.textContent = "Backend merespons. Output memakai data model.";
-        return await res.json();
-      } catch (error) {
-        modelStatus.textContent = "Backend belum tersedia. UI memakai sample response sementara.";
-        return sampleResponses[payload.ticker] || sampleResponses.ADRO;
-      }
-    };
-
-    modeButtons.forEach((button) => {
-      button.addEventListener("click", () => setMode(button.dataset.mode));
-    });
+    const requestPrediction = (ticker) => sampleResponses[ticker] || sampleResponses.ADRO;
 
     modelForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const payload = {
-        ticker: tickerSelect.value,
-        window: windowSelect.value
-      };
-      modelStatus.textContent = "Menjalankan pipeline demo...";
+      const ticker = tickerSelect.value;
+      modelStatus.textContent = "Menjalankan demo...";
       modelForm.querySelector("button[type='submit']").disabled = true;
       await new Promise((resolve) => setTimeout(resolve, 420));
-      const raw = await requestPrediction(payload);
-      const response = normalizeResponse(raw, payload.ticker, payload.window);
+      const response = normalizeResponse(requestPrediction(ticker), ticker);
       renderResponse(response);
-      modelStatus.textContent = connection === "api" ? modelStatus.textContent : "Sample response selesai dirender.";
+      modelStatus.textContent = "Sinyal sample selesai dirender.";
       modelForm.querySelector("button[type='submit']").disabled = false;
     });
 
-    renderResponse(normalizeResponse(sampleResponses.ADRO, "ADRO", "latest"));
+    renderResponse(normalizeResponse(sampleResponses.ADRO, "ADRO"));
   </script>
 </body>
 </html>
