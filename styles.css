@@ -190,80 +190,14 @@
       border-color: var(--border);
     }
 
-    .hero-plate {
-      position: relative;
-      min-block-size: 520px;
-      border-block: 1px solid var(--border);
-      padding: clamp(20px, 3vw, 34px);
-      background: color-mix(in oklch, var(--surface) 88%, transparent);
-      overflow: hidden;
-    }
 
-    .hero-plate::before {
-      content: "";
-      position: absolute;
-      inset-block: 0;
-      inset-inline-start: 28%;
-      border-inline-start: 1px solid var(--border);
-    }
 
-    .plate-label {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      margin-block-end: 80px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
 
-    .thesis-map {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 84px 1fr;
-      gap: 20px;
-      align-items: start;
-    }
 
-    .folio {
-      font-family: var(--font-display);
-      font-size: 58px;
-      line-height: 1;
-      letter-spacing: -0.03em;
-    }
 
-    .map-list {
-      display: grid;
-      gap: 18px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
 
-    .map-list li {
-      padding-block-end: 18px;
-      border-block-end: 1px solid var(--border);
-    }
 
-    .map-list strong {
-      display: block;
-      font-size: 17px;
-      line-height: 1.25;
-    }
 
-    .map-list span {
-      display: block;
-      max-inline-size: 34ch;
-      margin-block-start: 6px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
 
     .layout {
       display: grid;
@@ -547,27 +481,8 @@
       color: var(--fg);
     }
 
-    .mode-switch {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
 
-    .mode-switch button {
-      min-block-size: 44px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--fg);
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 600;
-    }
 
-    .mode-switch button[aria-pressed="true"] {
-      background: var(--fg);
-      border-color: var(--fg);
-      color: var(--surface);
-    }
 
     .run-row {
       display: grid;
@@ -689,83 +604,15 @@
       line-height: 1.55;
     }
 
-    .contract-box {
-      margin-block-start: 18px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      padding: 14px;
-    }
 
-    .contract-box pre {
-      margin: 0;
-      overflow-x: auto;
-      color: var(--fg);
-      font-family: ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace;
-      font-size: 12px;
-      line-height: 1.55;
-      white-space: pre;
-    }
 
-    .storyboard {
-      display: grid;
-      gap: 0;
-      margin-block: 38px 16px;
-      border-block: 1px solid var(--border);
-    }
 
-    .story-step {
-      display: grid;
-      grid-template-columns: 76px minmax(0, 1fr);
-      gap: 20px;
-      padding: 22px 0;
-      border-block-end: 1px solid var(--border);
-    }
 
-    .story-step:last-child {
-      border-block-end: 0;
-    }
 
-    .story-step .num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      inline-size: 48px;
-      block-size: 48px;
-      border: 1px solid var(--fg);
-      border-radius: 50%;
-      font-family: var(--font-display);
-      font-size: 24px;
-      line-height: 1;
-    }
 
-    .story-step h3 {
-      margin: 0 0 8px;
-      font-size: 20px;
-      font-weight: 600;
-      line-height: 1.22;
-      letter-spacing: -0.005em;
-    }
 
-    .story-step p {
-      margin: 0;
-    }
 
-    .story-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-block-start: 12px;
-    }
 
-    .story-tags span {
-      border: 1px solid var(--border);
-      padding: 4px 8px;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
 
     .pull {
       margin: 52px 0;
@@ -874,9 +721,6 @@
         min-block-size: auto;
       }
 
-      .hero-plate {
-        min-block-size: 420px;
-      }
 
       .layout,
       .handoff {
@@ -914,9 +758,6 @@
         inline-size: 100%;
       }
 
-      .thesis-map {
-        grid-template-columns: 1fr;
-      }
 
       .run-row,
       .signal-header,
@@ -930,9 +771,6 @@
         text-align: start;
       }
 
-      .folio {
-        font-size: 42px;
-      }
 
       .chapter {
         padding-block: 42px 58px;
