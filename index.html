@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Interactive Skripsi - Scrollytelling Academic</title>
+  <title>Skripsi Interaktif - SVM Trading Strategy Saham Energi</title>
   <style>
     :root {
       --bg:      oklch(97% 0.012 80);
@@ -1075,22 +1075,24 @@
       <a href="#ml-demo">ML Demo</a>
       <a href="#storyboard">Storyboard</a>
       <a href="#temuan">Temuan</a>
-      <a href="#handoff">Isi nanti</a>
+      <a href="#handoff">Penutup</a>
     </nav>
   </header>
 
   <main>
     <section class="hero" data-od-id="hero">
       <div>
-        <p class="kicker">Interactive explainer / clean academic</p>
-        <h1 data-od-id="headline">Ubah skripsi menjadi cerita riset yang bisa dijelajahi.</h1>
+        <p class="kicker">Skripsi Informatika, UKDW 2026</p>
+        <h1 data-od-id="headline">Bisakah mesin membaca sinyal jual-beli saham energi?</h1>
         <p class="deck">
-          Sebuah konsep scrollytelling minimalis untuk membuat skripsi terasa lebih ringan bagi pembaca umum:
-          satu alur, satu fokus, dan ruang yang siap diisi dengan data final.
+          Skripsi ini melatih Support Vector Machine dengan empat indikator teknikal untuk
+          mengklasifikasi sinyal BUY, HOLD, dan SELL pada 14 saham sektor energi di Bursa Efek
+          Indonesia, memakai data harian 2015-2025. Gulir untuk menelusuri masalah, metode, dan
+          hasilnya, lalu coba modelnya sendiri.
         </p>
         <div class="hero-actions">
           <button class="btn" data-jump="masalah" type="button">Mulai dari masalah</button>
-          <button class="btn secondary" data-jump="handoff" type="button">Lihat slot konten</button>
+          <button class="btn secondary" data-jump="ml-demo" type="button">Coba demo SVM</button>
         </div>
       </div>
 
@@ -1164,17 +1166,19 @@
             diperhatikan, siapa yang terdampak, dan pertanyaan apa yang ingin dijawab penelitian.
           </p>
           <p class="muted">
-            Slot isi nanti: judul skripsi, latar belakang singkat, objek penelitian, dan satu kalimat
-            "mengapa ini penting" dalam bahasa non-akademik.
+            Per Desember 2025 jumlah investor pasar modal Indonesia menembus 20,35 juta. Saham
+            energi menarik tapi sangat fluktuatif: harganya digerakkan komoditas global, geopolitik,
+            dan nilai tukar, menghasilkan pola non-linear penuh noise yang sulit dibaca analisis
+            teknikal biasa.
           </p>
           <div class="spec-grid">
             <div class="spec-card">
-              <p class="small">Hero copy</p>
-              <strong>[Judul skripsi dalam versi publik]</strong>
+              <p class="small">Objek penelitian</p>
+              <strong>14 saham sektor energi berkapitalisasi terbesar di Bursa Efek Indonesia</strong>
             </div>
             <div class="spec-card">
-              <p class="small">Core question</p>
-              <strong>[Pertanyaan riset utama]</strong>
+              <p class="small">Pertanyaan inti</p>
+              <strong>Bisakah sinyal SVM mengungguli strategi beli-dan-tahan?</strong>
             </div>
           </div>
         </section>
@@ -1189,25 +1193,26 @@
           </p>
           <div class="method-strip" aria-label="Alur metode">
             <div class="method-step">
-              <span>Input</span>
-              <b>[Dataset / responden / dokumen]</b>
+              <span>Data</span>
+              <b>Harga harian 14 saham energi IDX, 2015-2025 (yfinance)</b>
             </div>
             <div class="method-step">
-              <span>Filter</span>
-              <b>[Kriteria pilihan data]</b>
+              <span>Fitur</span>
+              <b>Bollinger Bands, Stochastic, OBV, ADX</b>
             </div>
             <div class="method-step">
-              <span>Analyze</span>
-              <b>[Metode analisis]</b>
+              <span>Model</span>
+              <b>SVM 3 kernel + grid search, split waktu 70/30</b>
             </div>
             <div class="method-step">
-              <span>Limit</span>
-              <b>[Batasan penelitian]</b>
+              <span>Label</span>
+              <b>3 kelas BUY/HOLD/SELL via aturan ATR; backtest 2023-2025</b>
             </div>
           </div>
           <p class="muted">
-            Interaksi yang disarankan: setiap kartu metode bisa dibuka untuk menampilkan definisi, rumus,
-            atau contoh kecil. Default-nya tetap ringkas agar tidak terasa seperti PDF dipindahkan mentah.
+            Lima tahap penelitian: kumpulkan data, bangun indikator teknikal, beri label arah harga,
+            latih SVM dengan validasi waktu, lalu uji lewat backtest. Setiap kartu di atas adalah satu
+            keputusan riset, bukan sekadar langkah teknis.
           </p>
         </section>
 
@@ -1215,13 +1220,14 @@
           <p class="chapter-label">03 / evidence</p>
           <h2>Data diberi ruang, bukan dekorasi.</h2>
           <p>
-            Karena isi final belum dimasukkan, area visual di bawah dibuat sebagai placeholder jujur.
-            Nanti bisa diganti dengan chart, tabel ringkas, peta konsep, atau screenshot instrumen penelitian.
+            Hasil model paling jelas dibaca lewat perbandingan kurva return: strategi SVM versus
+            beli-dan-tahan, lengkap dengan drawdown saat pasar turun. Ruang di bawah disiapkan untuk
+            grafik backtest tiap emiten.
           </p>
           <figure class="figure" data-od-id="hero-figure">
             <div class="visual" role="img" aria-label="Placeholder visual data skripsi"></div>
             <figcaption>
-              Placeholder visual: gunakan untuk chart utama, alur sistem, matriks hasil, atau komparasi sebelum-sesudah.
+              Slot grafik: kurva return SVM vs buy and hold, atau perbandingan drawdown (mis. ITMG, ENRG, PTRO).
             </figcaption>
           </figure>
           <p>
@@ -1465,16 +1471,17 @@
           <p class="chapter-label">06 / finding</p>
           <h2>Temuan dibuat sebagai kalimat yang bisa diingat.</h2>
           <blockquote class="pull" data-od-id="pull-quote">
-            [Satu temuan paling kuat dari skripsi ditulis sebagai kalimat pendek, bukan angka lepas.]
+            Saat buy and hold ambles -48,91%, strategi SVM menahan rata-rata kerugian di -9,35%.
           </blockquote>
           <p>
-            Setelah temuan utama, baru masukkan bukti pendukung. Hindari klaim berlebihan seperti "paling efektif"
-            jika skripsi hanya menunjukkan korelasi, persepsi, atau perbandingan terbatas.
+            Angka di atas bukan janji profit. Dari 14 emiten, 10 mencatat return positif (rata-rata
+            27,29%) dan SVM mengungguli beli-dan-tahan pada 7 emiten, paling terasa justru ketika
+            pasar sedang turun.
           </p>
           <ul class="quiet-list">
-            <li><span>A</span><div>[Pola pertama yang ditemukan]</div></li>
-            <li><span>B</span><div>[Faktor yang memperkuat atau melemahkan pola]</div></li>
-            <li><span>C</span><div>[Hal yang tidak terbukti atau perlu hati-hati dibaca]</div></li>
+            <li><span>A</span><div>SVM paling unggul di saham bearish: BUMI +17,15% vs -29,81%, ITMG +8,25% vs -44,38%.</div></li>
+            <li><span>B</span><div>Kernel Polynomial paling sering terpilih (6 dari 14 emiten), menandakan hubungan non-linear indikator dan sinyal.</div></li>
+            <li><span>C</span><div>Akurasi arah masih rendah (rata-rata F1 39,70%, terbaik DEWA 47,86%); keunggulan nyata ada di manajemen risiko.</div></li>
           </ul>
         </section>
 
@@ -1482,12 +1489,15 @@
           <p class="chapter-label">07 / meaning</p>
           <h2>Akhirnya harus menjawab: jadi apa?</h2>
           <p>
-            Penutup scrollytelling tidak perlu menjadi kesimpulan Bab V versi panjang. Buat tiga lapis:
-            arti temuan bagi pembaca umum, dampak praktis bagi pihak terkait, dan pertanyaan lanjutan.
+            Untuk investor: model ini menawarkan disiplin keluar-masuk yang menekan kerugian saat pasar
+            energi bergejolak. Untuk akademisi: memadukan indikator volatilitas, momentum, volume, dan
+            tren pada SVM membuka ruang kajian lanjutan. Dan satu catatan jujur, ini alat bantu riset,
+            bukan rekomendasi investasi.
           </p>
           <p class="muted">
-            Slot isi nanti: rekomendasi, keterbatasan, kontribusi penelitian, dan call-to-action ringan seperti
-            "baca PDF lengkap" atau "lihat data pendukung".
+            Keterbatasan: cakupan hanya sektor energi, F1 masih rendah, dan backtest belum memodelkan
+            biaya transaksi serta slippage. Lanjutan yang mungkin: menambah fitur fundamental, mencoba
+            algoritma lain, atau memperluas ke sektor berbeda.
           </p>
         </section>
       </article>
@@ -1539,20 +1549,21 @@
 
     <section class="handoff" id="handoff" data-od-id="related-grid">
       <div>
-        <p class="chapter-label">Next step</p>
-        <h2>Konten final tinggal dipasang ke struktur ini.</h2>
+        <p class="chapter-label">Penutup</p>
+        <h2>Riset ini alat bantu, bukan ramalan.</h2>
         <p>
-          Ketika isi skripsi sudah dipilih, bagian ini bisa berubah dari konsep desain menjadi project lengkap:
-          copy final, chart asli, live endpoint model, dan tautan PDF lengkap.
+          SVM tidak menebak harga; ia menyaring kapan sebaiknya masuk, diam, atau keluar dari saham
+          energi yang bergejolak. Nilai utamanya bukan akurasi tinggi, melainkan kerugian yang jauh
+          lebih terkendali saat pasar turun.
         </p>
       </div>
       <div class="handoff-card">
         <ol>
-          <li>Ganti headline dengan judul publik skripsi.</li>
-          <li>Hubungkan tombol Run SVM demo ke endpoint model.</li>
-          <li>Kirim response sesuai contract: ticker, signal, confidence, fitur, dan metrik.</li>
-          <li>Tambahkan visual backtest asli untuk temuan terkuat.</li>
-          <li>Letakkan PDF lengkap sebagai referensi, bukan sebagai pengalaman utama.</li>
+          <li>SVM + 4 indikator teknikal pada 14 saham energi (2015-2025).</li>
+          <li>Sinyal 3 kelas: BUY, HOLD, SELL.</li>
+          <li>10 dari 14 emiten mencatat return positif (rata-rata 27,29%).</li>
+          <li>Drawdown jauh lebih kecil: -9,35% vs -48,91% buy and hold.</li>
+          <li>Baca skripsi lengkap untuk metode dan pembahasan penuh.</li>
         </ol>
       </div>
     </section>
