@@ -239,9 +239,9 @@
                   <span id="stochText">62</span>
                 </div>
                 <div class="feature-row">
-                  <span>ATR</span>
-                  <span class="meter"><span id="atrMeter" style="--value: 35%"></span></span>
-                  <span id="atrText">35</span>
+                  <span>BB</span>
+                  <span class="meter"><span id="bbMeter" style="--value: 35%"></span></span>
+                  <span id="bbText">35</span>
                 </div>
               </div>
 
@@ -369,24 +369,24 @@
       adx: [document.getElementById("adxMeter"), document.getElementById("adxText")],
       obv: [document.getElementById("obvMeter"), document.getElementById("obvText")],
       stochastic: [document.getElementById("stochMeter"), document.getElementById("stochText")],
-      atr: [document.getElementById("atrMeter"), document.getElementById("atrText")]
+      bb: [document.getElementById("bbMeter"), document.getElementById("bbText")]
     };
 
     const sampleResponses = {
-      ADRO: { signal: "HOLD", confidence: 0.54, macroF1: null, features: { adx: 46, obv: 38, stochastic: 62, atr: 35 } },
-      AKRA: { signal: "BUY", confidence: 0.61, macroF1: null, features: { adx: 58, obv: 64, stochastic: 71, atr: 42 } },
-      BUMI: { signal: "SELL", confidence: 0.57, macroF1: null, features: { adx: 66, obv: 29, stochastic: 34, atr: 68 } },
-      BYAN: { signal: "HOLD", confidence: 0.49, macroF1: null, features: { adx: 31, obv: 46, stochastic: 52, atr: 24 } },
-      DEWA: { signal: "SELL", confidence: 0.52, macroF1: null, features: { adx: 63, obv: 33, stochastic: 37, atr: 59 } },
-      DSSA: { signal: "HOLD", confidence: 0.55, macroF1: null, features: { adx: 41, obv: 52, stochastic: 48, atr: 32 } },
-      ENRG: { signal: "BUY", confidence: 0.59, macroF1: null, features: { adx: 53, obv: 68, stochastic: 69, atr: 45 } },
-      GEMS: { signal: "BUY", confidence: 0.67, macroF1: null, features: { adx: 71, obv: 73, stochastic: 76, atr: 51 } },
-      ITMG: { signal: "HOLD", confidence: 0.56, macroF1: null, features: { adx: 49, obv: 57, stochastic: 54, atr: 39 } },
-      MEDC: { signal: "BUY", confidence: 0.62, macroF1: null, features: { adx: 60, obv: 61, stochastic: 70, atr: 48 } },
-      PGAS: { signal: "HOLD", confidence: 0.53, macroF1: null, features: { adx: 43, obv: 44, stochastic: 51, atr: 36 } },
-      PTBA: { signal: "SELL", confidence: 0.58, macroF1: null, features: { adx: 67, obv: 35, stochastic: 31, atr: 63 } },
-      PTRO: { signal: "BUY", confidence: 0.64, macroF1: null, features: { adx: 62, obv: 66, stochastic: 74, atr: 47 } },
-      RAJA: { signal: "HOLD", confidence: 0.51, macroF1: null, features: { adx: 37, obv: 48, stochastic: 45, atr: 55 } }
+      ADRO: { signal: "HOLD", confidence: 0.54, macroF1: null, features: { adx: 46, obv: 38, stochastic: 62, bb: 35 } },
+      AKRA: { signal: "BUY", confidence: 0.61, macroF1: null, features: { adx: 58, obv: 64, stochastic: 71, bb: 42 } },
+      BUMI: { signal: "SELL", confidence: 0.57, macroF1: null, features: { adx: 66, obv: 29, stochastic: 34, bb: 68 } },
+      BYAN: { signal: "HOLD", confidence: 0.49, macroF1: null, features: { adx: 31, obv: 46, stochastic: 52, bb: 24 } },
+      DEWA: { signal: "SELL", confidence: 0.52, macroF1: null, features: { adx: 63, obv: 33, stochastic: 37, bb: 59 } },
+      DSSA: { signal: "HOLD", confidence: 0.55, macroF1: null, features: { adx: 41, obv: 52, stochastic: 48, bb: 32 } },
+      ENRG: { signal: "BUY", confidence: 0.59, macroF1: null, features: { adx: 53, obv: 68, stochastic: 69, bb: 45 } },
+      GEMS: { signal: "BUY", confidence: 0.67, macroF1: null, features: { adx: 71, obv: 73, stochastic: 76, bb: 51 } },
+      ITMG: { signal: "HOLD", confidence: 0.56, macroF1: null, features: { adx: 49, obv: 57, stochastic: 54, bb: 39 } },
+      MEDC: { signal: "BUY", confidence: 0.62, macroF1: null, features: { adx: 60, obv: 61, stochastic: 70, bb: 48 } },
+      PGAS: { signal: "HOLD", confidence: 0.53, macroF1: null, features: { adx: 43, obv: 44, stochastic: 51, bb: 36 } },
+      PTBA: { signal: "SELL", confidence: 0.58, macroF1: null, features: { adx: 67, obv: 35, stochastic: 31, bb: 63 } },
+      PTRO: { signal: "BUY", confidence: 0.64, macroF1: null, features: { adx: 62, obv: 66, stochastic: 74, bb: 47 } },
+      RAJA: { signal: "HOLD", confidence: 0.51, macroF1: null, features: { adx: 37, obv: 48, stochastic: 45, bb: 55 } }
     };
 
     const signalCopy = {
@@ -405,7 +405,7 @@
         adx: Number(raw.features?.adx ?? raw.adx ?? 0),
         obv: Number(raw.features?.obv ?? raw.obv ?? 0),
         stochastic: Number(raw.features?.stochastic ?? raw.stochastic ?? 0),
-        atr: Number(raw.features?.atr ?? raw.atr ?? 0)
+        bb: Number(raw.features?.bb ?? raw.bb ?? 0)
       }
     });
 
