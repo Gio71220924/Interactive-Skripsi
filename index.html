@@ -19,13 +19,14 @@
       <a href="#temuan">Temuan</a>
       <a href="#handoff">Penutup</a>
     </nav>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Ganti tema gelap/terang">Dark</button>
   </header>
 
   <main>
-    <section class="hero" data-od-id="hero">
+    <section class="hero">
       <div>
         <p class="kicker">Skripsi Informatika, UKDW 2026</p>
-        <h1 data-od-id="headline">Bisakah mesin membaca sinyal jual-beli saham energi?</h1>
+        <h1>Bisakah mesin membaca sinyal jual-beli saham energi?</h1>
         <p class="deck">
           Skripsi ini melatih Support Vector Machine dengan empat indikator teknikal untuk
           mengklasifikasi sinyal BUY, HOLD, dan SELL pada 14 saham sektor energi di Bursa Efek
@@ -67,8 +68,8 @@
         </button>
       </nav>
 
-      <article class="article" data-od-id="body">
-        <section class="chapter is-visible" id="masalah" data-section="Masalah riset">
+      <article class="article">
+        <section class="chapter is-visible" id="masalah">
           <h2>Mulai dari masalah, bukan dari bab.</h2>
           <p>
             Mengapa saham energi sulit ditebak? Harganya bergerak non-linear dan penuh kejutan,
@@ -92,7 +93,7 @@
           </div>
         </section>
 
-        <section class="chapter" id="metode" data-section="Metode">
+        <section class="chapter" id="metode">
           <h2>Metode dibuat seperti peta kerja.</h2>
           <p>
             Empat indikator teknikal jadi mata model: masing-masing menangkap satu sisi pasar,
@@ -123,14 +124,14 @@
           </p>
         </section>
 
-        <section class="chapter" id="analisis" data-section="Ruang analisis">
+        <section class="chapter" id="analisis">
           <h2>Data diberi ruang, bukan dekorasi.</h2>
           <p>
             Hasil model paling jelas dibaca lewat perbandingan kurva return: strategi SVM versus
             beli-dan-tahan, lengkap dengan drawdown saat pasar turun. Ruang di bawah disiapkan untuk
             grafik backtest tiap emiten.
           </p>
-          <figure class="figure" data-od-id="hero-figure">
+          <figure class="figure">
             <div class="visual" role="img" aria-label="Placeholder visual data skripsi"></div>
             <figcaption>
               Slot grafik: kurva return SVM vs buy and hold, atau perbandingan drawdown (mis. ITMG, ENRG, PTRO).
@@ -142,7 +143,7 @@
           </p>
         </section>
 
-        <section class="chapter" id="ml-demo" data-section="ML Demo Lab">
+        <section class="chapter" id="ml-demo">
           <h2>Demo model dibuat terasa seperti ruang uji.</h2>
           <p>
             Bagian ini disiapkan untuk model SVM trading strategy. Pembaca memilih emiten, menentukan sumber data,
@@ -150,7 +151,7 @@
             <strong>SELL</strong>. UI-nya sengaja seperti lab kecil, bukan terminal teknis.
           </p>
 
-          <div class="ml-lab" data-od-id="ml-demo-lab">
+          <div class="ml-lab">
             <section class="lab-controls" aria-label="Kontrol demo model">
               <p class="lab-kicker">SVM signal runner</p>
               <h3>Jalankan satu skenario.</h3>
@@ -238,9 +239,9 @@
           </div>
         </section>
 
-        <section class="chapter" id="temuan" data-section="Temuan utama">
+        <section class="chapter" id="temuan">
           <h2>Temuan dibuat sebagai kalimat yang bisa diingat.</h2>
-          <blockquote class="pull" data-od-id="pull-quote">
+          <blockquote class="pull">
             Saat buy and hold ambles -48,91%, strategi SVM menahan rata-rata kerugian di -9,35%.
           </blockquote>
           <p>
@@ -255,7 +256,7 @@
           </ul>
         </section>
 
-        <section class="chapter" id="implikasi" data-section="Implikasi">
+        <section class="chapter" id="implikasi">
           <h2>Akhirnya harus menjawab: jadi apa?</h2>
           <p>
             Untuk investor: model ini menawarkan disiplin keluar-masuk yang menekan kerugian saat pasar
@@ -273,7 +274,7 @@
 
     </div>
 
-    <section class="handoff" id="handoff" data-od-id="related-grid">
+    <section class="handoff" id="handoff">
       <div>
         <p class="chapter-label">Penutup</p>
         <h2>Riset ini alat bantu, bukan ramalan.</h2>
@@ -353,20 +354,20 @@
     };
 
     const sampleResponses = {
-      ADRO: { signal: "HOLD", confidence: 0.54, macroF1: null, features: { adx: 46, obv: 38, stochastic: 62, bb: 35 } },
-      AKRA: { signal: "BUY", confidence: 0.61, macroF1: null, features: { adx: 58, obv: 64, stochastic: 71, bb: 42 } },
-      BUMI: { signal: "SELL", confidence: 0.57, macroF1: null, features: { adx: 66, obv: 29, stochastic: 34, bb: 68 } },
-      BYAN: { signal: "HOLD", confidence: 0.49, macroF1: null, features: { adx: 31, obv: 46, stochastic: 52, bb: 24 } },
-      DEWA: { signal: "SELL", confidence: 0.52, macroF1: null, features: { adx: 63, obv: 33, stochastic: 37, bb: 59 } },
-      DSSA: { signal: "HOLD", confidence: 0.55, macroF1: null, features: { adx: 41, obv: 52, stochastic: 48, bb: 32 } },
-      ENRG: { signal: "BUY", confidence: 0.59, macroF1: null, features: { adx: 53, obv: 68, stochastic: 69, bb: 45 } },
-      GEMS: { signal: "BUY", confidence: 0.67, macroF1: null, features: { adx: 71, obv: 73, stochastic: 76, bb: 51 } },
-      ITMG: { signal: "HOLD", confidence: 0.56, macroF1: null, features: { adx: 49, obv: 57, stochastic: 54, bb: 39 } },
-      MEDC: { signal: "BUY", confidence: 0.62, macroF1: null, features: { adx: 60, obv: 61, stochastic: 70, bb: 48 } },
-      PGAS: { signal: "HOLD", confidence: 0.53, macroF1: null, features: { adx: 43, obv: 44, stochastic: 51, bb: 36 } },
-      PTBA: { signal: "SELL", confidence: 0.58, macroF1: null, features: { adx: 67, obv: 35, stochastic: 31, bb: 63 } },
-      PTRO: { signal: "BUY", confidence: 0.64, macroF1: null, features: { adx: 62, obv: 66, stochastic: 74, bb: 47 } },
-      RAJA: { signal: "HOLD", confidence: 0.51, macroF1: null, features: { adx: 37, obv: 48, stochastic: 45, bb: 55 } }
+      ADRO: { signal: "HOLD", confidence: 0.54, features: { adx: 46, obv: 38, stochastic: 62, bb: 35 } },
+      AKRA: { signal: "BUY", confidence: 0.61, features: { adx: 58, obv: 64, stochastic: 71, bb: 42 } },
+      BUMI: { signal: "SELL", confidence: 0.57, features: { adx: 66, obv: 29, stochastic: 34, bb: 68 } },
+      BYAN: { signal: "HOLD", confidence: 0.49, features: { adx: 31, obv: 46, stochastic: 52, bb: 24 } },
+      DEWA: { signal: "SELL", confidence: 0.52, features: { adx: 63, obv: 33, stochastic: 37, bb: 59 } },
+      DSSA: { signal: "HOLD", confidence: 0.55, features: { adx: 41, obv: 52, stochastic: 48, bb: 32 } },
+      ENRG: { signal: "BUY", confidence: 0.59, features: { adx: 53, obv: 68, stochastic: 69, bb: 45 } },
+      GEMS: { signal: "BUY", confidence: 0.67, features: { adx: 71, obv: 73, stochastic: 76, bb: 51 } },
+      ITMG: { signal: "HOLD", confidence: 0.56, features: { adx: 49, obv: 57, stochastic: 54, bb: 39 } },
+      MEDC: { signal: "BUY", confidence: 0.62, features: { adx: 60, obv: 61, stochastic: 70, bb: 48 } },
+      PGAS: { signal: "HOLD", confidence: 0.53, features: { adx: 43, obv: 44, stochastic: 51, bb: 36 } },
+      PTBA: { signal: "SELL", confidence: 0.58, features: { adx: 67, obv: 35, stochastic: 31, bb: 63 } },
+      PTRO: { signal: "BUY", confidence: 0.64, features: { adx: 62, obv: 66, stochastic: 74, bb: 47 } },
+      RAJA: { signal: "HOLD", confidence: 0.51, features: { adx: 37, obv: 48, stochastic: 45, bb: 55 } }
     };
 
     const signalCopy = {
@@ -379,8 +380,6 @@
       ticker,
       signal: String(raw.signal || "HOLD").toUpperCase(),
       confidence: Number(raw.confidence ?? 0.5),
-      macroF1: raw.macroF1 ?? raw.macro_f1 ?? null,
-      horizon: raw.horizon || "5D",
       features: {
         adx: Number(raw.features?.adx ?? raw.adx ?? 0),
         obv: Number(raw.features?.obv ?? raw.obv ?? 0),
@@ -408,21 +407,33 @@
       });
     };
 
-    const requestPrediction = (ticker) => sampleResponses[ticker] || sampleResponses.ADRO;
-
     modelForm.addEventListener("submit", async (event) => {
       event.preventDefault();
       const ticker = tickerSelect.value;
       modelStatus.textContent = "Menjalankan demo...";
       modelForm.querySelector("button[type='submit']").disabled = true;
       await new Promise((resolve) => setTimeout(resolve, 420));
-      const response = normalizeResponse(requestPrediction(ticker), ticker);
+      const response = normalizeResponse(sampleResponses[ticker] || sampleResponses.ADRO, ticker);
       renderResponse(response);
       modelStatus.textContent = "Sinyal sample selesai dirender.";
       modelForm.querySelector("button[type='submit']").disabled = false;
     });
 
     renderResponse(normalizeResponse(sampleResponses.ADRO, "ADRO"));
+
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    const applyTheme = (t) => {
+      root.dataset.theme = t;
+      themeToggle.textContent = t === "dark" ? "Light" : "Dark";
+    };
+    applyTheme(localStorage.getItem("theme")
+      || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+    themeToggle.addEventListener("click", () => {
+      const next = root.dataset.theme === "dark" ? "light" : "dark";
+      localStorage.setItem("theme", next);
+      applyTheme(next);
+    });
   </script>
 </body>
 </html>
