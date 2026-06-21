@@ -388,6 +388,20 @@
       }
     });
 
+    const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const countUp = (el, to, suffix = "") => {
+      const from = parseFloat(el.textContent) || 0;
+      if (reduceMotion || from === to) { el.textContent = `${to}${suffix}`; return; }
+      const start = performance.now();
+      const step = (now) => {
+        const p = Math.min(1, (now - start) / 600);
+        const v = Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3)));
+        el.textContent = `${v}${suffix}`;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
     const renderResponse = (response) => {
       const confidencePct = Math.round(Math.max(0, Math.min(1, response.confidence)) * 100);
       resultTicker.textContent = response.ticker;
@@ -395,7 +409,7 @@
       signalChip.textContent = response.signal;
       signalChip.dataset.signal = response.signal;
       confidenceMeter.style.setProperty("--value", `${confidencePct}%`);
-      confidenceText.textContent = `${confidencePct}%`;
+      countUp(confidenceText, confidencePct, "%");
       decisionCopy.textContent = signalCopy[response.signal] || signalCopy.HOLD;
 
       Object.entries(response.features).forEach(([key, value]) => {
@@ -403,7 +417,7 @@
         if (!meter || !label) return;
         const bounded = Math.max(0, Math.min(100, Math.round(value)));
         meter.style.setProperty("--value", `${bounded}%`);
-        label.textContent = String(bounded);
+        countUp(label, bounded);
       });
     };
 
