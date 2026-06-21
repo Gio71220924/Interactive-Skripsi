@@ -10,6 +10,17 @@
       --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     }
 
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:      oklch(21% 0.012 80);
+        --surface: oklch(25% 0.008 80);
+        --fg:      oklch(92% 0.015 80);
+        --muted:   oklch(66% 0.015 80);
+        --border:  oklch(36% 0.012 80);
+        --accent:  oklch(66% 0.16 35);
+      }
+    }
+
     * {
       box-sizing: border-box;
     }
