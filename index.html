@@ -19,7 +19,7 @@
       <a href="#temuan">Temuan</a>
       <a href="#handoff">Penutup</a>
     </nav>
-    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Ganti tema gelap/terang">Dark</button>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Ganti tema gelap/terang">☾</button>
   </header>
 
   <main>
@@ -425,7 +425,7 @@
     const themeToggle = document.getElementById("themeToggle");
     const applyTheme = (t) => {
       root.dataset.theme = t;
-      themeToggle.textContent = t === "dark" ? "Light" : "Dark";
+      themeToggle.textContent = t === "dark" ? "☼" : "☾";
     };
     applyTheme(localStorage.getItem("theme")
       || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));

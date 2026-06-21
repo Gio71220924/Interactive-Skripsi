@@ -123,12 +123,12 @@
     .theme-toggle {
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 6px 12px;
+      padding: 7px 9px;
       background: transparent;
       color: var(--fg);
       cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 16px;
+      line-height: 1;
     }
 
     main {
