@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="4" fill="#f5f0ea"/>
+  <!-- BUY cluster: rust accent, upper-left of hyperplane -->
+  <circle cx="9" cy="9" r="4" fill="#b85530"/>
+  <circle cx="5" cy="18" r="2.5" fill="#b85530" opacity=".65"/>
+  <!-- hyperplane: the SVM decision boundary -->
+  <line x1="3" y1="30" x2="29" y2="2" stroke="#2e2820" stroke-width="2" stroke-linecap="round"/>
+  <!-- SELL cluster: dark ink, lower-right -->
+  <circle cx="23" cy="23" r="4" fill="#2e2820"/>
+  <circle cx="27" cy="14" r="2.5" fill="#2e2820" opacity=".6"/>
+</svg>

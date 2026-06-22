@@ -1,6 +1,6 @@
     :root {
-      --bg:      oklch(97% 0.012 80);
-      --surface: oklch(99% 0.005 80);
+      --bg:      oklch(97% 0.009 35);
+      --surface: oklch(99% 0.004 35);
       --fg:      oklch(20% 0.02 60);
       --muted:   oklch(48% 0.015 60);
       --border:  oklch(89% 0.012 80);
@@ -11,8 +11,8 @@
     }
 
     :root[data-theme="dark"] {
-      --bg:      oklch(21% 0.012 80);
-      --surface: oklch(25% 0.008 80);
+      --bg:      oklch(21% 0.009 35);
+      --surface: oklch(25% 0.006 35);
       --fg:      oklch(92% 0.015 80);
       --muted:   oklch(66% 0.015 80);
       --border:  oklch(36% 0.012 80);
@@ -158,14 +158,14 @@
     h2,
     h3 {
       color: var(--fg);
-      text-wrap: pretty;
+      text-wrap: balance;
     }
 
     h1 {
       max-inline-size: 940px;
       margin: 0;
       font-family: var(--font-display);
-      font-size: clamp(56px, 9vw, 118px);
+      font-size: clamp(52px, 9vw, 96px);
       font-weight: 400;
       line-height: 0.98;
       letter-spacing: -0.035em;
@@ -278,7 +278,7 @@
     .chapter {
       padding-block: 54px 76px;
       border-block-end: 1px solid var(--border);
-      opacity: 0.38;
+      opacity: 0.62;
       transform: translateY(18px);
       transition: opacity 360ms cubic-bezier(0.16, 1, 0.3, 1), transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -295,10 +295,9 @@
     .chapter-label {
       margin: 0 0 14px;
       color: var(--muted);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-style: italic;
     }
 
     h2 {
@@ -317,6 +316,7 @@
       color: var(--fg);
       font-size: clamp(17px, 1.4vw, 19px);
       line-height: 1.68;
+      text-wrap: pretty;
     }
 
     .chapter p.muted {
@@ -340,10 +340,9 @@
     .spec-card .small {
       margin: 0 0 18px;
       color: var(--muted);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-style: italic;
     }
 
     .spec-card strong {
@@ -743,10 +742,9 @@
     .lab-kicker {
       margin: 0 0 12px;
       color: var(--muted);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-style: italic;
     }
 
     .lab-controls h3,
@@ -919,8 +917,8 @@
 
     .pull {
       margin: 52px 0;
-      padding-inline-start: 24px;
-      border-inline-start: 3px solid var(--accent);
+      padding-block-start: 22px;
+      border-block-start: 1px solid var(--accent);
       font-family: var(--font-display);
       font-size: clamp(30px, 4vw, 46px);
       font-weight: 400;
