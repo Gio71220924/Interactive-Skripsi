@@ -440,6 +440,65 @@
       cursor: default;
     }
 
+    .bars3d-fig {
+      margin: 44px 0;
+    }
+
+    .bars3d {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 52px;
+      block-size: 240px;
+      padding: 44px 28px 0;
+    }
+
+    .bars3d-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      block-size: 100%;
+      justify-content: flex-end;
+    }
+
+    .bars3d-bar {
+      position: relative;
+      inline-size: 56px;
+      block-size: var(--h);
+      background: var(--c);
+      border-radius: 2px 2px 0 0;
+      box-shadow:
+        2px -2px 0 color-mix(in oklch, var(--c) 90%, black),
+        4px -4px 0 color-mix(in oklch, var(--c) 82%, black),
+        6px -6px 0 color-mix(in oklch, var(--c) 74%, black),
+        8px -8px 0 color-mix(in oklch, var(--c) 66%, black),
+        10px -10px 0 color-mix(in oklch, var(--c) 60%, black),
+        12px -12px 0 color-mix(in oklch, var(--c) 54%, black);
+      transition: block-size 760ms cubic-bezier(0.16, 1, 0.3, 1), filter 160ms ease;
+    }
+
+    .bars3d-bar[data-hover="true"] {
+      filter: brightness(1.1);
+    }
+
+    .bars3d-val {
+      position: absolute;
+      inset-block-start: -26px;
+      inset-inline: 0;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .bars3d-label {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
     .chart-tabs {
       display: flex;
       flex-wrap: wrap;

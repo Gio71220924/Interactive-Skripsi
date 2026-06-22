@@ -1,7 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import MLDemo from "./MLDemo.jsx";
 import ChartExplorer from "./ChartExplorer.jsx";
+import Bars3D from "./Bars3D.jsx";
 import SplitText from "./components/SplitText.jsx";
+
+const KERNEL_DATA = [
+  { label: "Polynomial", value: 6, color: "var(--accent)" },
+  { label: "Sigmoid", value: 5, color: "color-mix(in oklch, var(--fg) 52%, var(--bg))" },
+  { label: "RBF", value: 3, color: "color-mix(in oklch, var(--fg) 28%, var(--bg))" },
+];
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const HERO_TITLE = "Bisakah mesin membaca sinyal jual-beli saham energi?";
@@ -263,17 +270,10 @@ export default function App() {
                   saham yang jatuh.
                 </figcaption>
               </figure>
-              <figure className="figure chart-figure chart-global">
-                <img
-                  src={`${import.meta.env.BASE_URL}charts/kernel_distribution.png`}
-                  alt="Distribusi kernel SVM terpilih pada 14 emiten"
-                  loading="lazy"
-                />
-                <figcaption>
-                  Kernel yang paling sering terpilih lewat grid search. Polynomial menang pada 6 dari 14 emiten —
-                  tanda hubungan non-linear antara indikator dan sinyal.
-                </figcaption>
-              </figure>
+              <Bars3D
+                data={KERNEL_DATA}
+                caption="Berapa kali tiap kernel terpilih lewat grid search di 14 emiten. Polynomial menang 6 kali — tanda hubungan non-linear antara indikator dan sinyal paling cocok."
+              />
             </section>
 
             <section className="chapter" id="implikasi">
