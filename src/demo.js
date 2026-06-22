@@ -21,6 +21,24 @@ export const sampleResponses = {
   RAJA: { signal: "HOLD", confidence: 0.51, features: { adx: 37, obv: 48, stochastic: 45, bb: 55 } },
 };
 
+// Exact backtest returns (%) per ticker, from the thesis results table (2023-2025).
+export const RETURNS = [
+  { ticker: "ADRO", svm: 0.0, bh: -50.14 },
+  { ticker: "AKRA", svm: 37.53, bh: -14.08 },
+  { ticker: "BUMI", svm: 17.15, bh: -29.81 },
+  { ticker: "BYAN", svm: 0.0, bh: -8.0 },
+  { ticker: "DEWA", svm: 70.44, bh: 232.08 },
+  { ticker: "DSSA", svm: 188.3, bh: 1352.63 },
+  { ticker: "ENRG", svm: 48.8, bh: 12.84 },
+  { ticker: "GEMS", svm: 8.25, bh: 30.14 },
+  { ticker: "ITMG", svm: 8.25, bh: -44.38 },
+  { ticker: "MEDC", svm: -23.44, bh: 16.51 },
+  { ticker: "PGAS", svm: -23.51, bh: -10.92 },
+  { ticker: "PTBA", svm: 0.69, bh: -34.96 },
+  { ticker: "PTRO", svm: 4.96, bh: 495.79 },
+  { ticker: "RAJA", svm: 44.76, bh: 121.5 },
+];
+
 export const signalCopy = {
   BUY: "Sinyal sample membaca kondisi teknikal sebagai kandidat masuk. Di versi final, tampilkan juga alasan fitur dan batas risiko.",
   HOLD: "Sinyal sample belum cukup kuat untuk masuk atau keluar. Ini berguna untuk menunjukkan bahwa model boleh memilih diam.",

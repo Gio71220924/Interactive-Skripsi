@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import MLDemo from "./MLDemo.jsx";
 import ChartExplorer from "./ChartExplorer.jsx";
 import Bars3D from "./Bars3D.jsx";
+import ReturnsChart3D from "./ReturnsChart3D.jsx";
 import SplitText from "./components/SplitText.jsx";
 
 const KERNEL_DATA = [
@@ -259,17 +260,7 @@ export default function App() {
                 </li>
               </ul>
 
-              <figure className="figure chart-figure chart-global">
-                <img
-                  src={`${import.meta.env.BASE_URL}charts/global_return_comparison.png`}
-                  alt="Perbandingan return SVM versus beli-dan-tahan untuk 14 emiten"
-                  loading="lazy"
-                />
-                <figcaption>
-                  Return tiap emiten: strategi SVM versus beli-dan-tahan. Keunggulan SVM paling jelas justru pada
-                  saham yang jatuh.
-                </figcaption>
-              </figure>
+              <ReturnsChart3D />
               <Bars3D
                 data={KERNEL_DATA}
                 caption="Berapa kali tiap kernel terpilih lewat grid search di 14 emiten. Polynomial menang 6 kali — tanda hubungan non-linear antara indikator dan sinyal paling cocok."
