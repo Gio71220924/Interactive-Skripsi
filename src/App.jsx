@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import MLDemo from "./MLDemo.jsx";
+import ChartExplorer from "./ChartExplorer.jsx";
 import SplitText from "./components/SplitText.jsx";
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -206,15 +207,10 @@ export default function App() {
               <h2>Data diberi ruang, bukan dekorasi.</h2>
               <p>
                 Hasil model paling jelas dibaca lewat perbandingan kurva return: strategi SVM versus
-                beli-dan-tahan, lengkap dengan drawdown saat pasar turun. Ruang di bawah disiapkan untuk
-                grafik backtest tiap emiten.
+                beli-dan-tahan, lengkap dengan drawdown saat pasar turun. Pilih satu emiten di bawah untuk
+                membandingkan keduanya dari hasil backtest 2023-2025.
               </p>
-              <figure className="figure">
-                <div className="visual" role="img" aria-label="Placeholder visual data skripsi" />
-                <figcaption>
-                  Slot grafik: kurva return SVM vs buy and hold, atau perbandingan drawdown (mis. ITMG, ENRG, PTRO).
-                </figcaption>
-              </figure>
+              <ChartExplorer />
               <p>
                 Cerita angkanya sederhana: di pasar bearish, strategi SVM menahan kerugian jauh lebih baik
                 daripada sekadar membeli lalu menahan saham.
