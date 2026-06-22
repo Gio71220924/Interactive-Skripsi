@@ -7,8 +7,8 @@ import SplitText from "./components/SplitText.jsx";
 
 const KERNEL_DATA = [
   { label: "Polynomial", value: 6, color: "var(--accent)" },
-  { label: "Sigmoid", value: 5, color: "color-mix(in oklch, var(--fg) 52%, var(--bg))" },
-  { label: "RBF", value: 3, color: "color-mix(in oklch, var(--fg) 28%, var(--bg))" },
+  { label: "Sigmoid", value: 5, color: "var(--muted)" },
+  { label: "RBF", value: 3, color: "var(--border)" },
 ];
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
