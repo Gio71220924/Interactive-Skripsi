@@ -129,6 +129,7 @@ export default function App() {
               Indonesia, memakai data harian 2015-2025. Gulir untuk menelusuri masalah, metode, dan
               hasilnya, lalu coba modelnya sendiri.
             </p>
+
             <div className="hero-actions">
               <button className="btn" type="button" onClick={() => jumpTo("masalah")}>
                 Mulai dari masalah
@@ -137,6 +138,7 @@ export default function App() {
                 Coba demo SVM
               </button>
             </div>
+
           </div>
         </section>
 
@@ -149,7 +151,7 @@ export default function App() {
                 aria-current={activeId === target ? "true" : "false"}
                 onClick={() => jumpTo(target)}
               >
-                <span className="num">{num}</span>
+                <span className="dot" aria-hidden="true" />
                 <span className="label">{label}</span>
               </button>
             ))}
