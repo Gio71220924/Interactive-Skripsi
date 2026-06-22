@@ -990,6 +990,56 @@
       margin-block-start: 12px;
     }
 
+    /* ── Interaction states ── */
+    .btn:hover:not(:disabled) {
+      opacity: 0.84;
+    }
+    .btn:active:not(:disabled) {
+      opacity: 0.70;
+    }
+    .btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+    .btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+    }
+
+    .theme-toggle:hover {
+      background: color-mix(in oklch, var(--fg) 8%, transparent);
+    }
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .rail button:hover:not([aria-current="true"]) {
+      color: var(--fg);
+    }
+    .rail button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .chart-pill:focus-visible,
+    .chart-tab:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .chart-lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .chart-lightbox-close:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.6);
+      outline-offset: 3px;
+    }
+
+    .pull {
+      margin-inline: 0;
+    }
+
     @media (max-width: 1180px) {
       .layout {
         grid-template-columns: minmax(0, 1fr);
@@ -1079,6 +1129,20 @@
 
       h2 {
         max-inline-size: 11ch;
+      }
+
+      /* RC chart: 14 bars are too tight to read at <560px */
+      .rc-chart {
+        overflow-x: auto;
+      }
+      .rc-group {
+        min-inline-size: 34px;
+        flex-shrink: 0;
+      }
+
+      /* Bigger touch targets for pill buttons */
+      .chart-pill {
+        padding: 9px 13px;
       }
     }
 
