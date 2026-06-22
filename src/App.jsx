@@ -251,6 +251,29 @@ export default function App() {
                   <div>Akurasi arah masih rendah (rata-rata F1 39,70%, terbaik DEWA 47,86%); keunggulan nyata ada di manajemen risiko.</div>
                 </li>
               </ul>
+
+              <figure className="figure chart-figure chart-global">
+                <img
+                  src={`${import.meta.env.BASE_URL}charts/global_return_comparison.png`}
+                  alt="Perbandingan return SVM versus beli-dan-tahan untuk 14 emiten"
+                  loading="lazy"
+                />
+                <figcaption>
+                  Return tiap emiten: strategi SVM versus beli-dan-tahan. Keunggulan SVM paling jelas justru pada
+                  saham yang jatuh.
+                </figcaption>
+              </figure>
+              <figure className="figure chart-figure chart-global">
+                <img
+                  src={`${import.meta.env.BASE_URL}charts/kernel_distribution.png`}
+                  alt="Distribusi kernel SVM terpilih pada 14 emiten"
+                  loading="lazy"
+                />
+                <figcaption>
+                  Kernel yang paling sering terpilih lewat grid search. Polynomial menang pada 6 dari 14 emiten —
+                  tanda hubungan non-linear antara indikator dan sinyal.
+                </figcaption>
+              </figure>
             </section>
 
             <section className="chapter" id="implikasi">

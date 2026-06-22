@@ -433,6 +433,98 @@
       border: 1px solid var(--border);
       border-radius: 6px;
       background: #ffffff;
+      cursor: zoom-in;
+    }
+
+    .chart-global img {
+      cursor: default;
+    }
+
+    .chart-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      border-block-end: 1px solid var(--border);
+      margin-block-end: 18px;
+    }
+
+    .chart-tab {
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 9px 16px;
+      border: 0;
+      border-block-end: 2px solid transparent;
+      margin-block-end: -1px;
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 160ms ease, border-color 160ms ease;
+    }
+
+    .chart-tab:hover {
+      color: var(--fg);
+    }
+
+    .chart-tab[aria-selected="true"] {
+      color: var(--accent);
+      border-block-end-color: var(--accent);
+    }
+
+    .chart-subtabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-block-end: 20px;
+    }
+
+    .chart-stage-note {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+      margin-block-end: 22px;
+    }
+
+    .chart-stage {
+      animation: chart-fade 360ms ease both;
+    }
+
+    @keyframes chart-fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .chart-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: color-mix(in oklch, var(--fg) 78%, transparent);
+      cursor: zoom-out;
+    }
+
+    .chart-lightbox img {
+      max-inline-size: min(1100px, 95vw);
+      max-block-size: 90vh;
+      inline-size: auto;
+      block-size: auto;
+      border-radius: 6px;
+      background: #ffffff;
+    }
+
+    .chart-lightbox-close {
+      position: fixed;
+      inset-block-start: 18px;
+      inset-inline-end: 22px;
+      inline-size: 40px;
+      block-size: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 6px;
+      background: none;
+      color: white;
+      font-size: 17px;
+      cursor: pointer;
     }
 
     figcaption {
