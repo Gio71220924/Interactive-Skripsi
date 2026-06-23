@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TICKERS } from "./demo.js";
+import PriceChart from "./PriceChart.jsx";
 
 const BASE = import.meta.env.BASE_URL;
 const src = (name) => `${BASE}charts/${name}.png`;
@@ -85,11 +86,7 @@ export default function ChartExplorer() {
 
         {stage === "data" && (
           <>
-            <Figure
-              name={`${ticker}_eda_close`}
-              alt={`Grafik garis harga penutupan harian ${ticker} 2015–2025, menunjukkan pola non-linear dengan volatilitas tinggi — titik awal seluruh pipeline SVM`}
-              caption={`Harga penutupan ${ticker} sepanjang 2015-2025 — deret yang jadi titik awal seluruh pipeline.`}
-            />
+            <PriceChart ticker={ticker} />
             <Figure
               name={`${ticker}_eda_returns`}
               alt={`Histogram distribusi return harian ${ticker}. Distribusi leptokurtik dengan ekor tebal di kedua sisi — lonjakan ekstrem lebih sering dari distribusi normal, menyulitkan prediksi arah`}

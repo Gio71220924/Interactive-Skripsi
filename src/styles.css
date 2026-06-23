@@ -1091,6 +1091,48 @@
       }
     }
 
+    /* PriceChart */
+    .pc-card {
+      margin-block: 16px 24px;
+      padding: 18px 16px 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .pc-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      margin-block-end: 14px;
+    }
+
+    .pc-header svg {
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .pc-tooltip {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .pc-tooltip-date {
+      color: var(--muted);
+    }
+
+    .pc-tooltip-val {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
