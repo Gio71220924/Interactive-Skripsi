@@ -86,10 +86,10 @@ export default function MLDemo() {
   return (
     <div className="ml-lab">
       <section className="lab-controls" aria-label="Kontrol demo model">
-        <p className="lab-kicker">SVM signal runner</p>
-        <h3>Model yang sama dari skripsi ini.</h3>
+        <p className="lab-kicker">Demo model</p>
+        <h3>4 indikator. 1 model. 1 sinyal.</h3>
         <p className="lab-note">
-          Pilih satu emiten energi, lalu jalankan untuk melihat sinyal riset model: BUY, HOLD, atau SELL.
+          Pilih satu emiten, klik Run, baca sinyal.
         </p>
 
         <form className="demo-form" onSubmit={run}>
@@ -160,7 +160,7 @@ export default function MLDemo() {
             </div>
 
             <p className="research-warning">
-              Catatan riset: ini eksperimen akademik, bukan rekomendasi investasi.
+              Bukan rekomendasi investasi. Ini riset akademik semata.
             </p>
           </>
         )}

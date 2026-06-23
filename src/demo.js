@@ -40,9 +40,9 @@ export const RETURNS = [
 ];
 
 export const signalCopy = {
-  BUY: "Kondisi teknikal mendukung masuk. Momentum positif, tren menguat — model menilai ini peluang beli. Bukan rekomendasi investasi.",
-  HOLD: "Sinyal belum cukup kuat ke salah satu arah. Model memilih menunggu — kadang tidak bergerak adalah posisi terbaik.",
-  SELL: "Tekanan teknikal meningkat atau momentum melemah. Model menyarankan keluar atau tunda masuk. Bukan rekomendasi investasi.",
+  BUY: "Kondisi teknikal mendukung entry. Momentum bullish, tren menguat. Model menilai ini setup beli.",
+  HOLD: "Pasar sideways, belum ada trigger kuat. Model memilih wait.",
+  SELL: "Tekanan bearish meningkat, momentum melemah. Model menyarankan exit atau tunda entry.",
 };
 
 export const normalizeResponse = (raw, ticker) => ({
