@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import MLDemo from "./MLDemo.jsx";
+
+gsap.registerPlugin(ScrollTrigger);
 import ChartExplorer from "./ChartExplorer.jsx";
 import Bars3D from "./Bars3D.jsx";
 import ReturnsChart3D from "./ReturnsChart3D.jsx";
@@ -77,6 +82,37 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
+  useGSAP(() => {
+    if (reduceMotion) return;
+
+    gsap.to(".rail-track", {
+      scaleY: 1,
+      transformOrigin: "top center",
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".article",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+      },
+    });
+
+    RAIL.forEach(([, , target]) => {
+      const dotPop = () =>
+        gsap.fromTo(
+          `.rail button[data-id="${target}"] .dot`,
+          { scale: 1 },
+          { scale: 1.8, duration: 0.2, ease: "back.out(3)", yoyo: true, repeat: 1 }
+        );
+      ScrollTrigger.create({
+        trigger: `#${target}`,
+        start: "top center",
+        onEnter: dotPop,
+        onEnterBack: dotPop,
+      });
+    });
+  }, []);
+
   return (
     <>
       <div className="progress" aria-hidden="true">
@@ -143,10 +179,12 @@ export default function App() {
 
         <div className="layout">
           <nav className="rail" aria-label="Navigasi bagian">
+            <span className="rail-track" aria-hidden="true" />
             {RAIL.map(([num, label, target]) => (
               <button
                 key={target}
                 type="button"
+                data-id={target}
                 aria-current={activeId === target ? "true" : "false"}
                 onClick={() => jumpTo(target)}
               >
