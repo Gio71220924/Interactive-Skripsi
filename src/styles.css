@@ -57,7 +57,7 @@
       inset-inline: 0;
       z-index: 40;
       block-size: 3px;
-      background: color-mix(in oklch, var(--border) 70%, transparent);
+      background: var(--border);
     }
 
     .progress span {
@@ -536,15 +536,20 @@
 
     .chart-lightbox-close {
       position: fixed;
-      inset-block-start: 18px;
-      inset-inline-end: 22px;
-      inline-size: 40px;
-      block-size: 40px;
+      inset-block-start: 16px;
+      inset-inline-end: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-inline-size: 44px;
+      min-block-size: 44px;
+      padding: 10px 14px;
       border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 6px;
       background: none;
       color: white;
-      font-size: 17px;
+      font-size: 14px;
+      font-weight: 500;
       cursor: pointer;
     }
 
@@ -824,6 +829,10 @@
 
     .handoff-card li + li {
       margin-block-start: 12px;
+    }
+
+    .back-to-top {
+      margin-block-start: 20px;
     }
 
     /* ── Interaction states ── */

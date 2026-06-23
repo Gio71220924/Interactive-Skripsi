@@ -87,12 +87,12 @@ export default function ChartExplorer() {
           <>
             <Figure
               name={`${ticker}_eda_close`}
-              alt={`Harga penutupan ${ticker} 2015-2025`}
+              alt={`Grafik garis harga penutupan harian ${ticker} 2015–2025, menunjukkan pola non-linear dengan volatilitas tinggi — titik awal seluruh pipeline SVM`}
               caption={`Harga penutupan ${ticker} sepanjang 2015-2025 — deret yang jadi titik awal seluruh pipeline.`}
             />
             <Figure
               name={`${ticker}_eda_returns`}
-              alt={`Distribusi return harian ${ticker}`}
+              alt={`Histogram distribusi return harian ${ticker}. Distribusi leptokurtik dengan ekor tebal di kedua sisi — lonjakan ekstrem lebih sering dari distribusi normal, menyulitkan prediksi arah`}
               caption={`Sebaran return harian ${ticker}. Ekor yang tebal menandakan lonjakan tajam yang menyulitkan prediksi arah.`}
             />
           </>
@@ -115,7 +115,7 @@ export default function ChartExplorer() {
             </div>
             <Figure
               name={`${ticker}_${indicator}`}
-              alt={`Indikator ${ind[0]} untuk ${ticker}`}
+              alt={`${ind[0]} (${ind[2]}) pada ${ticker} 2015–2025. Satu dari empat fitur input SVM untuk mengklasifikasi sinyal BUY, HOLD, atau SELL`}
               caption={`${ind[0]} ${ticker}: ${ind[2]} Satu dari empat fitur input SVM.`}
             />
           </>
@@ -124,7 +124,7 @@ export default function ChartExplorer() {
         {stage === "evaluasi" && (
           <Figure
             name={`${ticker}_cm`}
-            alt={`Confusion matrix ${ticker}`}
+            alt={`Matriks konfusi ${ticker} (ternormalisasi). Baris = kelas aktual BUY/HOLD/SELL, kolom = prediksi model. Nilai diagonal = prediksi benar; off-diagonal = kesalahan klasifikasi. Semakin tinggi nilai diagonal, semakin akurat model`}
             caption={`Confusion matrix ${ticker} (ternormalisasi). Diagonal = arah yang ditebak benar; makin terang diagonalnya, makin akurat klasifikasinya.`}
           />
         )}
@@ -133,12 +133,12 @@ export default function ChartExplorer() {
           <>
             <Figure
               name={`${ticker}_equity_curve`}
-              alt={`Kurva ekuitas ${ticker}: SVM vs beli-dan-tahan`}
+              alt={`Kurva ekuitas ${ticker} 2023–2025: strategi SVM (biru) vs beli-dan-tahan (oranye). SVM menahan posisi saat ${ticker} jatuh, menjaga nilai portofolio lebih terkendali`}
               caption={`Garis biru menahan posisi portofolio SVM; oranye mengikuti beli-dan-tahan. Saat ${ticker} jatuh, SVM cenderung memilih diam dan menjaga modal.`}
             />
             <Figure
               name={`${ticker}_drawdown`}
-              alt={`Drawdown ${ticker}`}
+              alt={`Drawdown ${ticker} 2023–2025: kedalaman penurunan portofolio dari nilai puncak. Drawdown SVM lebih dangkal dari beli-dan-tahan, menunjukkan manajemen risiko lebih baik`}
               caption={`Drawdown ${ticker}: kedalaman penurunan dari nilai puncak. Semakin dangkal, semakin terjaga modalnya.`}
             />
           </>
@@ -148,8 +148,8 @@ export default function ChartExplorer() {
       {zoom && (
         <div className="chart-lightbox" role="dialog" aria-modal="true" onClick={() => setZoom(null)}>
           <img src={src(zoom.name)} alt={zoom.alt} />
-          <button type="button" className="chart-lightbox-close" aria-label="Tutup">
-            ✕
+          <button type="button" className="chart-lightbox-close" onClick={(e) => { e.stopPropagation(); setZoom(null); }}>
+            <span aria-hidden="true">✕</span> Tutup
           </button>
         </div>
       )}
