@@ -63,7 +63,7 @@ export default function MLDemo() {
     setStatus("Menjalankan SVM...");
     setRunning(true);
     try {
-      const res = await fetch("/api/predict", {
+      const res = await fetch("https://geeeeyohhh-backend-skripsi.hf.space/api/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ticker }),
