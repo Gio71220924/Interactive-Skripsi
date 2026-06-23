@@ -46,18 +46,16 @@ function Meter({ value }) {
 }
 
 const FEATURE_ROWS = [
-  ["ADX", "adx"],
-  ["OBV", "obv"],
-  ["Stoch", "stochastic"],
-  ["BB", "bb"],
+  ["ADX", "adx", "Average Directional Index — kekuatan tren (0=lemah, 100=sangat kuat)"],
+  ["OBV", "obv", "On-Balance Volume — akumulasi tekanan beli/jual dari volume"],
+  ["Stoch", "stochastic", "Stochastic Oscillator — momentum: jenuh beli (>80) atau jenuh jual (<20)"],
+  ["BB", "bb", "Bollinger Bands — jarak harga dari band volatilitas 2σ"],
 ];
 
 export default function MLDemo() {
   const [ticker, setTicker] = useState("ADRO");
-  const [response, setResponse] = useState(() =>
-    normalizeResponse(sampleResponses.ADRO, "ADRO")
-  );
-  const [status, setStatus] = useState("Siap menjalankan sample response.");
+  const [response, setResponse] = useState(null);
+  const [status, setStatus] = useState("Pilih emiten dan tekan Run SVM demo.");
   const [running, setRunning] = useState(false);
 
   const run = async (event) => {
@@ -70,7 +68,9 @@ export default function MLDemo() {
     setRunning(false);
   };
 
-  const confidencePct = Math.round(Math.max(0, Math.min(1, response.confidence)) * 100);
+  const confidencePct = response
+    ? Math.round(Math.max(0, Math.min(1, response.confidence)) * 100)
+    : 0;
 
   return (
     <div className="ml-lab">
@@ -108,44 +108,61 @@ export default function MLDemo() {
       </section>
 
       <section className="lab-output" aria-live="polite" aria-label="Output demo model">
-        <div className="signal-header">
-          <div>
-            <p className="lab-kicker">{response.ticker}</p>
-            <h3>Output SVM: {response.signal}</h3>
+        {response === null ? (
+          <div className="lab-empty-state">
+            <p className="lab-kicker">Menunggu input</p>
+            <h3>Pilih emiten,<br />lalu jalankan.</h3>
+            <p className="lab-note">
+              Pilih satu emiten di sebelah kiri dan tekan <strong>Run SVM demo</strong> untuk melihat sinyal
+              riset model: BUY, HOLD, atau SELL.
+            </p>
           </div>
-          <span className="signal-chip" data-signal={response.signal}>
-            {response.signal}
-          </span>
-        </div>
-
-        <div className="signal-meta">
-          <div className="metric-line">
-            <strong>Confidence</strong>
-            <Meter value={confidencePct} />
-            <span>
-              <AnimatedNumber value={confidencePct} suffix="%" />
-            </span>
-          </div>
-        </div>
-
-        <p className="decision-copy">{signalCopy[response.signal] || signalCopy.HOLD}</p>
-
-        <div className="feature-board" aria-label="Fitur teknikal dominan">
-          {FEATURE_ROWS.map(([label, key]) => (
-            <div className="feature-row" key={key}>
-              <span>{label}</span>
-              <Meter value={response.features[key]} />
-              <span>
-                <AnimatedNumber value={Math.max(0, Math.min(100, Math.round(response.features[key])))} />
+        ) : (
+          <>
+            <div className="signal-header">
+              <div>
+                <p className="lab-kicker">{response.ticker}</p>
+                <h3>Output SVM: {response.signal}</h3>
+              </div>
+              <span className="signal-chip" data-signal={response.signal}>
+                {response.signal}
               </span>
             </div>
-          ))}
-        </div>
 
-        <p className="research-warning">
-          Catatan riset: output ini harus dibaca sebagai eksperimen akademik, bukan rekomendasi investasi.
-          Eksekusi live perlu menjaga split waktu, gap validasi, dan sinyal yang tidak dieksekusi pada bar yang sama.
-        </p>
+            <div className="signal-meta">
+              <div className="metric-line">
+                <strong>Confidence</strong>
+                <Meter value={confidencePct} />
+                <span>
+                  <AnimatedNumber value={confidencePct} suffix="%" />
+                </span>
+              </div>
+            </div>
+
+            <p className="decision-copy">{signalCopy[response.signal] || signalCopy.HOLD}</p>
+
+            <div className="feature-board" aria-label="Fitur teknikal dominan">
+              {FEATURE_ROWS.map(([label, key, title]) => (
+                <div className="feature-row" key={key}>
+                  <span>
+                    <abbr title={title} style={{ textDecoration: "none", cursor: "help" }}>
+                      {label}
+                    </abbr>
+                  </span>
+                  <Meter value={response.features[key]} />
+                  <span>
+                    <AnimatedNumber value={Math.max(0, Math.min(100, Math.round(response.features[key])))} />
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <p className="research-warning">
+              Catatan riset: output ini harus dibaca sebagai eksperimen akademik, bukan rekomendasi investasi.
+              Eksekusi live perlu menjaga split waktu, gap validasi, dan sinyal yang tidak dieksekusi pada bar yang sama.
+            </p>
+          </>
+        )}
       </section>
     </div>
   );

@@ -631,7 +631,7 @@
 
     .run-row {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: auto 1fr;
       gap: 12px;
       align-items: center;
       margin-block-start: 8px;
@@ -872,6 +872,11 @@
       outline-offset: 3px;
     }
 
+    [data-theme="dark"] .chart-figure img,
+    [data-theme="dark"] .chart-lightbox img {
+      filter: invert(1) hue-rotate(180deg);
+    }
+
     .pull {
       margin-inline: 0;
     }
@@ -892,15 +897,20 @@
       }
 
       .masthead {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px 0;
       }
 
       .topnav {
-        inline-size: 100%;
+        order: 2;
+        flex-basis: 100%;
         overflow-x: auto;
         padding-block-end: 4px;
+      }
+
+      .theme-toggle {
+        order: 1;
       }
 
       .hero {
