@@ -258,8 +258,7 @@ export default function App() {
               </p>
               <ChartExplorer />
               <p>
-                Cerita angkanya sederhana: di pasar bearish, strategi SVM menahan kerugian jauh lebih baik
-                daripada sekadar membeli lalu menahan saham.
+                Di pasar bearish, SVM menekan kerugian lebih dalam dari buy-and-hold.
               </p>
             </section>
 
