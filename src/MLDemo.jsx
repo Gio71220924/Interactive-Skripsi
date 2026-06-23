@@ -46,10 +46,10 @@ function Meter({ value }) {
 }
 
 const FEATURE_ROWS = [
-  ["ADX", "adx", "Average Directional Index — kekuatan tren (0=lemah, 100=sangat kuat)"],
-  ["OBV", "obv", "On-Balance Volume — akumulasi tekanan beli/jual dari volume"],
-  ["Stoch", "stochastic", "Stochastic Oscillator — momentum: jenuh beli (>80) atau jenuh jual (<20)"],
-  ["BB", "bb", "Bollinger Bands — jarak harga dari band volatilitas 2σ"],
+  ["ADX", "adx"],
+  ["OBV", "obv"],
+  ["Stochastic", "stochastic"],
+  ["Bollinger Bands", "bb"],
 ];
 
 export default function MLDemo() {
@@ -74,7 +74,7 @@ export default function MLDemo() {
       setStatus("Sinyal model selesai.");
     } catch {
       setResponse(normalizeResponse(sampleResponses[ticker] || sampleResponses.ADRO, ticker));
-      setStatus("Backend tidak tersedia — menampilkan data sample.");
+      setStatus("● data sampel");
     }
     setRunning(false);
   };
@@ -87,7 +87,7 @@ export default function MLDemo() {
     <div className="ml-lab">
       <section className="lab-controls" aria-label="Kontrol demo model">
         <p className="lab-kicker">SVM signal runner</p>
-        <h3>Jalankan satu skenario.</h3>
+        <h3>Model yang sama dari skripsi ini.</h3>
         <p className="lab-note">
           Pilih satu emiten energi, lalu jalankan untuk melihat sinyal riset model: BUY, HOLD, atau SELL.
         </p>
@@ -131,13 +131,8 @@ export default function MLDemo() {
         ) : (
           <>
             <div className="signal-header">
-              <div>
-                <p className="lab-kicker">{response.ticker}</p>
-                <h3>Output SVM: {response.signal}</h3>
-              </div>
-              <span className="signal-chip" data-signal={response.signal}>
-                {response.signal}
-              </span>
+              <p className="lab-kicker">{response.ticker}</p>
+              <p className="signal-word" data-signal={response.signal}>{response.signal}</p>
             </div>
 
             <div className="signal-meta">
@@ -153,13 +148,9 @@ export default function MLDemo() {
             <p className="decision-copy">{signalCopy[response.signal] || signalCopy.HOLD}</p>
 
             <div className="feature-board" aria-label="Fitur teknikal dominan">
-              {FEATURE_ROWS.map(([label, key, title]) => (
+              {FEATURE_ROWS.map(([label, key]) => (
                 <div className="feature-row" key={key}>
-                  <span>
-                    <abbr title={title} style={{ textDecoration: "none", cursor: "help" }}>
-                      {label}
-                    </abbr>
-                  </span>
+                  <span>{label}</span>
                   <Meter value={response.features[key]} />
                   <span>
                     <AnimatedNumber value={Math.max(0, Math.min(100, Math.round(response.features[key])))} />
@@ -169,8 +160,7 @@ export default function MLDemo() {
             </div>
 
             <p className="research-warning">
-              Catatan riset: output ini harus dibaca sebagai eksperimen akademik, bukan rekomendasi investasi.
-              Eksekusi live perlu menjaga split waktu, gap validasi, dan sinyal yang tidak dieksekusi pada bar yang sama.
+              Catatan riset: ini eksperimen akademik, bukan rekomendasi investasi.
             </p>
           </>
         )}
