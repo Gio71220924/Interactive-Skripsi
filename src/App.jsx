@@ -231,8 +231,8 @@ export default function App() {
               <h2>Demo model dibuat terasa seperti ruang uji.</h2>
               <p>
                 Bagian ini disiapkan untuk model SVM trading strategy. Pembaca memilih emiten, menentukan sumber data,
-                lalu menjalankan prediksi untuk melihat sinyal riset: <strong>BUY</strong>, <strong>HOLD</strong>, atau{" "}
-                <strong>SELL</strong>. UI-nya sengaja seperti lab kecil, bukan terminal teknis.
+                lalu menjalankan prediksi untuk melihat sinyal riset: <strong lang="en">BUY</strong>, <strong lang="en">HOLD</strong>, atau{" "}
+                <strong lang="en">SELL</strong>. UI-nya sengaja seperti lab kecil, bukan terminal teknis.
               </p>
               <MLDemo />
             </section>
@@ -304,6 +304,7 @@ export default function App() {
               <li>Drawdown jauh lebih kecil: -9,35% vs -48,91% buy and hold.</li>
               <li>Baca skripsi lengkap untuk metode dan pembahasan penuh.</li>
             </ol>
+            <a href="#" className="btn secondary back-to-top">↑ Kembali ke atas</a>
           </div>
         </section>
       </main>
