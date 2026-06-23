@@ -12,7 +12,7 @@ const KERNEL_DATA = [
 ];
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const HERO_TITLE = "Bisakah mesin membaca sinyal jual-beli saham energi?";
+const HERO_TITLE = "Bisakah model mengurangi risiko di saham energi?";
 
 const RAIL = [
   ["01", "Masalah", "masalah"],
@@ -126,8 +126,7 @@ export default function App() {
             <p className="deck">
               Empat indikator teknikal. Satu model SVM. 14 saham energi di BEI — satu dekade harga
               harian. Hasilnya: 10 dari 14 emiten return positif, dan ketika buy-and-hold ambles
-              −48,91%, strategi ini menahan kerugian rata-rata di −9,35%. Gulir untuk lihat caranya,
-              dan coba sendiri di demo live.
+              −48,91%, strategi ini menahan kerugian rata-rata di −9,35%.
             </p>
 
             <div className="hero-actions">
@@ -159,7 +158,7 @@ export default function App() {
 
           <article className="article">
             <section className="chapter is-visible" id="masalah">
-              <h2>Saham energi: return besar, risiko juga besar.</h2>
+              <h2>Terlalu banyak variabel. Analisis teknikal biasa tidak cukup.</h2>
               <p>
                 Mengapa saham energi sulit ditebak? Harganya digerakkan komoditas global, geopolitik,
                 dan kurs — bukan chart saja. Pola yang muncul non-linear, penuh noise, dan sering
@@ -214,7 +213,7 @@ export default function App() {
             </section>
 
             <section className="chapter" id="analisis">
-              <h2>Di sini SVM dan beli-dan-tahan berdampingan.</h2>
+              <h2>BUMI: SVM +17%, buy-and-hold −30%. Grafik ini menjelaskan kenapa.</h2>
               <p>
                 Pilih satu emiten. Dua kurva — SVM vs beli-dan-tahan — dari backtest 2023-2025,
                 lengkap dengan drawdown saat pasar turun.
