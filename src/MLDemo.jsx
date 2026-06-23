@@ -58,6 +58,10 @@ export default function MLDemo() {
   const [status, setStatus] = useState("Pilih emiten dan tekan Run SVM demo.");
   const [running, setRunning] = useState(false);
 
+  useEffect(() => {
+    fetch("https://geeeeyohhh-backend-skripsi.hf.space/api/health").catch(() => {});
+  }, []);
+
   const run = async (event) => {
     event.preventDefault();
     setStatus("Menjalankan SVM...");
