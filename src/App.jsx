@@ -124,9 +124,9 @@ export default function App() {
               />
             )}
             <p className="deck">
-              Empat indikator teknikal. Satu model SVM. 14 saham energi di BEI — satu dekade harga
-              harian. Hasilnya: 10 dari 14 emiten return positif, dan ketika buy-and-hold ambles
-              −48,91%, strategi ini menahan kerugian rata-rata di −9,35%.
+              Empat indikator. Satu model SVM. 14 saham energi BEI, satu dekade harga harian.
+              Hasilnya: 10 dari 14 emiten return positif — dan ketika pasar turun, drawdown
+              −9,35% vs −48,91% buy-and-hold.
             </p>
 
             <div className="hero-actions">
