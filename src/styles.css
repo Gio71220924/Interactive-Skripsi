@@ -503,6 +503,46 @@
       margin: 44px 0;
     }
 
+    .rc-legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-block-start: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .rc-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .rc-swatch {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .rc-swatch--dashed {
+      background: none;
+      border-bottom: 2px dashed var(--muted);
+      border-radius: 0;
+      height: auto;
+      width: 18px;
+      align-self: center;
+    }
+
+    .rc-legend-note {
+      margin-inline-start: auto;
+      font-style: italic;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
     .chart-tabs {
       display: flex;
       flex-wrap: wrap;

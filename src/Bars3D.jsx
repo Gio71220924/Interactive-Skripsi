@@ -43,7 +43,7 @@ export default function Bars3D({ data, caption }) {
         <BarChart
           data={chartData}
           margin={{ top: 20, right: 8, left: -28, bottom: 0 }}
-          barCategoryGap="48%"
+          barCategoryGap="28%"
         >
           <CartesianGrid
             strokeDasharray="4 8"

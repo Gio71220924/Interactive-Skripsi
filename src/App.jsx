@@ -279,9 +279,9 @@ export default function App() {
                 Saat buy and hold ambles -48,91%, strategi SVM menahan rata-rata kerugian di -9,35%.
               </blockquote>
               <p>
-                Angka di atas bukan janji profit. Dari 14 emiten, 10 mencatat return positif (rata-rata
-                27,29%) dan SVM mengungguli beli-dan-tahan pada 7 emiten, paling terasa justru ketika
-                pasar sedang turun.
+                Ini bukan janji profit. Dari 14 emiten, 10 mencatat return positif (rata-rata
+                27,29%) dan SVM mengungguli beli-dan-tahan pada 7 emiten, paling terasa ketika
+                pasar turun.
               </p>
               <ul className="quiet-list">
                 <li>
@@ -294,14 +294,14 @@ export default function App() {
                 </li>
                 <li>
                   <span>C</span>
-                  <div>Akurasi arah masih rendah (rata-rata F1 39,70%, terbaik DEWA 47,86%); keunggulan nyata ada di manajemen risiko.</div>
+                  <div>Akurasi arah masih rendah (rata-rata F1 39,70%, terbaik DEWA 47,86%); keunggulan ada di manajemen risiko.</div>
                 </li>
               </ul>
 
               <ReturnsChart3D />
               <Bars3D
                 data={KERNEL_DATA}
-                caption="Berapa kali tiap kernel terpilih lewat grid search di 14 emiten. Polynomial menang 6 kali — tanda hubungan non-linear antara indikator dan sinyal paling cocok."
+                caption="Dari tiga kernel yang diuji, Polynomial paling sering terpilih. Hubungan indikator dan sinyal di saham energi memang non-linear."
               />
             </section>
 
