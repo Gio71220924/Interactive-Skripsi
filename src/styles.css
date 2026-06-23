@@ -1133,6 +1133,58 @@
       font-weight: 600;
     }
 
+    .cm-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-bottom: 12px;
+    }
+
+    .cm-col-labels,
+    .cm-row {
+      display: grid;
+      grid-template-columns: 60px repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .cm-axis-label {
+      font-size: 10px;
+      color: var(--muted);
+      align-self: end;
+      padding-block-end: 2px;
+    }
+
+    .cm-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+      padding: 4px 0;
+    }
+
+    .cm-row-label {
+      text-align: right;
+      padding-inline-end: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .cm-cell {
+      padding: 10px 4px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .cm-legend {
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+      padding-block-start: 8px;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;

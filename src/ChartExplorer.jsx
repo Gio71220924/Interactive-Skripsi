@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { TICKERS } from "./demo.js";
 import PriceChart from "./PriceChart.jsx";
 import IndicatorChart from "./IndicatorChart.jsx";
+import ConfusionMatrix from "./ConfusionMatrix.jsx";
+import BacktestChart from "./BacktestChart.jsx";
 
 const BASE = import.meta.env.BASE_URL;
 const src = (name) => `${BASE}charts/${name}.png`;
@@ -115,28 +117,9 @@ export default function ChartExplorer() {
           </>
         )}
 
-        {stage === "evaluasi" && (
-          <Figure
-            name={`${ticker}_cm`}
-            alt={`Matriks konfusi ${ticker} (ternormalisasi). Baris = kelas aktual BUY/HOLD/SELL, kolom = prediksi model. Nilai diagonal = prediksi benar; off-diagonal = kesalahan klasifikasi. Semakin tinggi nilai diagonal, semakin akurat model`}
-            caption={`Confusion matrix ${ticker} (ternormalisasi). Diagonal = arah yang ditebak benar; makin terang diagonalnya, makin akurat klasifikasinya.`}
-          />
-        )}
+        {stage === "evaluasi" && <ConfusionMatrix ticker={ticker} />}
 
-        {stage === "backtest" && (
-          <>
-            <Figure
-              name={`${ticker}_equity_curve`}
-              alt={`Kurva ekuitas ${ticker} 2023–2025: strategi SVM (biru) vs beli-dan-tahan (oranye). SVM menahan posisi saat ${ticker} jatuh, menjaga nilai portofolio lebih terkendali`}
-              caption={`Garis biru menahan posisi portofolio SVM; oranye mengikuti beli-dan-tahan. Saat ${ticker} jatuh, SVM cenderung memilih diam dan menjaga modal.`}
-            />
-            <Figure
-              name={`${ticker}_drawdown`}
-              alt={`Drawdown ${ticker} 2023–2025: kedalaman penurunan portofolio dari nilai puncak. Drawdown SVM lebih dangkal dari beli-dan-tahan, menunjukkan manajemen risiko lebih baik`}
-              caption={`Drawdown ${ticker}: kedalaman penurunan dari nilai puncak. Semakin dangkal, semakin terjaga modalnya.`}
-            />
-          </>
-        )}
+        {stage === "backtest" && <BacktestChart ticker={ticker} />}
       </div>
 
       {zoom && (
