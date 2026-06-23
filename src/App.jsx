@@ -227,21 +227,21 @@ export default function App() {
                 dan kekuatan tren. Model SVM membacanya sekaligus.
               </p>
               <div className="method-strip" aria-label="Alur metode">
-                <div className="method-step">
+                <div className="method-step" data-step="01">
                   <span>Data</span>
-                  <b>Harga harian 14 saham energi IDX, 2015-2025 (yfinance)</b>
+                  <b>Harga harian 14 saham energi IDX, <code>2015–2025</code> (<code>yfinance</code>)</b>
                 </div>
-                <div className="method-step">
+                <div className="method-step" data-step="02">
                   <span>Fitur</span>
                   <b>Bollinger Bands, Stochastic, OBV, ADX</b>
                 </div>
-                <div className="method-step">
+                <div className="method-step" data-step="03">
                   <span>Model</span>
-                  <b>SVM 3 kernel + grid search, split waktu 70/30</b>
+                  <b>SVM 3 kernel + grid search, split waktu <code>70/30</code></b>
                 </div>
-                <div className="method-step">
+                <div className="method-step" data-step="04">
                   <span>Label</span>
-                  <b>3 kelas BUY/HOLD/SELL via aturan ATR; backtest 2023-2025</b>
+                  <b>3 kelas <code>BUY/HOLD/SELL</code> via aturan ATR; backtest <code>2023–2025</code></b>
                 </div>
               </div>
               <p className="muted">
