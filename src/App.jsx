@@ -23,7 +23,7 @@ const RAIL = [
   ["01", "Masalah", "masalah"],
   ["02", "Metode", "metode"],
   ["03", "Analisis", "analisis"],
-  ["04", "ML Lab", "ml-demo"],
+  ["04", "Demo", "ml-demo"],
   ["05", "Temuan", "temuan"],
   ["06", "Implikasi", "implikasi"],
 ];

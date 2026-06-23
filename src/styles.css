@@ -270,18 +270,21 @@
     }
 
     .rail .dot {
-      inline-size: 7px;
-      block-size: 7px;
-      border-radius: 50%;
-      border: 1.5px solid currentColor;
-      background: transparent;
+      inline-size: 12px;
+      block-size: 2px;
+      border-radius: 1px;
+      background: currentColor;
       justify-self: center;
-      transition: background 160ms ease, border-color 160ms ease;
+      transition: inline-size 220ms cubic-bezier(0.16, 1, 0.3, 1), background 160ms ease;
     }
 
     .rail button[aria-current="true"] .dot {
+      inline-size: 20px;
       background: var(--accent);
-      border-color: var(--accent);
+    }
+
+    .rail button[aria-current="true"] {
+      color: var(--accent);
     }
 
     .rail .label {
@@ -674,10 +677,10 @@
     }
 
     .run-row {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 12px;
-      align-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
       margin-block-start: 8px;
     }
 
@@ -685,12 +688,19 @@
       color: var(--muted);
       font-size: 12px;
       line-height: 1.35;
-      text-align: end;
     }
 
     .signal-header {
       padding-block-end: 18px;
       border-block-end: 1px solid var(--border);
+    }
+
+    .signal-header .lab-kicker {
+      font-family: ui-monospace, 'Cascadia Code', monospace;
+      font-style: normal;
+      color: var(--accent);
+      font-size: 14px;
+      letter-spacing: 0.06em;
     }
 
     .signal-word {
@@ -704,7 +714,7 @@
     }
 
     .signal-word[data-signal="SELL"] { color: var(--accent); }
-    .signal-word[data-signal="HOLD"] { color: var(--muted); }
+    .signal-word[data-signal="HOLD"] { color: color-mix(in oklch, var(--fg) 65%, var(--muted)); }
 
     .signal-chip {
       min-inline-size: 92px;
@@ -734,7 +744,7 @@
     .signal-meta {
       display: grid;
       gap: 8px;
-      margin-block-start: 20px;
+      margin-block-start: 12px;
     }
 
     .metric-line {
@@ -767,9 +777,9 @@
 
     .feature-board {
       display: grid;
-      gap: 12px;
+      gap: 18px;
       margin-block-start: 24px;
-      padding-block-start: 18px;
+      padding-block: 18px 14px;
       border-block-start: 1px solid var(--border);
     }
 
@@ -1011,15 +1021,10 @@
         inline-size: 100%;
       }
 
-      .run-row,
       .signal-header,
       .metric-line,
       .feature-row {
         grid-template-columns: 1fr;
-      }
-
-      .model-status {
-        text-align: start;
       }
 
       .chapter {
