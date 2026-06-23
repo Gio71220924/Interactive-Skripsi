@@ -60,11 +60,22 @@ export default function MLDemo() {
 
   const run = async (event) => {
     event.preventDefault();
-    setStatus("Menjalankan demo...");
+    setStatus("Menjalankan SVM...");
     setRunning(true);
-    await new Promise((resolve) => setTimeout(resolve, 420));
-    setResponse(normalizeResponse(sampleResponses[ticker] || sampleResponses.ADRO, ticker));
-    setStatus("Sinyal sample selesai dirender.");
+    try {
+      const res = await fetch("/api/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ticker }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      setResponse(normalizeResponse(data, ticker));
+      setStatus("Sinyal model selesai.");
+    } catch {
+      setResponse(normalizeResponse(sampleResponses[ticker] || sampleResponses.ADRO, ticker));
+      setStatus("Backend tidak tersedia — menampilkan data sample.");
+    }
     setRunning(false);
   };
 
