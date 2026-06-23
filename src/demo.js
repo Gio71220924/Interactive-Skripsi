@@ -40,9 +40,9 @@ export const RETURNS = [
 ];
 
 export const signalCopy = {
-  BUY: "Sinyal sample membaca kondisi teknikal sebagai kandidat masuk. Di versi final, tampilkan juga alasan fitur dan batas risiko.",
-  HOLD: "Sinyal sample belum cukup kuat untuk masuk atau keluar. Ini berguna untuk menunjukkan bahwa model boleh memilih diam.",
-  SELL: "Sinyal sample membaca tekanan turun atau risiko terlalu tinggi. Di demo final, tampilkan juga apakah ini exit atau no-entry.",
+  BUY: "Kondisi teknikal mendukung masuk. Momentum positif, tren menguat — model menilai ini peluang beli. Bukan rekomendasi investasi.",
+  HOLD: "Sinyal belum cukup kuat ke salah satu arah. Model memilih menunggu — kadang tidak bergerak adalah posisi terbaik.",
+  SELL: "Tekanan teknikal meningkat atau momentum melemah. Model menyarankan keluar atau tunda masuk. Bukan rekomendasi investasi.",
 };
 
 export const normalizeResponse = (raw, ticker) => ({

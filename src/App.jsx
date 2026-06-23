@@ -124,10 +124,10 @@ export default function App() {
               />
             )}
             <p className="deck">
-              Skripsi ini melatih Support Vector Machine dengan empat indikator teknikal untuk
-              mengklasifikasi sinyal BUY, HOLD, dan SELL pada 14 saham sektor energi di Bursa Efek
-              Indonesia, memakai data harian 2015-2025. Gulir untuk menelusuri masalah, metode, dan
-              hasilnya, lalu coba modelnya sendiri.
+              Empat indikator teknikal. Satu model SVM. 14 saham energi di BEI — satu dekade harga
+              harian. Hasilnya: 10 dari 14 emiten return positif, dan ketika buy-and-hold ambles
+              −48,91%, strategi ini menahan kerugian rata-rata di −9,35%. Gulir untuk lihat caranya,
+              dan coba sendiri di demo live.
             </p>
 
             <div className="hero-actions">
@@ -159,10 +159,11 @@ export default function App() {
 
           <article className="article">
             <section className="chapter is-visible" id="masalah">
-              <h2>Mulai dari masalah, bukan dari bab.</h2>
+              <h2>Saham energi: return besar, risiko juga besar.</h2>
               <p>
-                Mengapa saham energi sulit ditebak? Harganya bergerak non-linear dan penuh kejutan,
-                persis kondisi yang melemahkan analisis teknikal konvensional.
+                Mengapa saham energi sulit ditebak? Harganya digerakkan komoditas global, geopolitik,
+                dan kurs — bukan chart saja. Pola yang muncul non-linear, penuh noise, dan sering
+                membalikkan sinyal teknikal biasa.
               </p>
               <p className="muted">
                 Per Desember 2025 jumlah investor pasar modal Indonesia menembus 20,35 juta. Saham
@@ -183,10 +184,10 @@ export default function App() {
             </section>
 
             <section className="chapter" id="metode">
-              <h2>Metode dibuat seperti peta kerja.</h2>
+              <h2>Empat indikator. Satu model. Tiga sinyal.</h2>
               <p>
-                Empat indikator teknikal jadi mata model: masing-masing menangkap satu sisi pasar,
-                yaitu volatilitas, momentum, volume, dan kekuatan tren.
+                Masing-masing indikator menangkap satu sisi pasar: volatilitas, momentum, volume,
+                dan kekuatan tren. Model SVM membacanya sekaligus.
               </p>
               <div className="method-strip" aria-label="Alur metode">
                 <div className="method-step">
@@ -207,18 +208,16 @@ export default function App() {
                 </div>
               </div>
               <p className="muted">
-                Lima tahap penelitian: kumpulkan data, bangun indikator teknikal, beri label arah harga,
-                latih SVM dengan validasi waktu, lalu uji lewat backtest. Setiap kartu di atas adalah satu
-                keputusan riset, bukan sekadar langkah teknis.
+                Lima tahap: kumpulkan data, bangun indikator teknikal, beri label arah harga,
+                latih SVM dengan validasi waktu, lalu uji lewat backtest.
               </p>
             </section>
 
             <section className="chapter" id="analisis">
-              <h2>Data diberi ruang, bukan dekorasi.</h2>
+              <h2>Di sini SVM dan beli-dan-tahan berdampingan.</h2>
               <p>
-                Hasil model paling jelas dibaca lewat perbandingan kurva return: strategi SVM versus
-                beli-dan-tahan, lengkap dengan drawdown saat pasar turun. Pilih satu emiten di bawah untuk
-                membandingkan keduanya dari hasil backtest 2023-2025.
+                Pilih satu emiten. Dua kurva — SVM vs beli-dan-tahan — dari backtest 2023-2025,
+                lengkap dengan drawdown saat pasar turun.
               </p>
               <ChartExplorer />
               <p>
@@ -228,17 +227,17 @@ export default function App() {
             </section>
 
             <section className="chapter" id="ml-demo">
-              <h2>Demo model dibuat terasa seperti ruang uji.</h2>
+              <h2>Pilih emiten. Jalankan model. Baca sinyalnya.</h2>
               <p>
-                Bagian ini disiapkan untuk model SVM trading strategy. Pembaca memilih emiten, menentukan sumber data,
-                lalu menjalankan prediksi untuk melihat sinyal riset: <strong lang="en">BUY</strong>, <strong lang="en">HOLD</strong>, atau{" "}
-                <strong lang="en">SELL</strong>. UI-nya sengaja seperti lab kecil, bukan terminal teknis.
+                Model SVM berjalan dari data pasar hari ini. Pilih satu saham energi, tekan Run,
+                dan lihat sinyal riset: <strong lang="en">BUY</strong>, <strong lang="en">HOLD</strong>, atau{" "}
+                <strong lang="en">SELL</strong>.
               </p>
               <MLDemo />
             </section>
 
             <section className="chapter" id="temuan">
-              <h2>Temuan dibuat sebagai kalimat yang bisa diingat.</h2>
+              <h2>SVM unggul bukan di pasar bull — tapi saat pasar turun.</h2>
               <blockquote className="pull">
                 Saat buy and hold ambles -48,91%, strategi SVM menahan rata-rata kerugian di -9,35%.
               </blockquote>
@@ -270,12 +269,12 @@ export default function App() {
             </section>
 
             <section className="chapter" id="implikasi">
-              <h2>Akhirnya harus menjawab: jadi apa?</h2>
+              <h2>Gunakan ini sebagai filter risiko, bukan ramalan harga.</h2>
               <p>
-                Untuk investor: model ini menawarkan disiplin keluar-masuk yang menekan kerugian saat pasar
+                Untuk investor: model ini memberi disiplin keluar-masuk yang menekan kerugian saat pasar
                 energi bergejolak. Untuk akademisi: memadukan indikator volatilitas, momentum, volume, dan
-                tren pada SVM membuka ruang kajian lanjutan. Dan satu catatan jujur, ini alat bantu riset,
-                bukan rekomendasi investasi.
+                tren pada SVM membuka ruang kajian lanjutan. Catatan: ini alat bantu riset, bukan
+                rekomendasi investasi.
               </p>
               <p className="muted">
                 Keterbatasan: cakupan hanya sektor energi, F1 masih rendah, dan backtest belum memodelkan
