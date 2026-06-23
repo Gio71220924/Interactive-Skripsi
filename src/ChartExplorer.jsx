@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { TICKERS } from "./demo.js";
 import PriceChart from "./PriceChart.jsx";
+import IndicatorChart from "./IndicatorChart.jsx";
 
 const BASE = import.meta.env.BASE_URL;
 const src = (name) => `${BASE}charts/${name}.png`;
@@ -110,11 +111,7 @@ export default function ChartExplorer() {
                 </button>
               ))}
             </div>
-            <Figure
-              name={`${ticker}_${indicator}`}
-              alt={`${ind[0]} (${ind[2]}) pada ${ticker} 2015–2025. Satu dari empat fitur input SVM untuk mengklasifikasi sinyal BUY, HOLD, atau SELL`}
-              caption={`${ind[0]} ${ticker}: ${ind[2]} Satu dari empat fitur input SVM.`}
-            />
+            <IndicatorChart ticker={ticker} indicator={indicator} />
           </>
         )}
 
