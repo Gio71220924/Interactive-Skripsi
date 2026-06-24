@@ -153,6 +153,17 @@ export default function App() {
       });
     });
 
+    // Pull-quote pin — hold for 400px scroll
+    gsap.utils.toArray(".pull").forEach((el) => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: "center center",
+        end: "+=400",
+        pin: true,
+        pinSpacing: true,
+      });
+    });
+
     // Stat slam-in: spec cards
     const specGrid = document.querySelector(".spec-grid");
     if (specGrid && specGrid.getBoundingClientRect().top > window.innerHeight) {
