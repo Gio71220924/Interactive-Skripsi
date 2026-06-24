@@ -16,4 +16,16 @@ export default defineConfig({
       "/api": "http://localhost:3001",
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor-three": ["three", "@react-three/fiber"],
+          "vendor-recharts": ["recharts"],
+          "vendor-gsap": ["gsap", "@gsap/react"],
+          "vendor-react": ["react", "react-dom"],
+        },
+      },
+    },
+  },
 });

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,7 +11,7 @@ import ReturnsChart3D from "./ReturnsChart3D.jsx";
 import SplitText from "./components/SplitText.jsx";
 import Footer from "./Footer.jsx";
 import CursorFollower from "./CursorFollower.jsx";
-import Antigravity from "./Antigravity.jsx";
+const Antigravity = lazy(() => import("./Antigravity.jsx"));
 import StatNumber from "./StatNumber.jsx";
 import Lenis from "lenis";
 
@@ -239,18 +239,20 @@ export default function App() {
         <section className="hero">
           {!reduceMotion && (
             <div className="hero-canvas" aria-hidden="true">
-              <Antigravity
-                count={200}
-                magnetRadius={8}
-                ringRadius={6}
-                waveSpeed={0.3}
-                waveAmplitude={0.8}
-                particleSize={1.2}
-                lerpSpeed={0.04}
-                color="#c45c38"
-                autoAnimate={true}
-                particleVariance={0.8}
-              />
+              <Suspense fallback={null}>
+                <Antigravity
+                  count={200}
+                  magnetRadius={8}
+                  ringRadius={6}
+                  waveSpeed={0.3}
+                  waveAmplitude={0.8}
+                  particleSize={1.2}
+                  lerpSpeed={0.04}
+                  color="#c45c38"
+                  autoAnimate={true}
+                  particleVariance={0.8}
+                />
+              </Suspense>
             </div>
           )}
           <div className="hero-content">

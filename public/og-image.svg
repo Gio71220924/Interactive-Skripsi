@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1a1714"/>
+  <line x1="200" y1="0" x2="200" y2="630" stroke="#2a2724" stroke-width="1"/>
+  <line x1="400" y1="0" x2="400" y2="630" stroke="#2a2724" stroke-width="1"/>
+  <line x1="600" y1="0" x2="600" y2="630" stroke="#2a2724" stroke-width="1"/>
+  <line x1="800" y1="0" x2="800" y2="630" stroke="#2a2724" stroke-width="1"/>
+  <line x1="1000" y1="0" x2="1000" y2="630" stroke="#2a2724" stroke-width="1"/>
+  <rect x="80" y="80" width="4" height="80" fill="#c45c38"/>
+  <text x="110" y="138" font-family="Georgia, serif" font-size="52" font-weight="700" fill="#f0ebe4" letter-spacing="-1">Bisakah mesin membaca</text>
+  <text x="110" y="200" font-family="Georgia, serif" font-size="52" font-weight="700" fill="#f0ebe4" letter-spacing="-1">sinyal saham energi?</text>
+  <text x="110" y="258" font-family="Georgia, serif" font-size="22" fill="#8a847c">SVM · 14 saham energi BEI · 2015–2025</text>
+  <line x1="80" y1="300" x2="1120" y2="300" stroke="#2e2c29" stroke-width="1"/>
+  <text x="110" y="370" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#c45c38">10/14</text>
+  <text x="110" y="406" font-family="Georgia, serif" font-size="18" fill="#8a847c">emiten return positif</text>
+  <text x="430" y="370" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#f0ebe4">-9,35%</text>
+  <text x="430" y="406" font-family="Georgia, serif" font-size="18" fill="#8a847c">avg drawdown SVM</text>
+  <text x="750" y="370" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#8a847c">-48,91%</text>
+  <text x="750" y="406" font-family="Georgia, serif" font-size="18" fill="#8a847c">buy-dan-hold</text>
+  <text x="110" y="560" font-family="Georgia, serif" font-size="16" fill="#5a5652">Giovanka Steviano · Skripsi Informatika UKDW 2026</text>
+  <text x="110" y="590" font-family="Georgia, serif" font-size="14" fill="#3a3835">Riset akademik, bukan rekomendasi investasi.</text>
+</svg>
