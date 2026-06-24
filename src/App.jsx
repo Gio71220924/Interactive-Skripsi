@@ -10,6 +10,9 @@ import Bars3D from "./Bars3D.jsx";
 import ReturnsChart3D from "./ReturnsChart3D.jsx";
 import SplitText from "./components/SplitText.jsx";
 import Footer from "./Footer.jsx";
+import CursorFollower from "./CursorFollower.jsx";
+import StatNumber from "./StatNumber.jsx";
+import Lenis from "lenis";
 
 const KERNEL_DATA = [
   { label: "Polynomial", value: 6, color: "var(--accent)" },
@@ -83,6 +86,20 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
+  // Lenis smooth scroll, synced to GSAP ticker
+  useEffect(() => {
+    if (reduceMotion) return;
+    const lenis = new Lenis();
+    lenis.on("scroll", ScrollTrigger.update);
+    const tick = (time) => lenis.raf(time * 1000);
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
+    return () => {
+      lenis.destroy();
+      gsap.ticker.remove(tick);
+    };
+  }, []);
+
   useGSAP(() => {
     if (reduceMotion) return;
 
@@ -112,10 +129,50 @@ export default function App() {
         onEnterBack: dotPop,
       });
     });
+
+    // H2 clip-path reveal — skip if already in viewport on load
+    gsap.utils.toArray(".chapter h2").forEach((h2) => {
+      if (h2.getBoundingClientRect().top < window.innerHeight) return;
+      gsap.from(h2, {
+        clipPath: "inset(0 0 100% 0)",
+        y: 16,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: { trigger: h2, start: "top 85%", once: true },
+      });
+    });
+
+    // Stat slam-in: spec cards
+    const specGrid = document.querySelector(".spec-grid");
+    if (specGrid && specGrid.getBoundingClientRect().top > window.innerHeight) {
+      gsap.from(".spec-card", {
+        y: 40, opacity: 0, duration: 0.55, stagger: 0.12, ease: "power3.out",
+        scrollTrigger: { trigger: ".spec-grid", start: "top 88%", once: true },
+      });
+    }
+
+    // Stat slam-in: method steps
+    const strip = document.querySelector(".method-strip");
+    if (strip && strip.getBoundingClientRect().top > window.innerHeight) {
+      gsap.from(".method-step", {
+        y: 40, opacity: 0, duration: 0.5, stagger: 0.09, ease: "power3.out",
+        scrollTrigger: { trigger: ".method-strip", start: "top 88%", once: true },
+      });
+    }
+
+    // Stat slam-in: temuan list items
+    const ql = document.querySelector(".quiet-list");
+    if (ql && ql.getBoundingClientRect().top > window.innerHeight) {
+      gsap.from(".quiet-list li", {
+        y: 32, opacity: 0, duration: 0.5, stagger: 0.1, ease: "power3.out",
+        scrollTrigger: { trigger: ".quiet-list", start: "top 88%", once: true },
+      });
+    }
   }, []);
 
   return (
     <>
+      <CursorFollower />
       <div className="progress" aria-hidden="true">
         <span ref={progressRef} />
       </div>
@@ -162,7 +219,7 @@ export default function App() {
             )}
             <p className="deck">
               Empat indikator. Satu model SVM. 14 saham energi BEI, satu dekade harga harian.
-              Hasilnya: 10 dari 14 emiten return positif — dan ketika pasar turun, drawdown
+              Hasilnya: 10 dari 14 emiten return positif dan ketika pasar turun, drawdown
               −9,35% vs −48,91% buy-and-hold.
             </p>
 
@@ -200,7 +257,7 @@ export default function App() {
               <h2>Terlalu banyak variabel. Analisis teknikal biasa tidak cukup.</h2>
               <p>
                 Mengapa saham energi sulit ditebak? Harganya digerakkan komoditas global, geopolitik,
-                dan kurs — bukan chart saja. Pola yang muncul non-linear, penuh noise, dan sering
+                dan kurs bukan chart saja. Pola yang muncul non-linear, penuh noise, dan sering
                 membalikkan sinyal teknikal biasa.
               </p>
               <p className="muted">
@@ -276,17 +333,15 @@ export default function App() {
             <section className="chapter" id="temuan">
               <h2>SVM unggul bukan di pasar bull — tapi saat pasar turun.</h2>
               <blockquote className="pull">
-                Saat buy and hold ambles -48,91%, strategi SVM menahan rata-rata kerugian di -9,35%.
+                Saat buy and hold ambles <StatNumber value={-48.91} suffix="%" />, strategi SVM menahan rata-rata kerugian di <StatNumber value={-9.35} suffix="%" />.
               </blockquote>
               <p>
-                Ini bukan janji profit. Dari 14 emiten, 10 mencatat return positif (rata-rata
-                27,29%) dan SVM mengungguli beli-dan-tahan pada 7 emiten, paling terasa ketika
-                pasar turun.
+                Ini bukan janji profit. Dari 14 emiten, <StatNumber value={10} decimals={0} /> mencatat return positif (rata-rata <StatNumber value={27.29} suffix="%" />) dan SVM mengungguli beli-dan-tahan pada 7 emiten, paling terasa ketika pasar turun.
               </p>
               <ul className="quiet-list">
                 <li>
                   <span>A</span>
-                  <div>SVM paling unggul di saham bearish: BUMI +17,15% vs -29,81%, ITMG +8,25% vs -44,38%.</div>
+                  <div>SVM paling unggul di saham bearish: BUMI +<StatNumber value={17.15} suffix="%" /> vs <StatNumber value={-29.81} suffix="%" />, ITMG +<StatNumber value={8.25} suffix="%" /> vs <StatNumber value={-44.38} suffix="%" />.</div>
                 </li>
                 <li>
                   <span>B</span>
@@ -294,7 +349,7 @@ export default function App() {
                 </li>
                 <li>
                   <span>C</span>
-                  <div>Akurasi arah masih rendah (rata-rata F1 39,70%, terbaik DEWA 47,86%); keunggulan ada di manajemen risiko.</div>
+                  <div>Akurasi arah masih rendah (rata-rata F1 <StatNumber value={39.70} suffix="%" />, terbaik DEWA <StatNumber value={47.86} suffix="%" />); keunggulan ada di manajemen risiko.</div>
                 </li>
               </ul>
 
@@ -336,8 +391,8 @@ export default function App() {
             <ol>
               <li>SVM + 4 indikator teknikal pada 14 saham energi (2015-2025).</li>
               <li>Sinyal 3 kelas: BUY, HOLD, SELL.</li>
-              <li>10 dari 14 emiten mencatat return positif (rata-rata 27,29%).</li>
-              <li>Drawdown jauh lebih kecil: -9,35% vs -48,91% buy and hold.</li>
+              <li><StatNumber value={10} decimals={0} /> dari 14 emiten mencatat return positif (rata-rata <StatNumber value={27.29} suffix="%" />).</li>
+              <li>Drawdown jauh lebih kecil: <StatNumber value={-9.35} suffix="%" /> vs <StatNumber value={-48.91} suffix="%" /> buy and hold.</li>
               <li>Baca skripsi lengkap untuk metode dan pembahasan penuh.</li>
             </ol>
             <a href="#" className="btn secondary back-to-top">↑ Kembali ke atas</a>

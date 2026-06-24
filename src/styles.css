@@ -1185,6 +1185,44 @@
       padding-block-start: 8px;
     }
 
+    /* Cursor follower */
+    .cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+      will-change: transform;
+      translate: -50% -50%;
+    }
+
+    /* Chapter divider draw */
+    .chapter + .chapter {
+      position: relative;
+    }
+
+    .chapter + .chapter::before {
+      content: "";
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      inline-size: 100%;
+      block-size: 1px;
+      background: var(--border);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.65s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .chapter + .chapter.is-visible::before {
+      transform: scaleX(1);
+    }
+
     /* Footer */
     .site-footer {
       border-top: 1px solid var(--border);

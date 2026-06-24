@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { TICKERS } from "./demo.js";
 import PriceChart from "./PriceChart.jsx";
 import IndicatorChart from "./IndicatorChart.jsx";
@@ -23,11 +24,38 @@ const INDICATORS = [
   ["Stoch", "stochastic", "Stochastic — momentum, posisi harga dalam rentang terakhir."],
 ];
 
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 export default function ChartExplorer() {
   const [ticker, setTicker] = useState("ITMG");
   const [stage, setStage] = useState("data");
   const [indicator, setIndicator] = useState("adx");
   const [zoom, setZoom] = useState(null);
+  const containerRef = useRef(null);
+
+  // Card tilt on hover
+  useEffect(() => {
+    if (reduceMotion) return;
+    const pills = containerRef.current?.querySelectorAll(".chart-pill");
+    if (!pills) return;
+    const handlers = [];
+    pills.forEach((pill) => {
+      const onMove = (e) => {
+        const r = pill.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width - 0.5) * 14;
+        const y = ((e.clientY - r.top) / r.height - 0.5) * -14;
+        gsap.to(pill, { rotateX: y, rotateY: x, duration: 0.2, ease: "power2.out", transformPerspective: 500 });
+      };
+      const onLeave = () => gsap.to(pill, { rotateX: 0, rotateY: 0, duration: 0.5, ease: "power2.out" });
+      pill.addEventListener("mousemove", onMove);
+      pill.addEventListener("mouseleave", onLeave);
+      handlers.push({ pill, onMove, onLeave });
+    });
+    return () => handlers.forEach(({ pill, onMove, onLeave }) => {
+      pill.removeEventListener("mousemove", onMove);
+      pill.removeEventListener("mouseleave", onLeave);
+    });
+  }, [ticker, stage]);
 
   // Close lightbox on Escape
   useEffect(() => {
@@ -54,7 +82,7 @@ export default function ChartExplorer() {
   const ind = INDICATORS.find(([, key]) => key === indicator);
 
   return (
-    <div className="chart-explorer">
+    <div className="chart-explorer" ref={containerRef}>
       <div className="chart-picker" role="group" aria-label="Pilih emiten">
         {TICKERS.map((t) => (
           <button
