@@ -131,6 +131,16 @@ export default function App() {
       });
     });
 
+    // Hero exit parallax
+    gsap.to(".hero-content", {
+      y: -60, opacity: 0, ease: "none",
+      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
+    });
+    gsap.to(".hero-canvas", {
+      opacity: 0, ease: "none",
+      scrollTrigger: { trigger: ".hero", start: "40% top", end: "bottom top", scrub: true },
+    });
+
     // H2 clip-path reveal — skip if already in viewport on load
     gsap.utils.toArray(".chapter h2").forEach((h2) => {
       if (h2.getBoundingClientRect().top < window.innerHeight) return;
@@ -221,7 +231,7 @@ export default function App() {
               />
             </div>
           )}
-          <div>
+          <div className="hero-content">
             <p className="kicker">Skripsi Informatika, UKDW 2026</p>
             {reduceMotion ? (
               <h1>{HERO_TITLE}</h1>
