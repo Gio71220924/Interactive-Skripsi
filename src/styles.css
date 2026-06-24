@@ -1260,6 +1260,30 @@
       transform: scaleX(1);
     }
 
+    /* Chart tooltip */
+    .chart-tooltip {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .tt-label { color: var(--muted); }
+    .tt-value { color: var(--fg); font-weight: 600; }
+
+    /* Chart header */
+    .chart-header {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-block-end: 10px;
+    }
+    .chart-header-title { font-size: 13px; font-weight: 600; color: var(--fg); }
+    .chart-header-meta { font-size: 11px; color: var(--muted); }
+
     /* Footer */
     .site-footer {
       border-top: 1px solid var(--border);

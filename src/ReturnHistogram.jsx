@@ -24,6 +24,10 @@ export default function ReturnHistogram({ ticker }) {
 
   return (
     <figure className="figure chart-figure">
+      <div className="chart-header">
+        <span className="chart-header-title">Return Harian · {ticker}</span>
+        <span className="chart-header-meta">2015–2025 · {data.reduce((s, d) => s + d.y, 0)} hari trading</span>
+      </div>
       <ResponsiveContainer width="100%" height={260}>
         <BarChart data={data} barCategoryGap={0} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
           <XAxis
