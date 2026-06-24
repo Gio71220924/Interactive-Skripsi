@@ -628,91 +628,51 @@
     }
 
     .ml-lab {
-      display: grid;
-      grid-template-columns: minmax(260px, 0.82fr) minmax(320px, 1.18fr);
-      gap: clamp(18px, 3vw, 28px);
       margin-block: 38px 20px;
-      border: 1px solid var(--border);
-      background: color-mix(in oklch, var(--surface) 88%, transparent);
-    }
-
-    .lab-controls,
-    .lab-output {
-      min-inline-size: 0;
-      padding: clamp(18px, 3vw, 24px);
-    }
-
-    .lab-controls {
-      border-inline-end: 1px solid var(--border);
     }
 
     .lab-kicker {
-      margin: 0 0 12px;
+      margin: 0 0 20px;
       color: var(--muted);
       font-family: var(--font-display);
       font-size: 13px;
       font-style: italic;
     }
 
-    .lab-controls h3,
-    .lab-output h3 {
-      margin: 0;
-      font-family: var(--font-display);
-      font-size: clamp(30px, 3vw, 42px);
-      font-weight: 400;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-    }
-
-    .lab-note {
-      margin: 14px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
     .demo-form {
-      display: grid;
-      gap: 16px;
-      margin-block-start: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .demo-field {
-      display: grid;
-      gap: 8px;
+    .demo-inline {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+      flex-wrap: wrap;
     }
 
-    .demo-field label {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .demo-field select,
-    .demo-field input {
-      inline-size: 100%;
+    .demo-inline select {
       min-block-size: 44px;
+      min-inline-size: 140px;
       border: 1px solid var(--border);
       border-radius: 0;
       padding: 10px 12px;
       background: var(--surface);
       color: var(--fg);
-    }
-
-    .run-row {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
-      margin-block-start: 8px;
+      font-size: 14px;
     }
 
     .model-status {
       color: var(--muted);
       font-size: 12px;
       line-height: 1.35;
+    }
+
+    .lab-result {
+      margin-block-start: 32px;
+      padding-block-start: 24px;
+      border-block-start: 1px solid var(--border);
     }
 
     .signal-header {
@@ -1029,8 +989,7 @@
         grid-template-columns: 1fr;
       }
 
-      .spec-grid,
-      .ml-lab {
+      .spec-grid {
         grid-template-columns: 1fr;
       }
 
