@@ -34,13 +34,15 @@ export default function ReturnHistogram({ ticker }) {
         <BarChart data={data} barCategoryGap={0} margin={{ top: 8, right: 16, left: 8, bottom: 32 }}>
           <XAxis
             dataKey="x"
+            type="number"
+            domain={[-0.25, 0.25]}
             tickFormatter={fmt}
             ticks={[-0.2, -0.1, 0, 0.1, 0.2]}
             tick={{ fontSize: 11, fill: "var(--muted)" }}
             axisLine={false}
             tickLine={false}
           >
-            <Label value="Return Harian" offset={-16} position="insideBottom" style={{ fontSize: 11, fill: "var(--muted)" }} />
+            <Label value="Return Harian (%)" offset={-16} position="insideBottom" style={{ fontSize: 11, fill: "var(--muted)" }} />
           </XAxis>
           <YAxis
             tick={{ fontSize: 11, fill: "var(--muted)" }}
