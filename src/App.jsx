@@ -13,6 +13,7 @@ import Footer from "./Footer.jsx";
 import CursorFollower from "./CursorFollower.jsx";
 const Antigravity = lazy(() => import("./Antigravity.jsx"));
 import StatNumber from "./StatNumber.jsx";
+import BacktestChart from "./BacktestChart.jsx";
 import Lenis from "lenis";
 
 const KERNEL_DATA = [
@@ -28,8 +29,8 @@ const RAIL = [
   ["01", "Masalah", "masalah"],
   ["02", "Metode", "metode"],
   ["03", "Analisis", "analisis"],
-  ["04", "Demo", "ml-demo"],
-  ["05", "Temuan", "temuan"],
+  ["04", "Temuan", "temuan"],
+  ["05", "Demo", "ml-demo"],
   ["06", "Implikasi", "implikasi"],
 ];
 
@@ -47,6 +48,7 @@ const jumpTo = (id) => {
 export default function App() {
   const [theme, setTheme] = useState(getInitialTheme);
   const [activeId, setActiveId] = useState("masalah");
+  const [temuanTicker, setTemuanTicker] = useState("BUMI");
   const progressRef = useRef(null);
 
   // Apply theme to <html> + persist
@@ -364,25 +366,13 @@ export default function App() {
             </section>
 
             <section className="chapter" id="analisis">
-              <h2>BUMI: SVM +17%, buy-and-hold −30%. Grafik ini menjelaskan kenapa.</h2>
+              <h2>Empat indikator teknikal. Satu model. Seberapa akurat sinyalnya?</h2>
               <p>
-                Pilih satu emiten. Dua kurva, SVM vs beli-dan-tahan, dari backtest 2023-2025,
-                lengkap dengan drawdown saat pasar turun.
+                Pilih satu emiten dan eksplorasi pipeline: data harga mentah, keempat indikator
+                yang jadi input SVM, lalu confusion matrix yang menunjukkan seberapa sering sinyal
+                BUY / HOLD / SELL ditebak benar.
               </p>
               <ChartExplorer />
-              <p>
-                Di pasar bearish, SVM menekan kerugian lebih dalam dari buy-and-hold.
-              </p>
-            </section>
-
-            <section className="chapter" id="ml-demo">
-              <h2>Pilih emiten. Jalankan model. Baca sinyalnya.</h2>
-              <p>
-                Model SVM berjalan dari data pasar hari ini. Pilih satu saham energi, tekan Run,
-                dan lihat sinyal riset: <strong lang="en">BUY</strong>, <strong lang="en">HOLD</strong>, atau{" "}
-                <strong lang="en">SELL</strong>.
-              </p>
-              <MLDemo />
             </section>
 
             <section className="chapter" id="temuan">
@@ -408,11 +398,30 @@ export default function App() {
                 </li>
               </ul>
 
+              <div className="chart-picker" role="group" aria-label="Pilih emiten backtest" style={{ marginBlock: "20px 8px" }}>
+                {["ADRO","AKRA","BUMI","BYAN","DEWA","DSSA","ENRG","GEMS","ITMG","MEDC","PGAS","PTBA","PTRO","RAJA"].map((t) => (
+                  <button key={t} type="button" className="chart-pill"
+                    aria-pressed={t === temuanTicker}
+                    onClick={() => setTemuanTicker(t)}>{t}</button>
+                ))}
+              </div>
+              <BacktestChart ticker={temuanTicker} />
+
               <ReturnsChart3D />
               <Bars3D
                 data={KERNEL_DATA}
                 caption="Dari tiga kernel yang diuji, Polynomial paling sering terpilih. Hubungan indikator dan sinyal di saham energi memang non-linear."
               />
+            </section>
+
+            <section className="chapter" id="ml-demo">
+              <h2>Pilih emiten. Jalankan model. Baca sinyalnya.</h2>
+              <p>
+                Model SVM berjalan dari data pasar hari ini. Pilih satu saham energi, tekan Run,
+                dan lihat sinyal riset: <strong lang="en">BUY</strong>, <strong lang="en">HOLD</strong>, atau{" "}
+                <strong lang="en">SELL</strong>.
+              </p>
+              <MLDemo />
             </section>
 
             <section className="chapter" id="implikasi">

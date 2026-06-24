@@ -4,18 +4,16 @@ import { TICKERS } from "./demo.js";
 import PriceChart from "./PriceChart.jsx";
 import IndicatorChart from "./IndicatorChart.jsx";
 import ConfusionMatrix from "./ConfusionMatrix.jsx";
-import BacktestChart from "./BacktestChart.jsx";
 import ReturnHistogram from "./ReturnHistogram.jsx";
 
 const BASE = import.meta.env.BASE_URL;
 const src = (name) => `${BASE}charts/${name}.png`;
 
-// Pipeline stages mirror the research method: Data -> Features -> Evaluation -> Backtest
+// Pipeline stages: Data → Indikator → Evaluasi (Backtest moved to Temuan section)
 const STAGES = [
   { id: "data", label: "Data", note: "Bahan mentah: harga harian dan sebaran return sebelum indikator dihitung." },
-  { id: "indikator", label: "Indikator", note: "Empat indikator teknikal , inilah yang jadi mata model (input SVM)." },
+  { id: "indikator", label: "Indikator", note: "Empat indikator teknikal, inilah yang jadi mata model (input SVM)." },
   { id: "evaluasi", label: "Evaluasi", note: "Seberapa sering arah BUY / HOLD / SELL ditebak benar." },
-  { id: "backtest", label: "Backtest", note: "Kalau sinyalnya benar-benar dipakai trading sepanjang 2023-2025." },
 ];
 
 const INDICATORS = [
@@ -143,8 +141,6 @@ export default function ChartExplorer() {
         )}
 
         {stage === "evaluasi" && <ConfusionMatrix ticker={ticker} />}
-
-        {stage === "backtest" && <BacktestChart ticker={ticker} />}
       </div>
 
       {zoom && (
