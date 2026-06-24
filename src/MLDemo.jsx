@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { TICKERS, sampleResponses, signalCopy, normalizeResponse } from "./demo.js";
+import { TICKERS, signalCopy, normalizeResponse } from "./demo.js";
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -77,8 +77,7 @@ export default function MLDemo() {
       setResponse(normalizeResponse(data, ticker));
       setStatus("Sinyal model selesai.");
     } catch {
-      setResponse(normalizeResponse(sampleResponses[ticker] || sampleResponses.ADRO, ticker));
-      setStatus("● data sampel");
+      setStatus("Model tidak tersedia saat ini. Coba beberapa menit lagi.");
     }
     setRunning(false);
   };
