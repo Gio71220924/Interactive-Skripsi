@@ -634,45 +634,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .chart-lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 50;
-      display: grid;
-      place-items: center;
-      padding: 24px;
-      background: color-mix(in oklch, var(--fg) 78%, transparent);
-      cursor: zoom-out;
-    }
-
-    .chart-lightbox img {
-      max-inline-size: min(1100px, 95vw);
-      max-block-size: 90vh;
-      inline-size: auto;
-      block-size: auto;
-      border-radius: 6px;
-      background: #ffffff;
-    }
-
-    .chart-lightbox-close {
-      position: fixed;
-      inset-block-start: 16px;
-      inset-inline-end: 20px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-inline-size: 44px;
-      min-block-size: 44px;
-      padding: 10px 14px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 6px;
-      background: none;
-      color: white;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-    }
-
     figcaption {
       margin-block-start: 10px;
       color: var(--muted);
@@ -1009,16 +970,7 @@
       outline-offset: 2px;
     }
 
-    .chart-lightbox-close:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
-    .chart-lightbox-close:focus-visible {
-      outline: 2px solid rgba(255, 255, 255, 0.6);
-      outline-offset: 3px;
-    }
-
-    [data-theme="dark"] .chart-figure img,
-    [data-theme="dark"] .chart-lightbox img {
+    [data-theme="dark"] .chart-figure img {
       filter: invert(1) hue-rotate(180deg);
     }
 

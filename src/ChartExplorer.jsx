@@ -5,11 +5,6 @@ import PriceChart from "./PriceChart.jsx";
 import IndicatorChart from "./IndicatorChart.jsx";
 import ConfusionMatrix from "./ConfusionMatrix.jsx";
 import ReturnHistogram from "./ReturnHistogram.jsx";
-
-const BASE = import.meta.env.BASE_URL;
-const src = (name) => `${BASE}charts/${name}.png`;
-
-// Pipeline stages: Data → Indikator → Evaluasi (Backtest moved to Temuan section)
 const STAGES = [
   { id: "data", label: "Data", note: "Bahan mentah: harga harian dan sebaran return sebelum indikator dihitung." },
   { id: "indikator", label: "Indikator", note: "Empat indikator teknikal, inilah yang jadi mata model (input SVM)." },
@@ -29,7 +24,6 @@ export default function ChartExplorer() {
   const [ticker, setTicker] = useState("ITMG");
   const [stage, setStage] = useState("data");
   const [indicator, setIndicator] = useState("adx");
-  const [zoom, setZoom] = useState(null);
   const containerRef = useRef(null);
 
   // Card tilt on hover
@@ -55,27 +49,6 @@ export default function ChartExplorer() {
       pill.removeEventListener("mouseleave", onLeave);
     });
   }, [ticker, stage]);
-
-  // Close lightbox on Escape
-  useEffect(() => {
-    if (!zoom) return;
-    const onKey = (e) => e.key === "Escape" && setZoom(null);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [zoom]);
-
-  const Figure = ({ name, alt, caption }) => (
-    <figure className="figure chart-figure">
-      <img
-        src={src(name)}
-        alt={alt}
-        loading="lazy"
-        onClick={() => setZoom({ name, alt })}
-        title="Klik untuk perbesar"
-      />
-      <figcaption>{caption}</figcaption>
-    </figure>
-  );
 
   const activeStage = STAGES.find((s) => s.id === stage);
   const ind = INDICATORS.find(([, key]) => key === indicator);
@@ -143,14 +116,6 @@ export default function ChartExplorer() {
         {stage === "evaluasi" && <ConfusionMatrix ticker={ticker} />}
       </div>
 
-      {zoom && (
-        <div className="chart-lightbox" role="dialog" aria-modal="true" onClick={() => setZoom(null)}>
-          <img src={src(zoom.name)} alt={zoom.alt} />
-          <button type="button" className="chart-lightbox-close" onClick={(e) => { e.stopPropagation(); setZoom(null); }}>
-            <span aria-hidden="true">✕</span> Tutup
-          </button>
-        </div>
-      )}
     </div>
   );
 }
