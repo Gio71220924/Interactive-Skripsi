@@ -9,6 +9,7 @@ import ChartExplorer from "./ChartExplorer.jsx";
 import Bars3D from "./Bars3D.jsx";
 import ReturnsChart3D from "./ReturnsChart3D.jsx";
 import SplitText from "./components/SplitText.jsx";
+import Footer from "./Footer.jsx";
 
 const KERNEL_DATA = [
   { label: "Polynomial", value: 6, color: "var(--accent)" },
@@ -343,6 +344,7 @@ export default function App() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }
