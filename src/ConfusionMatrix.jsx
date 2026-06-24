@@ -27,7 +27,7 @@ export default function ConfusionMatrix({ ticker }) {
               const L = Math.round(98 - 40 * val);
               const C = (0.16 * val).toFixed(3);
               const bg = `oklch(${L}% ${C} 35)`;
-              const ink = val > 0.5 ? "var(--bg)" : "var(--fg)";
+              const ink = L > 70 ? "oklch(18% 0.04 35)" : "oklch(98% 0 0)";
               return (
                 <div
                   key={c}
