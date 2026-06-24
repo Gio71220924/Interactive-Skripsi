@@ -311,7 +311,7 @@ export default function App() {
             <section className="chapter" id="analisis">
               <h2>BUMI: SVM +17%, buy-and-hold −30%. Grafik ini menjelaskan kenapa.</h2>
               <p>
-                Pilih satu emiten. Dua kurva — SVM vs beli-dan-tahan — dari backtest 2023-2025,
+                Pilih satu emiten. Dua kurva, SVM vs beli-dan-tahan, dari backtest 2023-2025,
                 lengkap dengan drawdown saat pasar turun.
               </p>
               <ChartExplorer />
@@ -331,7 +331,7 @@ export default function App() {
             </section>
 
             <section className="chapter" id="temuan">
-              <h2>SVM unggul bukan di pasar bull — tapi saat pasar turun.</h2>
+              <h2>SVM unggul bukan di pasar bull, tapi saat pasar turun.</h2>
               <blockquote className="pull">
                 Saat buy and hold ambles <StatNumber value={-48.91} suffix="%" />, strategi SVM menahan rata-rata kerugian di <StatNumber value={-9.35} suffix="%" />.
               </blockquote>

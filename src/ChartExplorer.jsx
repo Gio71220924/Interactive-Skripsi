@@ -12,16 +12,16 @@ const src = (name) => `${BASE}charts/${name}.png`;
 // Pipeline stages mirror the research method: Data -> Features -> Evaluation -> Backtest
 const STAGES = [
   { id: "data", label: "Data", note: "Bahan mentah: harga harian dan sebaran return sebelum indikator dihitung." },
-  { id: "indikator", label: "Indikator", note: "Empat indikator teknikal — inilah yang jadi mata model (input SVM)." },
+  { id: "indikator", label: "Indikator", note: "Empat indikator teknikal , inilah yang jadi mata model (input SVM)." },
   { id: "evaluasi", label: "Evaluasi", note: "Seberapa sering arah BUY / HOLD / SELL ditebak benar." },
   { id: "backtest", label: "Backtest", note: "Kalau sinyalnya benar-benar dipakai trading sepanjang 2023-2025." },
 ];
 
 const INDICATORS = [
-  ["ADX", "adx", "Kekuatan tren — seberapa kuat arah harga bergerak."],
-  ["BB", "bb", "Bollinger Bands — pita volatilitas di sekitar harga."],
-  ["OBV", "obv", "On-Balance Volume — tekanan beli/jual dari sisi volume."],
-  ["Stoch", "stochastic", "Stochastic — momentum, posisi harga dalam rentang terakhir."],
+  ["ADX", "adx", "Kekuatan tren , seberapa kuat arah harga bergerak."],
+  ["BB", "bb", "Bollinger Bands , pita volatilitas di sekitar harga."],
+  ["OBV", "obv", "On-Balance Volume , tekanan beli/jual dari sisi volume."],
+  ["Stoch", "stochastic", "Stochastic , momentum, posisi harga dalam rentang terakhir."],
 ];
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -120,7 +120,7 @@ export default function ChartExplorer() {
             <PriceChart ticker={ticker} />
             <Figure
               name={`${ticker}_eda_returns`}
-              alt={`Histogram distribusi return harian ${ticker}. Distribusi leptokurtik dengan ekor tebal di kedua sisi — lonjakan ekstrem lebih sering dari distribusi normal, menyulitkan prediksi arah`}
+              alt={`Histogram distribusi return harian ${ticker}. Distribusi leptokurtik dengan ekor tebal di kedua sisi , lonjakan ekstrem lebih sering dari distribusi normal, menyulitkan prediksi arah`}
               caption={`Sebaran return harian ${ticker}. Ekor yang tebal menandakan lonjakan tajam yang menyulitkan prediksi arah.`}
             />
           </>

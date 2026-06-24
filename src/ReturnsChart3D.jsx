@@ -171,7 +171,7 @@ export default function ReturnsChart3D() {
           Beli-dan-tahan
         </span>
         <span className="rc-legend-note">
-          BUMI &amp; ITMG disorot — keunggulan SVM paling nyata di pasar bearish
+          BUMI &amp; ITMG disorot. Keunggulan SVM paling nyata di pasar bearish
         </span>
       </figcaption>
     </figure>

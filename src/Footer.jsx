@@ -35,7 +35,7 @@ export default function Footer() {
           <div className="footer-col">
             <p className="footer-label">Catatan riset</p>
             <p className="footer-body muted">
-              Sinyal yang ditampilkan adalah hasil eksperimen akademik —
+              Sinyal yang ditampilkan adalah hasil eksperimen akademik,
               bukan rekomendasi investasi. Keputusan trading sepenuhnya
               tanggung jawab masing-masing investor.
             </p>
