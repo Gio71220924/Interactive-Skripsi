@@ -5,6 +5,7 @@ import PriceChart from "./PriceChart.jsx";
 import IndicatorChart from "./IndicatorChart.jsx";
 import ConfusionMatrix from "./ConfusionMatrix.jsx";
 import BacktestChart from "./BacktestChart.jsx";
+import ReturnHistogram from "./ReturnHistogram.jsx";
 
 const BASE = import.meta.env.BASE_URL;
 const src = (name) => `${BASE}charts/${name}.png`;
@@ -118,11 +119,7 @@ export default function ChartExplorer() {
         {stage === "data" && (
           <>
             <PriceChart ticker={ticker} />
-            <Figure
-              name={`${ticker}_eda_returns`}
-              alt={`Histogram distribusi return harian ${ticker}. Distribusi leptokurtik dengan ekor tebal di kedua sisi , lonjakan ekstrem lebih sering dari distribusi normal, menyulitkan prediksi arah`}
-              caption={`Sebaran return harian ${ticker}. Ekor yang tebal menandakan lonjakan tajam yang menyulitkan prediksi arah.`}
-            />
+            <ReturnHistogram ticker={ticker} />
           </>
         )}
 
