@@ -250,6 +250,7 @@ export default function App() {
                 onClick={() => jumpTo(target)}
               >
                 <span className="dot" aria-hidden="true" />
+                <span className="num" aria-hidden="true">{num}</span>
                 <span className="label">{label}</span>
               </button>
             ))}

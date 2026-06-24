@@ -264,8 +264,8 @@
 
     .rail button {
       display: grid;
-      grid-template-columns: 18px 1fr;
-      gap: 10px;
+      grid-template-columns: 12px 22px 1fr;
+      gap: 8px;
       align-items: center;
       inline-size: 100%;
       border: 0;
@@ -274,7 +274,7 @@
       color: var(--muted);
       cursor: pointer;
       text-align: start;
-      margin-inline-start: -26px;
+      margin-inline-start: -22px;
       transition: color 160ms ease;
     }
 
@@ -284,21 +284,34 @@
     }
 
     .rail .dot {
-      inline-size: 12px;
-      block-size: 2px;
-      border-radius: 1px;
-      background: currentColor;
+      inline-size: 10px;
+      block-size: 10px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      background: transparent;
       justify-self: center;
-      transition: inline-size 220ms cubic-bezier(0.16, 1, 0.3, 1), background 160ms ease;
+      transition: background 160ms ease, border-color 160ms ease;
     }
 
     .rail button[aria-current="true"] .dot {
-      inline-size: 20px;
       background: var(--accent);
+      border-color: var(--accent);
     }
 
     .rail button[aria-current="true"] {
       color: var(--accent);
+    }
+
+    .rail .num {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: inherit;
+      opacity: 0.55;
+    }
+
+    .rail button[aria-current="true"] .num {
+      opacity: 1;
     }
 
     .rail .label {
