@@ -179,7 +179,10 @@ export default function App() {
 
       <header className="masthead">
         <a className="mark" href="#">
-          Skripsi Interactive
+          <span className="mark-text">
+            <span className="mark-name">Giovanka Steviano</span>
+            <span className="mark-sub">Skripsi Interaktif · UKDW 2026</span>
+          </span>
         </a>
         <nav className="topnav" aria-label="Navigasi utama">
           <a href="#masalah">Masalah</a>

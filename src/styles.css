@@ -87,10 +87,24 @@
       align-items: center;
       gap: 10px;
       color: var(--fg);
+    }
+    .mark-name {
       font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+    }
+    .mark-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .mark-sub {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1px;
     }
 
     .mark::before {
