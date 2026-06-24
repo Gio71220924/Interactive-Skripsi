@@ -14,6 +14,7 @@ import CursorFollower from "./CursorFollower.jsx";
 const Antigravity = lazy(() => import("./Antigravity.jsx"));
 import StatNumber from "./StatNumber.jsx";
 import BacktestChart from "./BacktestChart.jsx";
+import IndicatorFreqChart from "./IndicatorFreqChart.jsx";
 import Lenis from "lenis";
 
 const KERNEL_DATA = [
@@ -406,6 +407,14 @@ export default function App() {
                 ))}
               </div>
               <BacktestChart ticker={temuanTicker} />
+
+              <IndicatorFreqChart />
+              <p>
+                Bollinger Bands hadir di semua 14 kombinasi terbaik — satu-satunya indikator
+                yang konsisten lintas emiten. Ini masuk akal: volatilitas harga komoditas energi
+                terlalu besar untuk diabaikan. Di 5 emiten, keempat indikator diperlukan bersama;
+                di 4 emiten, BB dan Stochastic sudah cukup untuk menangkap pola entry yang relevan.
+              </p>
 
               <ReturnsChart3D />
               <Bars3D
