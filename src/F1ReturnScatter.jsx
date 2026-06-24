@@ -64,8 +64,8 @@ export default function F1ReturnScatter() {
           <YAxis
             dataKey="ret" type="number" name="Return"
             tick={{ fontSize: 11, fill: "var(--muted)" }} axisLine={false} tickLine={false}
-            width={44} tickFormatter={v => `${v}%`}
-            label={{ value: "Return SVM (%)", angle: -90, position: "insideLeft", offset: 14, fontSize: 11, fill: "var(--muted)" }}
+            width={60} tickFormatter={v => `${v}%`}
+            label={{ value: "Return SVM (%)", angle: -90, position: "insideLeft", dx: -14, fontSize: 11, fill: "var(--muted)" }}
           />
           <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: "3 3", stroke: "var(--border)" }} />
           <ReferenceLine y={0} stroke="var(--border)" strokeDasharray="4 3" />

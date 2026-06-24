@@ -320,7 +320,7 @@ export default function App() {
                 dan kurs bukan chart saja. Pola yang muncul non-linear, penuh noise, dan sering
                 membalikkan sinyal teknikal biasa.
               </p>
-              <p className="muted">
+              <p>
                 Per Desember 2025 jumlah investor pasar modal Indonesia menembus 20,35 juta. Saham
                 energi menarik tapi sangat fluktuatif: harganya digerakkan komoditas global, geopolitik,
                 dan nilai tukar, menghasilkan pola non-linear penuh noise yang sulit dibaca analisis
