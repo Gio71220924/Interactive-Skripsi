@@ -65,7 +65,7 @@ const CustomTooltip = ({ active, payload, label }) => {
           <span style={{ color: "var(--accent)", fontWeight: 700 }}>{fmt(d.svm)}</span>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 16 }}>
-          <span style={{ color: "var(--muted)" }}>Beli-dan-tahan</span>
+          <span style={{ color: "var(--muted)" }}>Buy-and-hold</span>
           <span style={{ color: "var(--muted)", fontWeight: 600 }}>
             {fmt(d.bh)}{bhCapped ? " ▲" : ""}
           </span>
@@ -168,7 +168,7 @@ export default function ReturnsChart3D() {
         </span>
         <span className="rc-legend-item">
           <span className="rc-swatch rc-swatch--dashed" />
-          Beli-dan-tahan
+          Buy-and-hold
         </span>
         <span className="rc-legend-note">
           BUMI &amp; ITMG disorot. Keunggulan SVM paling nyata di pasar bearish

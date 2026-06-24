@@ -333,7 +333,7 @@ export default function App() {
                 </div>
                 <div className="spec-card">
                   <p className="small">Pertanyaan inti</p>
-                  <strong>Bisakah sinyal SVM mengungguli strategi beli-dan-tahan?</strong>
+                  <strong>Bisakah sinyal SVM mengungguli strategi buy-and-hold?</strong>
                 </div>
               </div>
             </section>
@@ -385,7 +385,7 @@ export default function App() {
                 Saat buy and hold ambles <StatNumber value={-48.91} suffix="%" />, strategi SVM menahan rata-rata kerugian di <StatNumber value={-9.35} suffix="%" />.
               </blockquote>
               <p>
-                Ini bukan janji profit. Dari 14 emiten, <StatNumber value={10} decimals={0} /> mencatat return positif (rata-rata <StatNumber value={27.29} suffix="%" />) dan SVM mengungguli beli-dan-tahan pada 7 emiten, paling terasa ketika pasar turun.
+                Ini bukan janji profit. Dari 14 emiten, <StatNumber value={10} decimals={0} /> mencatat return positif (rata-rata <StatNumber value={27.29} suffix="%" />) dan SVM mengungguli buy-and-hold pada 7 emiten, paling terasa ketika pasar turun.
               </p>
               <ul className="quiet-list">
                 <li>
@@ -459,12 +459,12 @@ export default function App() {
           <div className="handoff-stat">
             <span className="handoff-stat-number">−9,35%</span>
             <span className="handoff-stat-divider" />
-            <span className="handoff-stat-caption">rata-rata max drawdown SVM · vs −48,91% buy-and-hold</span>
+            <span className="handoff-stat-caption">penurunan terdalam rata-rata SVM · buy-and-hold: −48,91%</span>
           </div>
-          <h2>Capital preservation di pasar energi bergejolak.</h2>
+          <h2>Pasar turun separuh. Model ini tidak.</h2>
           <p>
             SVM bukan prediksi sempurna. Tapi dalam tiga tahun backtest, 14 emiten, model ini
-            melindungi modal saat benchmark kehilangan hampir separuhnya.
+            membatasi kerugian saat strategi buy-and-hold kehilangan hampir separuhnya.
           </p>
           <a href="#masalah" className="handoff-back">↑ Kembali ke atas</a>
         </section>
