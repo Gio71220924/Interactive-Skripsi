@@ -1,6 +1,6 @@
 import { HIST } from "./returns_hist.js";
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveContainer, Cell,
+  BarChart, Bar, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveContainer, Cell, Label,
 } from "recharts";
 
 const fmt = (v) => `${(v * 100).toFixed(0)}%`;
@@ -10,26 +10,28 @@ const CustomTooltip = ({ active, payload }) => {
   const { x, y } = payload[0].payload;
   return (
     <div className="chart-tooltip">
-      <span className="tt-label">{fmt(x - 0.005)} – {fmt(x + 0.005)}</span>
+      <span className="tt-label">Return: {fmt(x - 0.005)} s/d {fmt(x + 0.005)}</span>
       <span className="tt-value">{y} hari</span>
     </div>
   );
 };
 
 export default function ReturnHistogram({ ticker }) {
-  const data = HIST[ticker];
-  if (!data) return null;
+  const raw = HIST[ticker];
+  if (!raw) return null;
 
+  const data = raw.filter(d => d.y > 0);
   const max = Math.max(...data.map(d => d.y));
+  const total = data.reduce((s, d) => s + d.y, 0);
 
   return (
     <figure className="figure chart-figure">
       <div className="chart-header">
         <span className="chart-header-title">Return Harian · {ticker}</span>
-        <span className="chart-header-meta">2015–2025 · {data.reduce((s, d) => s + d.y, 0)} hari trading</span>
+        <span className="chart-header-meta">2015–2025 · {total} hari trading</span>
       </div>
-      <ResponsiveContainer width="100%" height={260}>
-        <BarChart data={data} barCategoryGap={0} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
+      <ResponsiveContainer width="100%" height={280}>
+        <BarChart data={data} barCategoryGap={0} margin={{ top: 8, right: 16, left: 8, bottom: 32 }}>
           <XAxis
             dataKey="x"
             tickFormatter={fmt}
@@ -37,16 +39,25 @@ export default function ReturnHistogram({ ticker }) {
             tick={{ fontSize: 11, fill: "var(--muted)" }}
             axisLine={false}
             tickLine={false}
-          />
-          <YAxis hide />
-          <Tooltip content={<CustomTooltip />} cursor={{ fill: "var(--border)" }} />
+          >
+            <Label value="Return Harian" offset={-16} position="insideBottom" style={{ fontSize: 11, fill: "var(--muted)" }} />
+          </XAxis>
+          <YAxis
+            tick={{ fontSize: 11, fill: "var(--muted)" }}
+            axisLine={false}
+            tickLine={false}
+            width={36}
+          >
+            <Label value="Frekuensi" angle={-90} position="insideLeft" offset={12} style={{ fontSize: 11, fill: "var(--muted)" }} />
+          </YAxis>
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: "var(--border)", fillOpacity: 0.4 }} />
           <ReferenceLine x={0} stroke="var(--border)" strokeDasharray="3 3" />
           <Bar dataKey="y" maxBarSize={18}>
             {data.map((entry) => (
               <Cell
                 key={entry.x}
                 fill={entry.y >= max * 0.6 ? "var(--accent)" : "var(--muted)"}
-                fillOpacity={0.55 + 0.45 * (entry.y / max)}
+                fillOpacity={0.5 + 0.5 * (entry.y / max)}
               />
             ))}
           </Bar>
