@@ -445,7 +445,7 @@ export default function App() {
                 tren pada SVM membuka ruang kajian lanjutan. Catatan: ini alat bantu riset, bukan
                 rekomendasi investasi.
               </p>
-              <p className="muted">
+              <p>
                 Keterbatasan: cakupan hanya sektor energi, F1 masih rendah, dan backtest belum memodelkan
                 biaya transaksi serta slippage. Lanjutan yang mungkin: menambah fitur fundamental, mencoba
                 algoritma lain, atau memperluas ke sektor berbeda.
