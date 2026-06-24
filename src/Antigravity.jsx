@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import * as THREE from 'three';
 
 const AntigravityInner = ({
@@ -27,6 +27,18 @@ const AntigravityInner = ({
   const lastMousePos = useRef({ x: 0, y: 0 });
   const lastMouseMoveTime = useRef(0);
   const virtualMouse = useRef({ x: 0, y: 0 });
+  const globalPointer = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const onMove = (e) => {
+      globalPointer.current = {
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: -(e.clientY / window.innerHeight) * 2 + 1,
+      };
+    };
+    window.addEventListener('mousemove', onMove);
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
 
   const particles = useMemo(() => {
     const temp = [];
@@ -47,7 +59,8 @@ const AntigravityInner = ({
   useFrame(state => {
     const mesh = meshRef.current;
     if (!mesh) return;
-    const { viewport: v, pointer: m } = state;
+    const { viewport: v } = state;
+    const m = globalPointer.current;
 
     const mouseDist = Math.sqrt(
       Math.pow(m.x - lastMousePos.current.x, 2) + Math.pow(m.y - lastMousePos.current.y, 2)
