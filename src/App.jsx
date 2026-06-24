@@ -15,6 +15,8 @@ const Antigravity = lazy(() => import("./Antigravity.jsx"));
 import StatNumber from "./StatNumber.jsx";
 import BacktestChart from "./BacktestChart.jsx";
 import IndicatorFreqChart from "./IndicatorFreqChart.jsx";
+import F1Chart from "./F1Chart.jsx";
+import F1ReturnScatter from "./F1ReturnScatter.jsx";
 import Lenis from "lenis";
 
 const KERNEL_DATA = [
@@ -374,6 +376,7 @@ export default function App() {
                 BUY / HOLD / SELL ditebak benar.
               </p>
               <ChartExplorer />
+              <F1Chart />
             </section>
 
             <section className="chapter" id="temuan">
@@ -408,6 +411,7 @@ export default function App() {
               </div>
               <BacktestChart ticker={temuanTicker} />
 
+              <F1ReturnScatter />
               <IndicatorFreqChart />
               <p>
                 Bollinger Bands hadir di semua 14 kombinasi terbaik — satu-satunya indikator
