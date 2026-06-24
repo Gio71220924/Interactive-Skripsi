@@ -162,7 +162,7 @@ export default function App() {
       words.forEach((word, i) => {
         if (i > 0) p.appendChild(document.createTextNode(" "));
         const span = document.createElement("span");
-        span.style.opacity = "0.15";
+        span.style.opacity = "0.4";
         span.style.display = "inline";
         span.textContent = word;
         p.appendChild(span);
@@ -172,17 +172,6 @@ export default function App() {
         stagger: { each: 0.015, ease: "none" },
         ease: "none",
         scrollTrigger: { trigger: p, start: "top 82%", end: "bottom 50%", scrub: 0.4 },
-      });
-    });
-
-    // Pull-quote pin — hold for 400px scroll
-    gsap.utils.toArray(".pull").forEach((el) => {
-      ScrollTrigger.create({
-        trigger: el,
-        start: "center center",
-        end: "+=400",
-        pin: true,
-        pinSpacing: true,
       });
     });
 
