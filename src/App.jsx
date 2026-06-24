@@ -11,6 +11,7 @@ import ReturnsChart3D from "./ReturnsChart3D.jsx";
 import SplitText from "./components/SplitText.jsx";
 import Footer from "./Footer.jsx";
 import CursorFollower from "./CursorFollower.jsx";
+import Antigravity from "./Antigravity.jsx";
 import StatNumber from "./StatNumber.jsx";
 import Lenis from "lenis";
 
@@ -204,6 +205,22 @@ export default function App() {
 
       <main>
         <section className="hero">
+          {!reduceMotion && (
+            <div className="hero-canvas" aria-hidden="true">
+              <Antigravity
+                count={200}
+                magnetRadius={8}
+                ringRadius={6}
+                waveSpeed={0.3}
+                waveAmplitude={0.8}
+                particleSize={1.2}
+                lerpSpeed={0.04}
+                color="#c45c38"
+                autoAnimate={true}
+                particleVariance={0.8}
+              />
+            </div>
+          )}
           <div>
             <p className="kicker">Skripsi Informatika, UKDW 2026</p>
             {reduceMotion ? (

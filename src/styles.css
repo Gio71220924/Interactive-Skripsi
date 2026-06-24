@@ -162,6 +162,13 @@
       align-items: center;
       padding: clamp(48px, 8vw, 112px) clamp(20px, 6vw, 88px);
       border-block-end: 1px solid var(--border);
+      position: relative;
+    }
+    .hero-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.6;
     }
 
     .kicker {
