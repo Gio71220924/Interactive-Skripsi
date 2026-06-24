@@ -153,6 +153,28 @@ export default function App() {
       });
     });
 
+    // Word scrub — opacity 0.15→1 per word as paragraph scrolls into view
+    gsap.utils.toArray(".chapter p").forEach((p) => {
+      if (p.getBoundingClientRect().top < window.innerHeight) return;
+      if (p.children.length > 0) return; // skip paragraphs containing React components
+      const words = p.textContent.split(/\s+/).filter(Boolean);
+      p.textContent = "";
+      words.forEach((word, i) => {
+        if (i > 0) p.appendChild(document.createTextNode(" "));
+        const span = document.createElement("span");
+        span.style.opacity = "0.15";
+        span.style.display = "inline";
+        span.textContent = word;
+        p.appendChild(span);
+      });
+      gsap.to(p.querySelectorAll("span"), {
+        opacity: 1,
+        stagger: { each: 0.015, ease: "none" },
+        ease: "none",
+        scrollTrigger: { trigger: p, start: "top 82%", end: "bottom 50%", scrub: 0.4 },
+      });
+    });
+
     // Pull-quote pin — hold for 400px scroll
     gsap.utils.toArray(".pull").forEach((el) => {
       ScrollTrigger.create({
