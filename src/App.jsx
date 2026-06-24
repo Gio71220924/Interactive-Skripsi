@@ -380,20 +380,19 @@ export default function App() {
         <section className="handoff" id="handoff">
           <div>
             <p className="chapter-label">Penutup</p>
-            <h2>Riset ini alat bantu, bukan ramalan.</h2>
+            <h2>Capital preservation di pasar energi bergejolak.</h2>
             <p>
-              SVM tidak menebak harga; ia menyaring kapan sebaiknya masuk, diam, atau keluar dari saham
-              energi yang bergejolak. Nilai utamanya bukan akurasi tinggi, melainkan kerugian yang jauh
-              lebih terkendali saat pasar turun.
+              SVM memproses empat indikator teknikal dan menghasilkan sinyal entry, hold, atau exit per
+              emiten. Maximum drawdown <StatNumber value={-9.35} suffix="%" /> vs <StatNumber value={-48.91} suffix="%" /> buy-and-hold benchmark. Capital preservation adalah temuan utama riset ini.
             </p>
           </div>
           <div className="handoff-card">
             <ol>
-              <li>SVM + 4 indikator teknikal pada 14 saham energi (2015-2025).</li>
-              <li>Sinyal 3 kelas: BUY, HOLD, SELL.</li>
-              <li><StatNumber value={10} decimals={0} /> dari 14 emiten mencatat return positif (rata-rata <StatNumber value={27.29} suffix="%" />).</li>
-              <li>Drawdown jauh lebih kecil: <StatNumber value={-9.35} suffix="%" /> vs <StatNumber value={-48.91} suffix="%" /> buy and hold.</li>
-              <li>Baca skripsi lengkap untuk metode dan pembahasan penuh.</li>
+              <li>Universe: 14 saham energi IDX, data 2015–2025 dari Yahoo Finance.</li>
+              <li>Sinyal 3 kelas: BUY (entry), HOLD (idle), SELL (exit).</li>
+              <li><StatNumber value={10} decimals={0} /> dari 14 emiten cetak return positif, rata-rata <StatNumber value={27.29} suffix="%" />.</li>
+              <li>Maximum drawdown: <StatNumber value={-9.35} suffix="%" /> vs <StatNumber value={-48.91} suffix="%" /> buy-and-hold benchmark.</li>
+              <li>Full methodology tersedia di dokumen skripsi.</li>
             </ol>
             <a href="#" className="btn secondary back-to-top">↑ Kembali ke atas</a>
           </div>
