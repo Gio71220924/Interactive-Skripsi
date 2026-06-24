@@ -30,7 +30,6 @@ export default function Footer() {
             <p className="footer-label">Penulis</p>
             <p className="footer-body">Giovanka Steviano Harry Premono</p>
             <p className="footer-body muted">Informatika · UKDW · 2026</p>
-            <p className="footer-body muted">NIM 71220924</p>
           </div>
 
           <div className="footer-col">
@@ -45,7 +44,7 @@ export default function Footer() {
 
         <div className="site-footer-bottom">
           <span>© 2026 Giovanka Steviano Harry Premono</span>
-          <span>Bukan rekomendasi investasi · Untuk keperluan akademik</span>
+          <span>Riset Akademik, Bukan rekomendasi investasi</span>
         </div>
 
       </div>
