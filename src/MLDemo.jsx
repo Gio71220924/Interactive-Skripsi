@@ -210,69 +210,42 @@ export default function MLDemo() {
       {response !== null && (
         <section className="lab-result" aria-live="polite" aria-label="Output demo model">
 
-          {/* Signal Badge */}
-          <div style={{
-            display: "flex", alignItems: "center", gap: "16px",
-            padding: "20px 24px",
-            background: sig.bg,
-            border: `1.5px solid ${sig.border}`,
-            borderRadius: "14px",
-            marginBottom: "20px",
-          }}>
-            <span style={{
-              fontSize: "36px", lineHeight: 1,
-              color: sig.text, fontWeight: 700,
-            }}>{sig.emoji}</span>
-            <div>
-              <p style={{ margin: 0, fontSize: "11px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                {response.ticker} · Sinyal Model
-              </p>
-              <p style={{ margin: 0, fontSize: "32px", fontWeight: 800, color: sig.text, lineHeight: 1.1 }}>
-                {sig.label}
-              </p>
-              {/* Horizon + macroF1 badges */}
-              <div style={{ display: "flex", gap: "6px", marginTop: "8px", flexWrap: "wrap" }}>
-                <span style={{
-                  fontSize: "10px", fontWeight: 600, letterSpacing: "0.05em",
-                  color: "rgba(255,255,255,0.5)",
-                  background: "rgba(255,255,255,0.07)",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  padding: "2px 8px", borderRadius: "999px",
-                }}>
-                  ⏱ Horizon {response.horizon}
-                </span>
-                <span style={{
-                  fontSize: "10px", fontWeight: 600, letterSpacing: "0.05em",
-                  color: "rgba(255,255,255,0.5)",
-                  background: "rgba(255,255,255,0.07)",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  padding: "2px 8px", borderRadius: "999px",
-                }}>
-                  🎯 Macro F1 {Math.round(response.macroF1 * 100)}%
-                </span>
-              </div>
+          {/* Editorial signal header — no box, no ring */}
+          <div style={{ marginBottom: "24px", paddingBottom: "20px", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+            {/* Ticker + meta row */}
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px", flexWrap: "wrap" }}>
+              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500 }}>
+                {response.ticker}
+              </span>
+              <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "rgba(255,255,255,0.2)" }} />
+              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.06em" }}>
+                Horizon {response.horizon}
+              </span>
+              <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "rgba(255,255,255,0.2)" }} />
+              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.06em" }}>
+                Macro F1 {Math.round(response.macroF1 * 100)}%
+              </span>
             </div>
-            {/* Confidence ring */}
-            <div style={{ marginLeft: "auto", textAlign: "center" }}>
-              <svg width="64" height="64" viewBox="0 0 64 64">
-                <circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="6" />
-                <circle
-                  cx="32" cy="32" r="26" fill="none"
-                  stroke={sig.border} strokeWidth="6"
-                  strokeDasharray={`${2 * Math.PI * 26}`}
-                  strokeDashoffset={`${2 * Math.PI * 26 * (1 - confidencePct / 100)}`}
-                  strokeLinecap="round"
-                  transform="rotate(-90 32 32)"
-                  style={{ transition: reduceMotion ? "none" : "stroke-dashoffset 0.8s cubic-bezier(0.16,1,0.3,1)" }}
-                />
-              </svg>
-              <p style={{ margin: "-44px 0 0", fontSize: "14px", fontWeight: 700, color: sig.text }}>
+
+            {/* Signal word — big, editorial */}
+            <p style={{
+              margin: 0,
+              fontSize: "clamp(48px, 8vw, 72px)",
+              fontWeight: 800,
+              lineHeight: 1,
+              letterSpacing: "-0.02em",
+              color: sig.text,
+            }}>
+              {sig.label}
+            </p>
+
+            {/* Confidence as plain inline text */}
+            <p style={{ margin: "10px 0 0", fontSize: "13px", color: "rgba(255,255,255,0.35)" }}>
+              Confidence&nbsp;
+              <span style={{ color: sig.text, fontWeight: 600 }}>
                 <AnimatedNumber value={confidencePct} suffix="%" />
-              </p>
-              <p style={{ margin: "24px 0 0", fontSize: "10px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.05em" }}>
-                CONFIDENCE
-              </p>
-            </div>
+              </span>
+            </p>
           </div>
 
           {/* Copy text */}
