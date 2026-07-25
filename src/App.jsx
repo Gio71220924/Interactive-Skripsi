@@ -218,8 +218,8 @@ export default function App() {
       <header className="masthead">
         <a className="mark" href="#">
           <span className="mark-text">
-            <span className="mark-name">Giovanka Steviano</span>
-            <span className="mark-sub">Skripsi Interaktif · UKDW 2026</span>
+            <span className="mark-name">RISET AKADEMIK SAHAM ENERGI</span>
+            <span className="mark-sub">Klasifikasi Sinyal berbasis SVM · IDX</span>
           </span>
         </a>
         <nav className="topnav" aria-label="Navigasi utama">
