@@ -31,6 +31,8 @@ export const normalizeResponse = (raw, ticker) => ({
   ticker,
   signal: String(raw.signal || "HOLD").toUpperCase(),
   confidence: Number(raw.confidence ?? 0.5),
+  horizon: String(raw.horizon ?? "?"),
+  macroF1: Number(raw.macroF1 ?? 0),
   features: {
     adx: Number(raw.features?.adx ?? raw.adx ?? 0),
     obv: Number(raw.features?.obv ?? raw.obv ?? 0),
