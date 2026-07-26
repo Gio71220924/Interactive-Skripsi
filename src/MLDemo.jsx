@@ -92,7 +92,7 @@ function ColorMeter({ value, color }) {
         flex: 1,
         height: "6px",
         borderRadius: "9999px",
-        background: "rgba(255,255,255,0.08)",
+        background: "color-mix(in oklch, var(--fg) 10%, transparent)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -124,10 +124,10 @@ function TooltipIcon({ text }) {
         aria-label="Keterangan"
         style={{
           background: "none", border: "none", cursor: "pointer",
-          color: "rgba(255,255,255,0.3)", fontSize: "11px",
+          color: "var(--muted)", fontSize: "11px",
           width: "16px", height: "16px",
           borderRadius: "50%",
-          border: "1px solid rgba(255,255,255,0.2)",
+          border: "1px solid var(--border)",
           display: "inline-flex", alignItems: "center", justifyContent: "center",
           lineHeight: 1, padding: 0, marginLeft: "4px",
         }}
@@ -136,13 +136,13 @@ function TooltipIcon({ text }) {
         <span style={{
           position: "absolute", bottom: "calc(100% + 6px)", left: "50%",
           transform: "translateX(-50%)",
-          background: "#1e1e1e", border: "1px solid rgba(255,255,255,0.12)",
+          background: "var(--surface)", border: "1px solid var(--border)",
           borderRadius: "8px", padding: "8px 10px",
           fontSize: "11.5px", lineHeight: 1.5,
-          color: "rgba(255,255,255,0.75)",
+          color: "var(--fg)",
           width: "200px", whiteSpace: "normal",
           zIndex: 100, pointerEvents: "none",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
         }}>{text}</span>
       )}
     </span>
@@ -211,18 +211,18 @@ export default function MLDemo() {
         <section className="lab-result" aria-live="polite" aria-label="Output demo model">
 
           {/* Editorial signal header — no box, no ring */}
-          <div style={{ marginBottom: "24px", paddingBottom: "20px", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+          <div style={{ marginBottom: "24px", paddingBottom: "20px", borderBottom: "1px solid var(--border)" }}>
             {/* Ticker + meta row */}
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px", flexWrap: "wrap" }}>
-              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500 }}>
+              <span style={{ fontSize: "11px", color: "var(--muted)", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 500 }}>
                 {response.ticker}
               </span>
-              <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "rgba(255,255,255,0.2)" }} />
-              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.06em" }}>
+              <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "var(--border)" }} />
+              <span style={{ fontSize: "11px", color: "var(--muted)", letterSpacing: "0.06em" }}>
                 Horizon {response.horizon}
               </span>
-              <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "rgba(255,255,255,0.2)" }} />
-              <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.06em" }}>
+              <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "var(--border)" }} />
+              <span style={{ fontSize: "11px", color: "var(--muted)", letterSpacing: "0.06em" }}>
                 Macro F1 {Math.round(response.macroF1 * 100)}%
               </span>
             </div>
@@ -240,7 +240,7 @@ export default function MLDemo() {
             </p>
 
             {/* Confidence as plain inline text */}
-            <p style={{ margin: "10px 0 0", fontSize: "13px", color: "rgba(255,255,255,0.35)" }}>
+            <p style={{ margin: "10px 0 0", fontSize: "13px", color: "var(--muted)" }}>
               Confidence&nbsp;
               <span style={{ color: sig.text, fontWeight: 600 }}>
                 <AnimatedNumber value={confidencePct} suffix="%" />
@@ -255,19 +255,19 @@ export default function MLDemo() {
 
           {/* Indicator rows */}
           <div style={{
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.07)",
+            background: "color-mix(in oklch, var(--fg) 3%, transparent)",
+            border: "1px solid var(--border)",
             borderRadius: "12px",
             padding: "16px 20px",
             display: "flex", flexDirection: "column", gap: "14px",
           }}>
             <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px" }}>
-              <p style={{ margin: 0, fontSize: "11px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+              <p style={{ margin: 0, fontSize: "11px", color: "var(--muted)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
                 Indikator Teknikal
               </p>
               <p style={{
                 margin: 0, fontSize: "10px", lineHeight: 1.4,
-                color: "rgba(255,255,255,0.25)", maxWidth: "200px", textAlign: "right",
+                color: "var(--muted)", maxWidth: "200px", textAlign: "right",
               }}>
                 Indikator ditampilkan sebagai konteks. Sinyal ditentukan oleh kombinasi keseluruhan, bukan tiap indikator secara terpisah.
               </p>
@@ -278,7 +278,7 @@ export default function MLDemo() {
               return (
                 <div key={key} style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ display: "flex", alignItems: "center", fontSize: "13px", color: "rgba(255,255,255,0.6)" }}>
+                    <span style={{ display: "flex", alignItems: "center", fontSize: "13px", color: "var(--fg)" }}>
                       {label}
                       <TooltipIcon text={tooltip} />
                     </span>
@@ -293,7 +293,7 @@ export default function MLDemo() {
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                     <ColorMeter value={val} color={zone.color} />
-                    <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", minWidth: "28px", textAlign: "right" }}>
+                    <span style={{ fontSize: "12px", color: "var(--muted)", minWidth: "28px", textAlign: "right" }}>
                       <AnimatedNumber value={val} />
                     </span>
                   </div>

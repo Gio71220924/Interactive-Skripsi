@@ -1041,9 +1041,14 @@
       }
     }
 
+    /* On wide screens, topnav becomes compact since rail is also visible */
     @media (min-width: 1181px) {
       .topnav {
-        display: none;
+        gap: 4px;
+      }
+      .topnav a {
+        font-size: 12px;
+        padding: 4px 8px;
       }
     }
 
