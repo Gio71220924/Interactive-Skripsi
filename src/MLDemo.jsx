@@ -154,6 +154,8 @@ export default function MLDemo() {
   const [response, setResponse] = useState(null);
   const [status, setStatus] = useState(null);
   const [running, setRunning] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
+  const timerRef = useRef(null);
 
   useEffect(() => {
     fetch("https://geeeeyohhh-backend-skripsi.hf.space/api/health").catch(() => {});
@@ -164,6 +166,8 @@ export default function MLDemo() {
     setStatus("Menjalankan SVM...");
     setRunning(true);
     setResponse(null);
+    setElapsed(0);
+    timerRef.current = setInterval(() => setElapsed((s) => s + 1), 1000);
     try {
       const res = await fetch("https://geeeeyohhh-backend-skripsi.hf.space/api/predict", {
         method: "POST",
@@ -177,6 +181,7 @@ export default function MLDemo() {
     } catch {
       setStatus("Model tidak tersedia saat ini. Coba beberapa menit lagi.");
     }
+    clearInterval(timerRef.current);
     setRunning(false);
   };
 
@@ -204,7 +209,16 @@ export default function MLDemo() {
             {running ? "Menjalankan…" : "Run SVM demo"}
           </button>
         </div>
-        {status && <p className="model-status">{status}</p>}
+        {status && (
+          <div className="model-status">
+            <p>{status}{running && elapsed > 0 ? ` (${elapsed}s)` : ""}</p>
+            {running && elapsed >= 5 && (
+              <p style={{ fontSize: "12px", color: "var(--muted)", marginTop: "4px" }}>
+                Server HuggingFace sedang cold start. Biasanya selesai dalam 15–30 detik.
+              </p>
+            )}
+          </div>
+        )}
       </form>
 
       {response !== null && (
