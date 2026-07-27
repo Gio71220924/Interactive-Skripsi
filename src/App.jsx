@@ -316,15 +316,13 @@ export default function App() {
             <section className="chapter is-visible" id="masalah">
               <h2>Terlalu banyak variabel. Analisis teknikal biasa tidak cukup.</h2>
               <p>
-                Mengapa saham energi sulit ditebak? Harganya digerakkan komoditas global, geopolitik,
-                dan kurs bukan chart saja. Pola yang muncul non-linear, penuh noise, dan sering
-                membalikkan sinyal teknikal biasa.
+                Per Desember 2025, jumlah investor pasar modal Indonesia telah menembus 20,35 juta. Saham
+                sektor energi sangat diminati tetapi memiliki tingkat volatilitas tinggi karena dipengaruhi oleh
+                komoditas global, geopolitik, serta fluktuasi nilai tukar.
               </p>
               <p>
-                Per Desember 2025 jumlah investor pasar modal Indonesia menembus 20,35 juta. Saham
-                energi menarik tapi sangat fluktuatif: harganya digerakkan komoditas global, geopolitik,
-                dan nilai tukar, menghasilkan pola non-linear penuh noise yang sulit dibaca analisis
-                teknikal biasa.
+                Faktor-faktor ini menghasilkan pola pergerakan harga yang non-linear dan dipenuhi noise,
+                sehingga sinyal indikator teknikal konvensional sering kali menghasilkan pembacaan yang kurang akurat.
               </p>
               <div className="spec-grid">
                 <div className="spec-card">
@@ -363,8 +361,7 @@ export default function App() {
                 </div>
               </div>
               <p className="muted">
-                Lima tahap: kumpulkan data, bangun indikator teknikal, beri label arah harga,
-                latih SVM dengan validasi waktu, lalu uji lewat backtest.
+                Alur metodologi: pengumpulan data pasar, pembentukan indikator teknikal, pelabelan arah harga, pelatihan model SVM dengan validasi waktu, serta pengujian kinerja melalui backtest.
               </p>
             </section>
 
@@ -382,7 +379,7 @@ export default function App() {
             <section className="chapter" id="temuan">
               <h2>SVM unggul bukan di pasar bull, tapi saat pasar turun.</h2>
               <blockquote className="pull">
-                Saat buy and hold ambles <StatNumber value={-48.91} suffix="%" />, strategi SVM menahan rata-rata kerugian di <StatNumber value={-9.35} suffix="%" />.
+                Saat buy and hold anjlok <StatNumber value={-48.91} suffix="%" />, strategi SVM menahan rata-rata kerugian di <StatNumber value={-9.35} suffix="%" />.
               </blockquote>
               <p>
                 Ini bukan janji profit. Dari 14 emiten, <StatNumber value={10} decimals={0} /> mencatat return positif (rata-rata <StatNumber value={27.29} suffix="%" />) dan SVM mengungguli buy-and-hold pada 7 emiten, paling terasa ketika pasar turun.

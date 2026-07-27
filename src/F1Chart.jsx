@@ -69,7 +69,7 @@ export default function F1Chart() {
         </BarChart>
       </ResponsiveContainer>
       <figcaption>
-        DEWA tertinggi (47,86%), PGAS terendah (35,83%). Rata-rata 39,70% mencerminkan kesulitan sinyal 3-kelas di pasar energi yang volatile.
+        DEWA tertinggi (47,86%), PGAS terendah (35,83%). Rata-rata 39,70% mencerminkan kesulitan sinyal 3-kelas di pasar energi yang volatil.
       </figcaption>
     </figure>
   );

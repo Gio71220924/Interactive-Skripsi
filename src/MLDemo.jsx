@@ -43,7 +43,7 @@ function getZone(key, value) {
   }
   if (key === "bb") {
     if (value < 20) return { label: "Dekat Support", color: "#10b981" };
-    if (value > 80) return { label: "Dekat Resistansi", color: "#ef4444" };
+    if (value > 80) return { label: "Dekat Resistensi", color: "#ef4444" };
     return { label: "Tengah Range", color: "#6b7280" };
   }
   if (key === "obv") {
@@ -69,12 +69,12 @@ const FEATURE_ROWS = [
   {
     key: "obv",
     label: "OBV",
-    tooltip: "Volume tekanan beli vs jual. Tinggi = lebih banyak yang beli.",
+    tooltip: "Mengukur akumulasi volume. Tren OBV naik mengindikasikan tekanan beli yang dominan.",
   },
   {
     key: "stochastic",
     label: "Stochastic",
-    tooltip: "Posisi harga relatif. Di bawah 20 = terlalu murah, di atas 80 = terlalu mahal.",
+    tooltip: "Mengukur posisi harga relatif. Di bawah 20 mengindikasikan oversold (jenuh jual), di atas 80 overbought (jenuh beli).",
   },
   {
     key: "bb",
@@ -206,7 +206,7 @@ export default function MLDemo() {
             {TICKERS.map((t) => <option key={t} value={t}>{t}</option>)}
           </select>
           <button className="btn" type="submit" disabled={running}>
-            {running ? "Menjalankan…" : "Run SVM demo"}
+            {running ? "Menjalankan…" : "Jalankan Demo SVM"}
           </button>
         </div>
         {status && (

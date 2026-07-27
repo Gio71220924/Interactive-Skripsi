@@ -7,15 +7,15 @@ import ConfusionMatrix from "./ConfusionMatrix.jsx";
 import ReturnHistogram from "./ReturnHistogram.jsx";
 const STAGES = [
   { id: "data", label: "Data", note: "Bahan mentah: harga harian dan sebaran return sebelum indikator dihitung." },
-  { id: "indikator", label: "Indikator", note: "Empat indikator teknikal, inilah yang jadi mata model (input SVM)." },
+  { id: "indikator", label: "Indikator", note: "Empat indikator teknikal yang digunakan sebagai fitur masukan (input) model SVM." },
   { id: "evaluasi", label: "Evaluasi", note: "Seberapa sering arah BUY / HOLD / SELL ditebak benar." },
 ];
 
 const INDICATORS = [
-  ["ADX", "adx", "Kekuatan tren , seberapa kuat arah harga bergerak."],
-  ["BB", "bb", "Bollinger Bands , pita volatilitas di sekitar harga."],
-  ["OBV", "obv", "On-Balance Volume , tekanan beli/jual dari sisi volume."],
-  ["Stoch", "stochastic", "Stochastic , momentum, posisi harga dalam rentang terakhir."],
+  ["ADX", "adx", "Kekuatan tren — mengukur seberapa kuat arah pergerakan harga."],
+  ["BB", "bb", "Bollinger Bands — pita volatilitas di sekitar pergerakan harga."],
+  ["OBV", "obv", "On-Balance Volume — mengukur akumulasi tekanan beli dan jual dari volume."],
+  ["Stoch", "stochastic", "Stochastic Oscillator — momentum dan posisi relatif harga."],
 ];
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;

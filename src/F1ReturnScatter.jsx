@@ -75,7 +75,7 @@ export default function F1ReturnScatter() {
         </ScatterChart>
       </ResponsiveContainer>
       <figcaption>
-        Tidak ada korelasi jelas antara F1 dan return. DSSA return +188% dengan F1 rata-rata (40%); DEWA F1 tertinggi (48%) tapi return 70%. Manajemen risiko, bukan akurasi klasifikasi, yang membedakan.
+        Tidak terdapat korelasi langsung antara nilai F1 dan return. DSSA mencatatkan return +188% dengan F1 moderat (40%), sedangkan DEWA memiliki F1 tertinggi (48%) namun menghasilkan return 70%. Manajemen risiko menjadi faktor utama yang membedakan performa strategi.
       </figcaption>
     </figure>
   );

@@ -44,7 +44,7 @@ export default function Footer() {
 
         <div className="site-footer-bottom">
           <span>© 2026 Giovanka Steviano Harry Premono</span>
-          <span>Riset Akademik, Bukan rekomendasi investasi</span>
+          <span>Riset akademik, bukan rekomendasi investasi</span>
         </div>
 
       </div>

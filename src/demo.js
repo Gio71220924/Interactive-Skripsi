@@ -22,9 +22,9 @@ export const RETURNS = [
 ];
 
 export const signalCopy = {
-  BUY: "Kondisi teknikal mendukung entry. Momentum bullish, tren menguat. Model menilai ini setup beli.",
-  HOLD: "Pasar sideways, belum ada trigger kuat. Model memilih wait.",
-  SELL: "Tekanan bearish meningkat, momentum melemah. Model menyarankan exit atau tunda entry.",
+  BUY: "Indikator teknikal menunjukkan momentum bullish dan penguatan tren. Model mengklasifikasikan kondisi ini sebagai sinyal BELI.",
+  HOLD: "Pergerakan harga cenderung konsolidasi (sideways) tanpa tren yang dominan. Model merekomendasikan untuk TAHAN.",
+  SELL: "Tekanan bearish meningkat dan momentum pergerakan melemah. Model mengklasifikasikan kondisi ini sebagai sinyal JUAL.",
 };
 
 export const normalizeResponse = (raw, ticker) => ({
