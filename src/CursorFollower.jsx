@@ -2,12 +2,13 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const hasFinePointer = matchMedia("(pointer: fine)").matches;
 
 export default function CursorFollower() {
   const dotRef = useRef(null);
 
   useEffect(() => {
-    if (reduceMotion) return;
+    if (reduceMotion || !hasFinePointer) return;
     const dot = dotRef.current;
 
     const move = (e) => {
@@ -34,7 +35,7 @@ export default function CursorFollower() {
     };
   }, []);
 
-  if (reduceMotion) return null;
+  if (reduceMotion || !hasFinePointer) return null;
 
   return <div ref={dotRef} className="cursor-dot" aria-hidden="true" />;
 }

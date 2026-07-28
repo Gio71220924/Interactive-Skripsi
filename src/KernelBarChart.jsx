@@ -30,7 +30,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   );
 };
 
-export default function Bars3D({ data, caption }) {
+export default function KernelBarChart({ data, caption }) {
   const chartData = data.map((d) => ({
     name: d.label,
     value: d.value,

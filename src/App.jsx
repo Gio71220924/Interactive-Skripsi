@@ -6,8 +6,8 @@ import MLDemo from "./MLDemo.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 import ChartExplorer from "./ChartExplorer.jsx";
-import Bars3D from "./Bars3D.jsx";
-import ReturnsChart3D from "./ReturnsChart3D.jsx";
+import KernelBarChart from "./KernelBarChart.jsx";
+import ReturnsChart from "./ReturnsChart.jsx";
 import SplitText from "./components/SplitText.jsx";
 import Footer from "./Footer.jsx";
 import CursorFollower from "./CursorFollower.jsx";
@@ -417,8 +417,8 @@ export default function App() {
                 di 4 emiten, BB dan Stochastic sudah cukup untuk menangkap pola entry yang relevan.
               </p>
 
-              <ReturnsChart3D />
-              <Bars3D
+              <ReturnsChart />
+              <KernelBarChart
                 data={KERNEL_DATA}
                 caption="Dari tiga kernel yang diuji, Polynomial paling sering terpilih. Hubungan indikator dan sinyal di saham energi memang non-linear."
               />

@@ -80,7 +80,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   );
 };
 
-export default function ReturnsChart3D() {
+export default function ReturnsChart() {
   return (
     <figure className="rc-fig">
       <ResponsiveContainer width="100%" height={280}>
