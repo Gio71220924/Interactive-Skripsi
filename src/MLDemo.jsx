@@ -123,7 +123,7 @@ function TooltipIcon({ text }) {
         onBlur={() => setShow(false)}
         aria-label="Keterangan"
         style={{
-          background: "none", border: "none", cursor: "pointer",
+          background: "none", cursor: "pointer",
           color: "var(--muted)", fontSize: "11px",
           width: "16px", height: "16px",
           borderRadius: "50%",
