@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { TICKERS, signalCopy, normalizeResponse } from "./demo.js";
+import { TICKERS, normalizeResponse } from "./demo.js";
+import { translations } from "./translations.js";
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -27,61 +28,37 @@ function AnimatedNumber({ value, suffix = "" }) {
   return <>{display}{suffix}</>;
 }
 
-// Returns zone label + color based on indicator key and value
-// NOTE: ADX is direction-neutral (measures trend strength only, not direction)
-function getZone(key, value) {
+// Returns zone label + color based on indicator key, value, and language
+function getZone(key, value, lang = "id") {
+  const isEn = lang === "en";
   if (key === "adx") {
-    // ADX: purely trend STRENGTH — no green/red (those imply direction)
-    if (value < 20) return { label: "Tren Lemah", color: "#6b7280" };
-    if (value < 40) return { label: "Tren Moderat", color: "#f59e0b" };
-    return { label: "Tren Sangat Kuat", color: "#e879f9" };  // purple = strong, not good/bad
+    if (value < 20) return { label: isEn ? "Weak Trend" : "Tren Lemah", color: "#6b7280" };
+    if (value < 40) return { label: isEn ? "Moderate Trend" : "Tren Moderat", color: "#f59e0b" };
+    return { label: isEn ? "Very Strong Trend" : "Tren Sangat Kuat", color: "#e879f9" };
   }
   if (key === "stochastic") {
-    if (value < 20) return { label: "Oversold (Murah)", color: "#10b981" };
-    if (value > 80) return { label: "Overbought (Mahal)", color: "#ef4444" };
-    return { label: "Netral", color: "#6b7280" };
+    if (value < 20) return { label: isEn ? "Oversold" : "Oversold (Murah)", color: "#10b981" };
+    if (value > 80) return { label: isEn ? "Overbought" : "Overbought (Mahal)", color: "#ef4444" };
+    return { label: isEn ? "Neutral" : "Netral", color: "#6b7280" };
   }
   if (key === "bb") {
-    if (value < 20) return { label: "Dekat Support", color: "#10b981" };
-    if (value > 80) return { label: "Dekat Resistensi", color: "#ef4444" };
-    return { label: "Tengah Range", color: "#6b7280" };
+    if (value < 20) return { label: isEn ? "Near Support" : "Dekat Support", color: "#10b981" };
+    if (value > 80) return { label: isEn ? "Near Resistance" : "Dekat Resistensi", color: "#ef4444" };
+    return { label: isEn ? "Mid Range" : "Tengah Range", color: "#6b7280" };
   }
   if (key === "obv") {
-    if (value < 30) return { label: "Tekanan Jual", color: "#ef4444" };
-    if (value > 70) return { label: "Tekanan Beli", color: "#10b981" };
-    return { label: "Seimbang", color: "#6b7280" };
+    if (value < 30) return { label: isEn ? "Selling Pressure" : "Tekanan Jual", color: "#ef4444" };
+    if (value > 70) return { label: isEn ? "Buying Pressure" : "Tekanan Beli", color: "#10b981" };
+    return { label: isEn ? "Balanced" : "Seimbang", color: "#6b7280" };
   }
   return { label: "–", color: "#6b7280" };
 }
 
-const SIGNAL_CONFIG = {
-  BUY:  { emoji: "↑", bg: "rgba(16,185,129,0.15)", border: "#10b981", text: "#10b981", label: "BELI" },
-  SELL: { emoji: "↓", bg: "rgba(239,68,68,0.15)",  border: "#ef4444", text: "#ef4444", label: "JUAL" },
-  HOLD: { emoji: "→", bg: "rgba(245,158,11,0.15)", border: "#f59e0b", text: "#f59e0b", label: "TAHAN" },
+const SIGNAL_STYLE = {
+  BUY:  { emoji: "↑", bg: "rgba(16,185,129,0.15)", border: "#10b981", text: "#10b981" },
+  SELL: { emoji: "↓", bg: "rgba(239,68,68,0.15)",  border: "#ef4444", text: "#ef4444" },
+  HOLD: { emoji: "→", bg: "rgba(245,158,11,0.15)", border: "#f59e0b", text: "#f59e0b" },
 };
-
-const FEATURE_ROWS = [
-  {
-    key: "adx",
-    label: "ADX",
-    tooltip: "Kekuatan tren pasar. Makin tinggi, tren makin kuat dan jelas arahnya.",
-  },
-  {
-    key: "obv",
-    label: "OBV",
-    tooltip: "Mengukur akumulasi volume. Tren OBV naik mengindikasikan tekanan beli yang dominan.",
-  },
-  {
-    key: "stochastic",
-    label: "Stochastic",
-    tooltip: "Mengukur posisi harga relatif. Di bawah 20 mengindikasikan oversold (jenuh jual), di atas 80 overbought (jenuh beli).",
-  },
-  {
-    key: "bb",
-    label: "Bollinger Bands",
-    tooltip: "Posisi harga dalam range normal. Mendekati tepi atas/bawah = potensi pembalikan.",
-  },
-];
 
 function ColorMeter({ value, color }) {
   const bounded = Math.max(0, Math.min(100, Math.round(value)));
@@ -149,7 +126,16 @@ function TooltipIcon({ text }) {
   );
 }
 
-export default function MLDemo() {
+export default function MLDemo({ lang = "id" }) {
+  const t = translations[lang] || translations.id;
+
+  const featureRows = [
+    { key: "adx", label: "ADX", tooltip: lang === "en" ? "Market trend strength. Higher value indicates stronger directional trend." : "Kekuatan tren pasar. Makin tinggi, tren makin kuat dan jelas arahnya." },
+    { key: "obv", label: "OBV", tooltip: lang === "en" ? "Volume accumulation. Rising OBV trend indicates dominant buying pressure." : "Mengukur akumulasi volume. Tren OBV naik mengindikasikan tekanan beli yang dominan." },
+    { key: "stochastic", label: "Stochastic", tooltip: lang === "en" ? "Relative price position. Below 20 indicates oversold, above 80 overbought." : "Mengukur posisi harga relatif. Di bawah 20 mengindikasikan oversold (jenuh jual), di atas 80 overbought (jenuh beli)." },
+    { key: "bb", label: "Bollinger Bands", tooltip: lang === "en" ? "Price position in normal range. Approaching upper/lower band = potential reversal." : "Posisi harga dalam range normal. Mendekati tepi atas/bawah = potensi pembalikan." },
+  ];
+
   const [ticker, setTicker] = useState("ADRO");
   const [response, setResponse] = useState(null);
   const [status, setStatus] = useState(null);
@@ -163,7 +149,7 @@ export default function MLDemo() {
 
   const run = async (event) => {
     event.preventDefault();
-    setStatus("Menjalankan SVM...");
+    setStatus(t.demoStatusRunning);
     setRunning(true);
     setResponse(null);
     setElapsed(0);
@@ -179,7 +165,7 @@ export default function MLDemo() {
       setResponse(normalizeResponse(data, ticker));
       setStatus(null);
     } catch {
-      setStatus("Model tidak tersedia saat ini. Coba beberapa menit lagi.");
+      setStatus(t.demoStatusError);
     }
     clearInterval(timerRef.current);
     setRunning(false);
@@ -189,24 +175,25 @@ export default function MLDemo() {
     ? Math.round(Math.max(0, Math.min(1, response.confidence)) * 100)
     : 0;
 
-  const sig = response ? SIGNAL_CONFIG[response.signal] ?? SIGNAL_CONFIG.HOLD : null;
+  const sigStyle = response ? SIGNAL_STYLE[response.signal] ?? SIGNAL_STYLE.HOLD : null;
+  const sigInfo = response ? t.demoSignals[response.signal] ?? t.demoSignals.HOLD : null;
 
   return (
     <div className="ml-lab">
-      <p className="lab-kicker">Demo model · 4 indikator · 1 model · 1 sinyal</p>
+      <p className="lab-kicker">{t.demoKicker}</p>
 
       <form className="demo-form" onSubmit={run}>
         <div className="demo-inline">
-          <label htmlFor="tickerSelect" className="sr-only">Pilih emiten</label>
+          <label htmlFor="tickerSelect" className="sr-only">Select stock</label>
           <select
             id="tickerSelect"
             value={ticker}
             onChange={(e) => setTicker(e.target.value)}
           >
-            {TICKERS.map((t) => <option key={t} value={t}>{t}</option>)}
+            {TICKERS.map((tk) => <option key={tk} value={tk}>{tk}</option>)}
           </select>
           <button className="btn" type="submit" disabled={running}>
-            {running ? "Menjalankan…" : "Jalankan Demo SVM"}
+            {running ? t.demoBtnRunning : t.demoBtnRun}
           </button>
         </div>
         {status && (
@@ -214,7 +201,7 @@ export default function MLDemo() {
             <p>{status}{running && elapsed > 0 ? ` (${elapsed}s)` : ""}</p>
             {running && elapsed >= 5 && (
               <p style={{ fontSize: "12px", color: "var(--muted)", marginTop: "4px" }}>
-                Server HuggingFace sedang cold start. Biasanya selesai dalam 15–30 detik.
+                {t.demoStatusColdStart}
               </p>
             )}
           </div>
@@ -222,9 +209,9 @@ export default function MLDemo() {
       </form>
 
       {response !== null && (
-        <section className="lab-result" aria-live="polite" aria-label="Output demo model">
+        <section className="lab-result" aria-live="polite" aria-label="Model demo output">
 
-          {/* Editorial signal header — no box, no ring */}
+          {/* Editorial signal header */}
           <div style={{ marginBottom: "24px", paddingBottom: "20px", borderBottom: "1px solid var(--border)" }}>
             {/* Ticker + meta row */}
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px", flexWrap: "wrap" }}>
@@ -241,30 +228,30 @@ export default function MLDemo() {
               </span>
             </div>
 
-            {/* Signal word — big, editorial */}
+            {/* Signal word */}
             <p style={{
               margin: 0,
               fontSize: "clamp(48px, 8vw, 72px)",
               fontWeight: 800,
               lineHeight: 1,
               letterSpacing: "-0.02em",
-              color: sig.text,
+              color: sigStyle.text,
             }}>
-              {sig.label}
+              {sigInfo.label}
             </p>
 
-            {/* Confidence as plain inline text */}
+            {/* Confidence */}
             <p style={{ margin: "10px 0 0", fontSize: "13px", color: "var(--muted)" }}>
               Confidence&nbsp;
-              <span style={{ color: sig.text, fontWeight: 600 }}>
+              <span style={{ color: sigStyle.text, fontWeight: 600 }}>
                 <AnimatedNumber value={confidencePct} suffix="%" />
               </span>
             </p>
           </div>
 
-          {/* Copy text */}
+          {/* Signal description text */}
           <p className="decision-copy" style={{ marginBottom: "20px" }}>
-            {signalCopy[response.signal] || signalCopy.HOLD}
+            {sigInfo.text}
           </p>
 
           {/* Indicator rows */}
@@ -277,18 +264,18 @@ export default function MLDemo() {
           }}>
             <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px" }}>
               <p style={{ margin: 0, fontSize: "11px", color: "var(--muted)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                Indikator Teknikal
+                {t.demoResultHeader}
               </p>
               <p style={{
                 margin: 0, fontSize: "10px", lineHeight: 1.4,
                 color: "var(--muted)", maxWidth: "200px", textAlign: "right",
               }}>
-                Indikator ditampilkan sebagai konteks. Sinyal ditentukan oleh kombinasi keseluruhan, bukan tiap indikator secara terpisah.
+                {t.demoResultSub}
               </p>
             </div>
-            {FEATURE_ROWS.map(({ key, label, tooltip }) => {
+            {featureRows.map(({ key, label, tooltip }) => {
               const val = Math.max(0, Math.min(100, Math.round(response.features[key])));
-              const zone = getZone(key, val);
+              const zone = getZone(key, val, lang);
               return (
                 <div key={key} style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -317,7 +304,7 @@ export default function MLDemo() {
           </div>
 
           <p className="research-warning">
-            Bukan rekomendasi investasi. Ini riset akademik semata.
+            {t.demoDisclaimer}
           </p>
         </section>
       )}

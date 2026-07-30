@@ -5,22 +5,15 @@ import PriceChart from "./PriceChart.jsx";
 import IndicatorChart from "./IndicatorChart.jsx";
 import ConfusionMatrix from "./ConfusionMatrix.jsx";
 import ReturnHistogram from "./ReturnHistogram.jsx";
-const STAGES = [
-  { id: "data", label: "Data", note: "Bahan mentah: harga harian dan sebaran return sebelum indikator dihitung." },
-  { id: "indikator", label: "Indikator", note: "Empat indikator teknikal yang digunakan sebagai fitur masukan (input) model SVM." },
-  { id: "evaluasi", label: "Evaluasi", note: "Seberapa sering arah BUY / HOLD / SELL ditebak benar." },
-];
-
-const INDICATORS = [
-  ["ADX", "adx", "Kekuatan tren — mengukur seberapa kuat arah pergerakan harga."],
-  ["BB", "bb", "Bollinger Bands — pita volatilitas di sekitar pergerakan harga."],
-  ["OBV", "obv", "On-Balance Volume — mengukur akumulasi tekanan beli dan jual dari volume."],
-  ["Stoch", "stochastic", "Stochastic Oscillator — momentum dan posisi relatif harga."],
-];
+import { translations } from "./translations.js";
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-export default function ChartExplorer() {
+export default function ChartExplorer({ lang = "id" }) {
+  const t = translations[lang] || translations.id;
+  const stages = t.chartExplorer.stages;
+  const indicators = t.chartExplorer.indicators;
+
   const [ticker, setTicker] = useState("ITMG");
   const [stage, setStage] = useState("data");
   const [indicator, setIndicator] = useState("adx");
@@ -50,27 +43,26 @@ export default function ChartExplorer() {
     });
   }, [ticker, stage]);
 
-  const activeStage = STAGES.find((s) => s.id === stage);
-  const ind = INDICATORS.find(([, key]) => key === indicator);
+  const activeStage = stages.find((s) => s.id === stage) || stages[0];
 
   return (
     <div className="chart-explorer" ref={containerRef}>
       <div className="chart-picker" role="group" aria-label="Pilih emiten">
-        {TICKERS.map((t) => (
+        {TICKERS.map((tk) => (
           <button
-            key={t}
+            key={tk}
             type="button"
             className="chart-pill"
-            aria-pressed={t === ticker}
-            onClick={() => setTicker(t)}
+            aria-pressed={tk === ticker}
+            onClick={() => setTicker(tk)}
           >
-            {t}
+            {tk}
           </button>
         ))}
       </div>
 
       <div className="chart-tabs" role="tablist" aria-label="Tahap pipeline">
-        {STAGES.map((s) => (
+        {stages.map((s) => (
           <button
             key={s.id}
             type="button"
@@ -97,7 +89,7 @@ export default function ChartExplorer() {
         {stage === "indikator" && (
           <>
             <div className="chart-subtabs" role="group" aria-label="Pilih indikator">
-              {INDICATORS.map(([label, key]) => (
+              {indicators.map(([label, key]) => (
                 <button
                   key={key}
                   type="button"

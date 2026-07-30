@@ -1,50 +1,52 @@
-const NAV = [
-  ["Masalah", "masalah"],
-  ["Metode", "metode"],
-  ["Analisis", "analisis"],
-  ["Demo SVM", "ml-demo"],
-  ["Temuan", "temuan"],
-  ["Penutup", "handoff"],
-];
+import { translations } from "./translations.js";
 
-export default function Footer() {
+export default function Footer({ lang = "id" }) {
+  const t = translations[lang] || translations.id;
+
+  const navItems = [
+    [t.nav.masalah, "masalah"],
+    [t.nav.metode, "metode"],
+    [t.nav.analisis, "analisis"],
+    [t.nav.mlDemo, "ml-demo"],
+    [t.nav.temuan, "temuan"],
+    [t.nav.handoff, "handoff"],
+  ];
+
   return (
     <footer className="site-footer">
       <div className="site-footer-inner">
 
         <p className="footer-statement">
-          Riset ini alat bantu, bukan ramalan harga.
+          {t.footerStatement}
         </p>
 
         <div className="site-footer-grid">
           <div className="footer-col">
-            <p className="footer-label">Halaman</p>
+            <p className="footer-label">{t.footerNavLabel}</p>
             <nav aria-label="Navigasi kaki halaman">
-              {NAV.map(([label, id]) => (
+              {navItems.map(([label, id]) => (
                 <a key={id} href={`#${id}`} className="footer-link">{label}</a>
               ))}
             </nav>
           </div>
 
           <div className="footer-col">
-            <p className="footer-label">Penulis</p>
+            <p className="footer-label">{t.footerAuthorLabel}</p>
             <p className="footer-body">Giovanka Steviano Harry Premono</p>
-            <p className="footer-body muted">Informatika · UKDW · 2026</p>
+            <p className="footer-body muted">{t.footerAuthorSub}</p>
           </div>
 
           <div className="footer-col">
-            <p className="footer-label">Catatan riset</p>
+            <p className="footer-label">{t.footerResearchLabel}</p>
             <p className="footer-body muted">
-              Sinyal yang ditampilkan adalah hasil eksperimen akademik,
-              bukan rekomendasi investasi. Keputusan trading sepenuhnya
-              tanggung jawab masing-masing investor.
+              {t.footerResearchBody}
             </p>
           </div>
         </div>
 
         <div className="site-footer-bottom">
           <span>© 2026 Giovanka Steviano Harry Premono</span>
-          <span>Riset akademik, bukan rekomendasi investasi</span>
+          <span>{t.footerBottomDisclaimer}</span>
         </div>
 
       </div>

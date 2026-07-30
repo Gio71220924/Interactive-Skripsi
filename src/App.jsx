@@ -3,8 +3,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import MLDemo from "./MLDemo.jsx";
-
-gsap.registerPlugin(ScrollTrigger);
 import ChartExplorer from "./ChartExplorer.jsx";
 import KernelBarChart from "./KernelBarChart.jsx";
 import ReturnsChart from "./ReturnsChart.jsx";
@@ -18,6 +16,9 @@ import IndicatorFreqChart from "./IndicatorFreqChart.jsx";
 import F1Chart from "./F1Chart.jsx";
 import F1ReturnScatter from "./F1ReturnScatter.jsx";
 import Lenis from "lenis";
+import { translations } from "./translations.js";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const KERNEL_DATA = [
   { label: "Polynomial", value: 6, color: "var(--accent)" },
@@ -26,16 +27,6 @@ const KERNEL_DATA = [
 ];
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const HERO_TITLE = "Bisakah model mengurangi risiko di saham energi?";
-
-const RAIL = [
-  ["01", "Masalah", "masalah"],
-  ["02", "Metode", "metode"],
-  ["03", "Analisis", "analisis"],
-  ["04", "Temuan", "temuan"],
-  ["05", "Demo", "ml-demo"],
-  ["06", "Implikasi", "implikasi"],
-];
 
 const getInitialTheme = () =>
   localStorage.getItem("theme") ||
@@ -50,9 +41,12 @@ const jumpTo = (id) => {
 
 export default function App() {
   const [theme, setTheme] = useState(getInitialTheme);
+  const [lang, setLang] = useState(() => localStorage.getItem("skripsi_lang") || "id");
   const [activeId, setActiveId] = useState("masalah");
   const [temuanTicker, setTemuanTicker] = useState("BUMI");
   const progressRef = useRef(null);
+
+  const t = translations[lang] || translations.id;
 
   // Apply theme to <html> + persist
   useEffect(() => {
@@ -60,7 +54,12 @@ export default function App() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  // Scroll progress bar (ref-mutated, no re-render per scroll)
+  // Persist lang
+  useEffect(() => {
+    localStorage.setItem("skripsi_lang", lang);
+  }, [lang]);
+
+  // Scroll progress bar
   useEffect(() => {
     const update = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -121,7 +120,7 @@ export default function App() {
       },
     });
 
-    RAIL.forEach(([, , target]) => {
+    t.rail.forEach(({ id: target }) => {
       const dotPop = () =>
         gsap.fromTo(
           `.rail button[data-id="${target}"] .dot`,
@@ -206,7 +205,7 @@ export default function App() {
         scrollTrigger: { trigger: ".quiet-list", start: "top 88%", once: true },
       });
     }
-  }, []);
+  }, [lang]);
 
   return (
     <>
@@ -218,26 +217,37 @@ export default function App() {
       <header className="masthead">
         <a className="mark" href="#">
           <span className="mark-text">
-            <span className="mark-name">RISET AKADEMIK SAHAM ENERGI</span>
-            <span className="mark-sub">Klasifikasi Sinyal berbasis SVM · IDX</span>
+            <span className="mark-name">{t.mastheadTitle}</span>
+            <span className="mark-sub">{t.mastheadSub}</span>
           </span>
         </a>
         <nav className="topnav" aria-label="Navigasi utama">
-          <a href="#masalah">Masalah</a>
-          <a href="#metode">Metode</a>
-          <a href="#analisis">Analisis</a>
-          <a href="#ml-demo">ML Demo</a>
-          <a href="#temuan">Temuan</a>
-          <a href="#handoff">Penutup</a>
+          <a href="#masalah">{t.nav.masalah}</a>
+          <a href="#metode">{t.nav.metode}</a>
+          <a href="#analisis">{t.nav.analisis}</a>
+          <a href="#ml-demo">{t.nav.mlDemo}</a>
+          <a href="#temuan">{t.nav.temuan}</a>
+          <a href="#handoff">{t.nav.handoff}</a>
         </nav>
-        <button
-          className="theme-toggle"
-          type="button"
-          aria-label="Ganti tema gelap/terang"
-          onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
-        >
-          {theme === "dark" ? "☼" : "☾"}
-        </button>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <button
+            className="lang-toggle"
+            type="button"
+            aria-label="Ganti Bahasa (ID / EN)"
+            onClick={() => setLang((l) => (l === "id" ? "en" : "id"))}
+          >
+            {lang === "id" ? "EN" : "ID"}
+          </button>
+          <button
+            className="theme-toggle"
+            type="button"
+            aria-label="Ganti tema gelap/terang"
+            onClick={() => setTheme((theme) => (theme === "dark" ? "light" : "dark"))}
+          >
+            {theme === "dark" ? "☼" : "☾"}
+          </button>
+        </div>
       </header>
 
       <main>
@@ -261,12 +271,13 @@ export default function App() {
             </div>
           )}
           <div className="hero-content">
-            <p className="kicker">Skripsi Informatika, UKDW 2026</p>
+            <p className="kicker">{t.heroKicker}</p>
             {reduceMotion ? (
-              <h1>{HERO_TITLE}</h1>
+              <h1>{t.heroTitle}</h1>
             ) : (
               <SplitText
-                text={HERO_TITLE}
+                key={lang}
+                text={t.heroTitle}
                 tag="h1"
                 splitType="words"
                 delay={40}
@@ -276,18 +287,14 @@ export default function App() {
                 textAlign="left"
               />
             )}
-            <p className="deck">
-              Empat indikator. Satu model SVM. 14 saham energi BEI, satu dekade harga harian.
-              Hasilnya: 10 dari 14 emiten return positif dan ketika pasar turun, drawdown
-              −9,35% vs −48,91% buy-and-hold.
-            </p>
+            <p className="deck">{t.heroDeck}</p>
 
             <div className="hero-actions">
               <button className="btn" type="button" onClick={() => jumpTo("masalah")}>
-                Mulai dari masalah
+                {t.heroBtnMasalah}
               </button>
               <button className="btn secondary" type="button" onClick={() => jumpTo("ml-demo")}>
-                Coba demo SVM
+                {t.heroBtnDemo}
               </button>
             </div>
 
@@ -297,7 +304,7 @@ export default function App() {
         <div className="layout">
           <nav className="rail" aria-label="Navigasi bagian">
             <span className="rail-track" aria-hidden="true" />
-            {RAIL.map(([num, label, target]) => (
+            {t.rail.map(({ num, label, id: target }) => (
               <button
                 key={target}
                 type="button"
@@ -314,159 +321,120 @@ export default function App() {
 
           <article className="article">
             <section className="chapter is-visible" id="masalah">
-              <h2>Terlalu banyak variabel. Analisis teknikal biasa tidak cukup.</h2>
-              <p>
-                Per Desember 2025, jumlah investor pasar modal Indonesia telah menembus 20,35 juta. Saham
-                sektor energi sangat diminati tetapi memiliki tingkat volatilitas tinggi karena dipengaruhi oleh
-                komoditas global, geopolitik, serta fluktuasi nilai tukar.
-              </p>
-              <p>
-                Faktor-faktor ini menghasilkan pola pergerakan harga yang non-linear dan dipenuhi noise,
-                sehingga sinyal indikator teknikal konvensional sering kali menghasilkan pembacaan yang kurang akurat.
-              </p>
+              <h2>{t.masalahHeading}</h2>
+              <p>{t.masalahP1}</p>
+              <p>{t.masalahP2}</p>
               <div className="spec-grid">
                 <div className="spec-card">
-                  <p className="small">Objek penelitian</p>
-                  <strong>14 saham sektor energi berkapitalisasi terbesar di Bursa Efek Indonesia</strong>
+                  <p className="small">{t.masalahObjLabel}</p>
+                  <strong>{t.masalahObjText}</strong>
                 </div>
                 <div className="spec-card">
-                  <p className="small">Pertanyaan inti</p>
-                  <strong>Bisakah sinyal SVM mengungguli strategi buy-and-hold?</strong>
+                  <p className="small">{t.masalahQLabel}</p>
+                  <strong>{t.masalahQText}</strong>
                 </div>
               </div>
             </section>
 
             <section className="chapter" id="metode">
-              <h2>Empat indikator. Satu model. Tiga sinyal.</h2>
-              <p>
-                Masing-masing indikator menangkap satu sisi pasar: volatilitas, momentum, volume,
-                dan kekuatan tren. Model SVM membacanya sekaligus.
-              </p>
+              <h2>{t.metodeHeading}</h2>
+              <p>{t.metodeSub}</p>
               <div className="method-strip" aria-label="Alur metode">
                 <div className="method-step" data-step="01">
-                  <span>Data</span>
-                  <b>Harga harian 14 saham energi IDX, <code>2015–2025</code> (<code>yfinance</code>)</b>
+                  <span>{t.metodeStep1Label}</span>
+                  <b>{t.metodeStep1Text}</b>
                 </div>
                 <div className="method-step" data-step="02">
-                  <span>Fitur</span>
-                  <b>Bollinger Bands, Stochastic, OBV, ADX</b>
+                  <span>{t.metodeStep2Label}</span>
+                  <b>{t.metodeStep2Text}</b>
                 </div>
                 <div className="method-step" data-step="03">
-                  <span>Model</span>
-                  <b>SVM 3 kernel + grid search, split waktu <code>70/30</code></b>
+                  <span>{t.metodeStep3Label}</span>
+                  <b>{t.metodeStep3Text}</b>
                 </div>
                 <div className="method-step" data-step="04">
-                  <span>Label</span>
-                  <b>3 kelas <code>BUY/HOLD/SELL</code> via aturan ATR; backtest <code>2023–2025</code></b>
+                  <span>{t.metodeStep4Label}</span>
+                  <b>{t.metodeStep4Text}</b>
                 </div>
               </div>
-              <p className="muted">
-                Alur metodologi: pengumpulan data pasar, pembentukan indikator teknikal, pelabelan arah harga, pelatihan model SVM dengan validasi waktu, serta pengujian kinerja melalui backtest.
-              </p>
+              <p className="muted">{t.metodeSummary}</p>
             </section>
 
             <section className="chapter" id="analisis">
-              <h2>Empat indikator teknikal. Satu model. Seberapa akurat sinyalnya?</h2>
-              <p>
-                Pilih satu emiten dan eksplorasi pipeline: data harga mentah, keempat indikator
-                yang jadi input SVM, lalu confusion matrix yang menunjukkan seberapa sering sinyal
-                BUY / HOLD / SELL ditebak benar.
-              </p>
-              <ChartExplorer />
+              <h2>{t.analisisHeading}</h2>
+              <p>{t.analisisP}</p>
+              <ChartExplorer lang={lang} />
               <F1Chart />
             </section>
 
             <section className="chapter" id="temuan">
-              <h2>SVM unggul bukan di pasar bull, tapi saat pasar turun.</h2>
+              <h2>{t.temuanHeading}</h2>
               <blockquote className="pull">
-                Saat buy and hold anjlok <StatNumber value={-48.91} suffix="%" />, strategi SVM menahan rata-rata kerugian di <StatNumber value={-9.35} suffix="%" />.
+                {t.temuanPull}
               </blockquote>
-              <p>
-                Ini bukan janji profit. Dari 14 emiten, <StatNumber value={10} decimals={0} /> mencatat return positif (rata-rata <StatNumber value={27.29} suffix="%" />) dan SVM mengungguli buy-and-hold pada 7 emiten, paling terasa ketika pasar turun.
-              </p>
+              <p>{t.temuanLead}</p>
               <ul className="quiet-list">
                 <li>
                   <span>A</span>
-                  <div>SVM paling unggul di saham bearish: BUMI +<StatNumber value={17.15} suffix="%" /> vs <StatNumber value={-29.81} suffix="%" />, ITMG +<StatNumber value={8.25} suffix="%" /> vs <StatNumber value={-44.38} suffix="%" />.</div>
+                  <div>{t.temuanItemA}</div>
                 </li>
                 <li>
                   <span>B</span>
-                  <div>Kernel Polynomial paling sering terpilih (6 dari 14 emiten), menandakan hubungan non-linear indikator dan sinyal.</div>
+                  <div>{t.temuanItemB}</div>
                 </li>
                 <li>
                   <span>C</span>
-                  <div>Akurasi arah masih rendah (rata-rata F1 <StatNumber value={39.70} suffix="%" />, terbaik DEWA <StatNumber value={47.86} suffix="%" />); keunggulan ada di manajemen risiko.</div>
+                  <div>{t.temuanItemC}</div>
                 </li>
               </ul>
 
               <div className="chart-picker" role="group" aria-label="Pilih emiten backtest" style={{ marginBlock: "20px 8px" }}>
-                {["ADRO","AKRA","BUMI","BYAN","DEWA","DSSA","ENRG","GEMS","ITMG","MEDC","PGAS","PTBA","PTRO","RAJA"].map((t) => (
-                  <button key={t} type="button" className="chart-pill"
-                    aria-pressed={t === temuanTicker}
-                    onClick={() => setTemuanTicker(t)}>{t}</button>
+                {["ADRO","AKRA","BUMI","BYAN","DEWA","DSSA","ENRG","GEMS","ITMG","MEDC","PGAS","PTBA","PTRO","RAJA"].map((tk) => (
+                  <button key={tk} type="button" className="chart-pill"
+                    aria-pressed={tk === temuanTicker}
+                    onClick={() => setTemuanTicker(tk)}>{tk}</button>
                 ))}
               </div>
               <BacktestChart ticker={temuanTicker} />
 
               <F1ReturnScatter />
               <IndicatorFreqChart />
-              <p>
-                Bollinger Bands hadir di semua 14 kombinasi terbaik — satu-satunya indikator
-                yang konsisten lintas emiten. Ini masuk akal: volatilitas harga komoditas energi
-                terlalu besar untuk diabaikan. Di 5 emiten, keempat indikator diperlukan bersama;
-                di 4 emiten, BB dan Stochastic sudah cukup untuk menangkap pola entry yang relevan.
-              </p>
+              <p>{t.temuanBBText}</p>
 
               <ReturnsChart />
               <KernelBarChart
                 data={KERNEL_DATA}
-                caption="Dari tiga kernel yang diuji, Polynomial paling sering terpilih. Hubungan indikator dan sinyal di saham energi memang non-linear."
+                caption={t.temuanKernelCaption}
               />
             </section>
 
             <section className="chapter" id="ml-demo">
-              <h2>Pilih emiten. Jalankan model. Baca sinyalnya.</h2>
-              <p>
-                Model SVM berjalan dari data pasar hari ini. Pilih satu saham energi, tekan Run,
-                dan lihat sinyal riset: <strong lang="en">BUY</strong>, <strong lang="en">HOLD</strong>, atau{" "}
-                <strong lang="en">SELL</strong>.
-              </p>
-              <MLDemo />
+              <h2>{t.demoHeading}</h2>
+              <p>{t.demoSub}</p>
+              <MLDemo lang={lang} />
             </section>
 
             <section className="chapter" id="implikasi">
-              <h2>Gunakan ini sebagai filter risiko, bukan ramalan harga.</h2>
-              <p>
-                Untuk investor: model ini memberi disiplin keluar-masuk yang menekan kerugian saat pasar
-                energi bergejolak. Untuk akademisi: memadukan indikator volatilitas, momentum, volume, dan
-                tren pada SVM membuka ruang kajian lanjutan. Catatan: ini alat bantu riset, bukan
-                rekomendasi investasi.
-              </p>
-              <p>
-                Keterbatasan: cakupan hanya sektor energi, F1 masih rendah, dan backtest belum memodelkan
-                biaya transaksi serta slippage. Lanjutan yang mungkin: menambah fitur fundamental, mencoba
-                algoritma lain, atau memperluas ke sektor berbeda.
-              </p>
+              <h2>{t.implikasiHeading}</h2>
+              <p>{t.implikasiP1}</p>
+              <p>{t.implikasiP2}</p>
             </section>
           </article>
         </div>
 
         <section className="handoff" id="handoff">
-          <p className="chapter-label">Penutup</p>
+          <p className="chapter-label">{t.handoffLabel}</p>
           <div className="handoff-stat">
             <span className="handoff-stat-number">−9,35%</span>
             <span className="handoff-stat-divider" />
-            <span className="handoff-stat-caption">penurunan terdalam rata-rata SVM · buy-and-hold: −48,91%</span>
+            <span className="handoff-stat-caption">{t.handoffStat}</span>
           </div>
-          <h2>Pasar turun separuh. Model ini tidak.</h2>
-          <p>
-            SVM bukan prediksi sempurna. Tapi dalam tiga tahun backtest, 14 emiten, model ini
-            membatasi kerugian saat strategi buy-and-hold kehilangan hampir separuhnya.
-          </p>
-          <a href="#masalah" className="handoff-back">↑ Kembali ke atas</a>
+          <h2>{t.handoffHeading}</h2>
+          <p>{t.handoffBody}</p>
+          <a href="#masalah" className="handoff-back">{t.handoffBackTop}</a>
         </section>
       </main>
-      <Footer />
+      <Footer lang={lang} />
     </>
   );
 }

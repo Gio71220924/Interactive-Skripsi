@@ -140,15 +140,25 @@
       border-radius: 2px;
     }
 
-    .theme-toggle {
+    .theme-toggle,
+    .lang-toggle {
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 7px 9px;
+      padding: 6px 10px;
       background: transparent;
       color: var(--fg);
       cursor: pointer;
-      font-size: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
       line-height: 1;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .theme-toggle:hover,
+    .lang-toggle:hover {
+      border-color: var(--muted);
+      background: color-mix(in oklch, var(--fg) 5%, transparent);
     }
 
     main {
