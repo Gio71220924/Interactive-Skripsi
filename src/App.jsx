@@ -425,7 +425,7 @@ export default function App() {
         <section className="handoff" id="handoff">
           <p className="chapter-label">{t.handoffLabel}</p>
           <div className="handoff-stat">
-            <span className="handoff-stat-number">−9,35%</span>
+            <span className="handoff-stat-number">−25,15%</span>
             <span className="handoff-stat-divider" />
             <span className="handoff-stat-caption">{t.handoffStat}</span>
           </div>

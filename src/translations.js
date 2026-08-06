@@ -15,7 +15,7 @@ export const translations = {
     // Hero
     heroKicker: "Skripsi Informatika, UKDW 2026",
     heroTitle: "Bisakah model mengurangi risiko di saham energi?",
-    heroDeck: "Empat indikator. Satu model SVM. 14 saham energi BEI, satu dekade harga harian. Hasilnya: 10 dari 14 emiten return positif dan ketika pasar turun, drawdown −9,35% vs −48,91% buy-and-hold.",
+    heroDeck: "Empat indikator. Satu model SVM. 14 saham energi BEI, satu dekade harga harian. Hasilnya: 10 dari 14 emiten return positif dan ketika pasar turun, drawdown −25,15% vs −48,91% buy-and-hold.",
     heroBtnMasalah: "Mulai dari masalah",
     heroBtnDemo: "Coba demo SVM",
 
@@ -70,8 +70,8 @@ export const translations = {
 
     // Section 04: Temuan
     temuanHeading: "SVM unggul bukan di pasar bull, tapi saat pasar turun.",
-    temuanPull: "Saat buy and hold anjlok -48,91%, strategi SVM menahan rata-rata kerugian di -9,35%.",
-    temuanLead: "Ini bukan janji profit. Dari 14 emiten, 10 mencatat return positif (rata-rata 27.29%) dan SVM mengungguli buy-and-hold pada 7 emiten, paling terasa ketika pasar turun.",
+    temuanPull: "Saat buy and hold anjlok -48,91%, strategi SVM menahan rata-rata kerugian di -25,15%.",
+    temuanLead: "Ini bukan janji profit. Dari 14 emiten, 10 mencatat return positif (rata-rata 27.29%) dan SVM mengungguli buy-and-hold pada 7 emiten — 5 di antaranya lewat trading nyata, 2 sisanya karena model tidak pernah membuka posisi sama sekali.",
     temuanItemA: "SVM paling unggul di saham bearish: BUMI +17.15% vs -29.81%, ITMG +8.25% vs -44.38%.",
     temuanItemB: "Kernel Polynomial paling sering terpilih (6 dari 14 emiten), menandakan hubungan non-linear indikator dan sinyal.",
     temuanItemC: "Akurasi arah masih rendah (rata-rata F1 39.70%, tertinggi DEWA 47.86%); keunggulan utama ada di manajemen risiko.",
@@ -133,7 +133,7 @@ export const translations = {
     // Hero
     heroKicker: "Informatics Thesis, UKDW 2026",
     heroTitle: "Can a machine learning model mitigate risk in energy stocks?",
-    heroDeck: "Four indicators. One SVM model. 14 IDX energy stocks, a decade of daily prices. Results: 10 out of 14 stocks yielded positive returns, reducing max drawdown to −9.35% vs −48.91% for buy-and-hold during market downturns.",
+    heroDeck: "Four indicators. One SVM model. 14 IDX energy stocks, a decade of daily prices. Results: 10 out of 14 stocks yielded positive returns, reducing max drawdown to −25.15% vs −48.91% for buy-and-hold during market downturns.",
     heroBtnMasalah: "Start with problem",
     heroBtnDemo: "Try SVM demo",
 
@@ -188,8 +188,8 @@ export const translations = {
 
     // Section 04: Temuan
     temuanHeading: "SVM excels not in bull markets, but during downturns.",
-    temuanPull: "While buy-and-hold dropped −48.91%, the SVM strategy capped average drawdown at −9.35%.",
-    temuanLead: "This is not a profit guarantee. Among 14 stocks, 10 achieved positive returns (average +27.29%) and SVM outperformed buy-and-hold on 7 stocks, most noticeably during market declines.",
+    temuanPull: "While buy-and-hold dropped −48.91%, the SVM strategy capped average drawdown at −25.15%.",
+    temuanLead: "This is not a profit guarantee. Among 14 stocks, 10 achieved positive returns (average +27.29%) and SVM outperformed buy-and-hold on 7 stocks — 5 through actual trading, the other 2 only because the model never opened a position at all.",
     temuanItemA: "SVM performed best on bearish stocks: BUMI +17.15% vs -29.81%, ITMG +8.25% vs -44.38%.",
     temuanItemB: "Polynomial kernel was selected most frequently (6 of 14 stocks), highlighting non-linear indicator-signal relationships.",
     temuanItemC: "Directional accuracy remains modest (average Macro-F1 39.70%, max DEWA 47.86%); the main edge lies in risk management.",
