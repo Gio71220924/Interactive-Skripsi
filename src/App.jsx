@@ -2,11 +2,11 @@ import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import MLDemo from "./MLDemo.jsx";
 import ChartExplorer from "./ChartExplorer.jsx";
 import KernelBarChart from "./KernelBarChart.jsx";
 import ReturnsChart from "./ReturnsChart.jsx";
-import SplitText from "./components/SplitText.jsx";
 import Footer from "./Footer.jsx";
 import CursorFollower from "./CursorFollower.jsx";
 const Antigravity = lazy(() => import("./Antigravity.jsx"));
@@ -17,7 +17,7 @@ import F1ReturnScatter from "./F1ReturnScatter.jsx";
 import Lenis from "lenis";
 import { translations } from "./translations.js";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const KERNEL_DATA = [
   { label: "Polynomial", value: 6, color: "var(--accent)" },
@@ -54,6 +54,7 @@ export default function App() {
   const [activeId, setActiveId] = useState("masalah");
   const [temuanTicker, setTemuanTicker] = useState("BUMI");
   const progressRef = useRef(null);
+  const heroTitleRef = useRef(null);
 
   const t = translations[lang] || translations.id;
 
@@ -217,6 +218,14 @@ export default function App() {
         scrollTrigger: { trigger: ".quiet-list", start: "top 88%", once: true },
       });
     }
+
+    // Hero title: pecah per kata lalu stagger masuk. Tanpa ScrollTrigger — h1 sudah
+    // di viewport saat load. Tanpa tunggu document.fonts: type stack semuanya lokal.
+    const heroSplit = new SplitText(heroTitleRef.current, { type: "words" });
+    gsap.from(heroSplit.words, {
+      opacity: 0, y: 24, duration: 0.8, stagger: 0.04, ease: "power3.out",
+    });
+    return () => heroSplit.revert();
   }, [lang]);
 
   return (
@@ -284,21 +293,7 @@ export default function App() {
           )}
           <div className="hero-content">
             <p className="kicker">{t.heroKicker}</p>
-            {reduceMotion ? (
-              <h1>{t.heroTitle}</h1>
-            ) : (
-              <SplitText
-                key={lang}
-                text={t.heroTitle}
-                tag="h1"
-                splitType="words"
-                delay={40}
-                duration={0.8}
-                from={{ opacity: 0, y: 24 }}
-                to={{ opacity: 1, y: 0 }}
-                textAlign="left"
-              />
-            )}
+            <h1 ref={heroTitleRef}>{t.heroTitle}</h1>
             <p className="deck">{t.heroDeck}</p>
 
             <div className="hero-actions">
