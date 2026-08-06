@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { TICKERS, normalizeResponse } from "./demo.js";
+import { SAMPLE_RESPONSES } from "./sampleResponses.js";
 import { translations } from "./translations.js";
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const API = "https://geeeeyohhh-backend-skripsi.hf.space";
+// HF Space tier gratis tidur setelah idle; cold start ~15-30s. Beri ruang, lalu menyerah
+// ke sample supaya bagian penutup narasi tidak pernah jadi layar error.
+const REQUEST_TIMEOUT_MS = 45_000;
 
 function AnimatedNumber({ value, suffix = "" }) {
   const [display, setDisplay] = useState(value);
@@ -138,13 +144,16 @@ export default function MLDemo({ lang = "id" }) {
 
   const [ticker, setTicker] = useState("ADRO");
   const [response, setResponse] = useState(null);
+  const [isSample, setIsSample] = useState(false);
   const [status, setStatus] = useState(null);
   const [running, setRunning] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const timerRef = useRef(null);
 
+  // Bangunkan Space lebih awal supaya cold start tidak jatuh ke klik pertama user.
   useEffect(() => {
-    fetch("https://geeeeyohhh-backend-skripsi.hf.space/api/health").catch(() => {});
+    fetch(`${API}/api/health`).catch(() => {});
+    return () => clearInterval(timerRef.current);
   }, []);
 
   const run = async (event) => {
@@ -152,21 +161,30 @@ export default function MLDemo({ lang = "id" }) {
     setStatus(t.demoStatusRunning);
     setRunning(true);
     setResponse(null);
+    setIsSample(false);
     setElapsed(0);
     timerRef.current = setInterval(() => setElapsed((s) => s + 1), 1000);
+
+    const abort = new AbortController();
+    const timeout = setTimeout(() => abort.abort(), REQUEST_TIMEOUT_MS);
     try {
-      const res = await fetch("https://geeeeyohhh-backend-skripsi.hf.space/api/predict", {
+      const res = await fetch(`${API}/api/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ticker }),
+        signal: abort.signal,
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      setResponse(normalizeResponse(data, ticker));
+      setResponse(normalizeResponse(await res.json(), ticker));
       setStatus(null);
     } catch {
-      setStatus(t.demoStatusError);
+      // Backend tidur/mati/timeout -> tampilkan sample, jangan layar error:
+      // demo ini penutup narasi, harus selalu bisa dicoba.
+      setResponse(normalizeResponse(SAMPLE_RESPONSES[ticker], ticker));
+      setIsSample(true);
+      setStatus(null);
     }
+    clearTimeout(timeout);
     clearInterval(timerRef.current);
     setRunning(false);
   };
@@ -226,6 +244,16 @@ export default function MLDemo({ lang = "id" }) {
               <span style={{ fontSize: "11px", color: "var(--muted)", letterSpacing: "0.06em" }}>
                 Macro F1 {Math.round(response.macroF1 * 100)}%
               </span>
+              {isSample && (
+                <span style={{
+                  fontSize: "10px", fontWeight: 600, letterSpacing: "0.08em",
+                  textTransform: "uppercase", color: "var(--accent)",
+                  border: "1px solid var(--accent)", borderRadius: "999px",
+                  padding: "2px 8px",
+                }}>
+                  {t.demoSampleBadge}
+                </span>
+              )}
             </div>
 
             {/* Signal word */}
@@ -302,6 +330,16 @@ export default function MLDemo({ lang = "id" }) {
               );
             })}
           </div>
+
+          {isSample && (
+            <p style={{
+              margin: "14px 0 0", fontSize: "12px", lineHeight: 1.55,
+              color: "var(--muted)", borderInlineStart: "2px solid var(--accent)",
+              paddingInlineStart: "10px",
+            }}>
+              {t.demoSampleNote}
+            </p>
+          )}
 
           <p className="research-warning">
             {t.demoDisclaimer}

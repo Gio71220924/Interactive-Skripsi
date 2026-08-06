@@ -10,7 +10,6 @@ import SplitText from "./components/SplitText.jsx";
 import Footer from "./Footer.jsx";
 import CursorFollower from "./CursorFollower.jsx";
 const Antigravity = lazy(() => import("./Antigravity.jsx"));
-import StatNumber from "./StatNumber.jsx";
 import BacktestChart from "./BacktestChart.jsx";
 import IndicatorFreqChart from "./IndicatorFreqChart.jsx";
 import F1Chart from "./F1Chart.jsx";
@@ -27,6 +26,16 @@ const KERNEL_DATA = [
 ];
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Hero three.js ~234 kB gzip dan murni dekoratif. Audiens utama membaca dari ponsel
+// di jaringan seluler, jadi hanya muat di layar besar berpointer presisi dan koneksi
+// yang tidak hemat-data / lambat. Narasi tidak kehilangan apa pun tanpa partikel ini.
+const connection = navigator.connection;
+const showHeroCanvas =
+  !reduceMotion &&
+  matchMedia("(min-width: 900px) and (pointer: fine)").matches &&
+  !connection?.saveData &&
+  !/(^|-)(2g|slow-2g)$/.test(connection?.effectiveType ?? "");
 
 const getInitialTheme = () =>
   localStorage.getItem("theme") ||
@@ -54,9 +63,10 @@ export default function App() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  // Persist lang
+  // Persist lang + beri tahu screen reader bahasa halaman benar-benar berubah
   useEffect(() => {
     localStorage.setItem("skripsi_lang", lang);
+    document.documentElement.lang = lang;
   }, [lang]);
 
   // Scroll progress bar
@@ -166,13 +176,15 @@ export default function App() {
       words.forEach((word, i) => {
         if (i > 0) p.appendChild(document.createTextNode(" "));
         const span = document.createElement("span");
-        span.style.opacity = "0.4";
         span.style.display = "inline";
         span.textContent = word;
         p.appendChild(span);
       });
-      gsap.to(p.querySelectorAll("span"), {
-        opacity: 1,
+      // gsap.from, bukan opacity inline 0.4 + gsap.to: keadaan istirahat DOM adalah
+      // opacity 1. Kalau GSAP/ScrollTrigger gagal init, teks tetap terbaca penuh —
+      // keterbacaan body copy tidak boleh bergantung pada animasi yang selesai.
+      gsap.from(p.querySelectorAll("span"), {
+        opacity: 0.4,
         stagger: { each: 0.015, ease: "none" },
         ease: "none",
         scrollTrigger: { trigger: p, start: "top 82%", end: "bottom 50%", scrub: 0.4 },
@@ -252,7 +264,7 @@ export default function App() {
 
       <main>
         <section className="hero">
-          {!reduceMotion && (
+          {showHeroCanvas && (
             <div className="hero-canvas" aria-hidden="true">
               <Suspense fallback={null}>
                 <Antigravity

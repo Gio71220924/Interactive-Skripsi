@@ -21,12 +21,6 @@ export const RETURNS = [
   { ticker: "RAJA", svm: 44.76, bh: 121.5 },
 ];
 
-export const signalCopy = {
-  BUY: "Indikator teknikal menunjukkan momentum bullish dan penguatan tren. Model mengklasifikasikan kondisi ini sebagai sinyal BELI.",
-  HOLD: "Pergerakan harga cenderung konsolidasi (sideways) tanpa tren yang dominan. Model merekomendasikan untuk TAHAN.",
-  SELL: "Tekanan bearish meningkat dan momentum pergerakan melemah. Model mengklasifikasikan kondisi ini sebagai sinyal JUAL.",
-};
-
 export const normalizeResponse = (raw, ticker) => ({
   ticker,
   signal: String(raw.signal || "HOLD").toUpperCase(),
