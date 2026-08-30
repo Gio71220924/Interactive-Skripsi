@@ -1,0 +1,49 @@
+name: keep-alive
+
+# UptimeRobot sudah menjaga Space tetap hangat (gcTimeout 48 jam, ping 5 menit).
+# Workflow ini menangani kasus yang TIDAK bisa disentuh ping: Space berstatus
+# PAUSED / RUNTIME_ERROR. Space paused membalas halaman error HF, bukan container,
+# jadi hanya restart API yang bisa memulihkannya.
+
+on:
+  schedule:
+    - cron: "0 */3 * * *"
+  workflow_dispatch:
+
+jobs:
+  revive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Health check, restart bila perlu
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          set -u
+          URL="https://geeeeyohhh-backend-skripsi.hf.space/api/health"
+          SPACE="Geeeeyohhh/Backend-Skripsi"
+
+          # -m 90 memberi ruang cold start (~15-30s) supaya Space yang cuma
+          # tidur tidak salah dianggap mati lalu di-restart percuma.
+          code=$(curl -s -o /dev/null -w '%{http_code}' -m 90 "$URL" || echo 000)
+          echo "health -> $code"
+          if [ "$code" = "200" ]; then
+            echo "Space sehat, tidak ada tindakan."
+            exit 0
+          fi
+
+          if [ -z "${HF_TOKEN:-}" ]; then
+            echo "::error::Space tidak sehat ($code) tapi secret HF_TOKEN belum diset."
+            exit 1
+          fi
+
+          echo "Space tidak sehat ($code), minta restart..."
+          curl -sS -X POST -H "Authorization: Bearer $HF_TOKEN" \
+            "https://huggingface.co/api/spaces/$SPACE/restart"
+          echo
+
+          # Restart butuh waktu; verifikasi sekali supaya run-nya gagal kalau
+          # Space benar-benar rusak (bukan sekadar paused).
+          sleep 60
+          code=$(curl -s -o /dev/null -w '%{http_code}' -m 120 "$URL" || echo 000)
+          echo "health setelah restart -> $code"
+          [ "$code" = "200" ]
