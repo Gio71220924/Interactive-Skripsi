@@ -117,6 +117,7 @@ export const translations = {
     footerAuthorSub: "Informatika · UKDW · 2026",
     footerResearchLabel: "Catatan riset",
     footerResearchBody: "Sinyal yang ditampilkan adalah hasil eksperimen akademik, bukan rekomendasi investasi. Keputusan trading sepenuhnya tanggung jawab masing-masing investor.",
+    footerPaperLink: "Baca paper di JPIT ↗",
     footerBottomDisclaimer: "Riset akademik, bukan rekomendasi investasi",
   },
   en: {
@@ -237,6 +238,7 @@ export const translations = {
     footerAuthorSub: "Informatics · UKDW · 2026",
     footerResearchLabel: "Research Note",
     footerResearchBody: "Signals displayed are academic experimental results, not financial advice. Trading decisions remain the sole responsibility of individual investors.",
+    footerPaperLink: "Read the paper in JPIT ↗",
     footerBottomDisclaimer: "Academic research, not investment advice",
   },
 };

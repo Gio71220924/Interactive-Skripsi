@@ -41,6 +41,7 @@ export default function Footer({ lang = "id" }) {
             <p className="footer-body muted">
               {t.footerResearchBody}
             </p>
+            <a href="https://doi.org/10.30591/jpit.v11i2.10379" className="footer-link" target="_blank" rel="noopener noreferrer">{t.footerPaperLink}</a>
           </div>
         </div>
 
