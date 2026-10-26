@@ -4,7 +4,7 @@ Interactive scrollytelling web showcase and live machine learning inference demo
 
 > **Paper Published in JPIT (Sinta 3):**  
 > *"Implementasi Trading Strategy pada Saham Sektor Energi dengan Support Vector Machine dan Indikator Teknikal"*  
-> 🔗 [Read Published Paper](https://lnkd.in/gui-4EKA)
+> 🔗 [Read Published Paper](https://doi.org/10.30591/jpit.v11i2.10379)
 
 ---
 
@@ -48,6 +48,6 @@ npm run build
 - **Author:** Giovanka Steviano Harry Premono
 - **Supervisors & Co-authors:** Nugroho Agus Haryono, S.Kom., M.T. & Yuan Lukito, S.Kom., M.Comp.
 - **Institution:** Universitas Kristen Duta Wacana (UKDW), Yogyakarta — 2026
-- **Journal:** *Jurnal Informatika: Jurnal Pengembangan IT (JPIT)*, Vol. 11, Sinta 3.
+- **Journal:** *Jurnal Informatika: Jurnal Pengembangan IT (JPIT)*, 11(2), 461–473, Sinta 3. DOI: [10.30591/jpit.v11i2.10379](https://doi.org/10.30591/jpit.v11i2.10379)
 
 *Disclaimer: Sinyal dan data pada aplikasi web ini merupakan hasil eksperimen akademik semata, bukan rekomendasi investasi.*
