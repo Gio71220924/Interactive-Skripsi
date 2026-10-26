@@ -12,7 +12,7 @@
   <line x1="80" y1="300" x2="1120" y2="300" stroke="#2e2c29" stroke-width="1"/>
   <text x="110" y="370" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#c45c38">10/14</text>
   <text x="110" y="406" font-family="Georgia, serif" font-size="18" fill="#8a847c">emiten return positif</text>
-  <text x="430" y="370" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#f0ebe4">-9,35%</text>
+  <text x="430" y="370" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#f0ebe4">-10,64%</text>
   <text x="430" y="406" font-family="Georgia, serif" font-size="18" fill="#8a847c">avg drawdown SVM</text>
   <text x="750" y="370" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#8a847c">-48,91%</text>
   <text x="750" y="406" font-family="Georgia, serif" font-size="18" fill="#8a847c">buy-dan-hold</text>
